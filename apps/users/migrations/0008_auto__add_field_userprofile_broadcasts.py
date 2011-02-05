@@ -8,14 +8,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Adding field 'UserProfile.broadcasts'
-        db.add_column('users_userprofile', 'broadcasts', self.gf('django.db.models.fields.TextField')(default='', blank=True), keep_default=False)
+        # Adding field 'UserProfile.disabled_broadcasts'
+        db.add_column('users_userprofile', 'disabled_broadcasts', self.gf('django.db.models.fields.TextField')(default='', blank=True), keep_default=False)
 
 
     def backwards(self, orm):
         
-        # Deleting field 'UserProfile.broadcasts'
-        db.delete_column('users_userprofile', 'broadcasts')
+        # Deleting field 'UserProfile.disabled_broadcasts'
+        db.delete_column('users_userprofile', 'disabled_broadcasts')
 
 
     models = {
@@ -76,7 +76,7 @@ class Migration(SchemaMigration):
         'users.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
             'bio': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
-            'broadcasts': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
+            'disabled_broadcasts': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
             'confirmation_code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255', 'blank': 'True'}),
             'created_on': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.date(2011, 2, 4)', 'auto_now_add': 'True', 'blank': 'True'}),
             'display_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255', 'null': 'True', 'blank': 'True'}),

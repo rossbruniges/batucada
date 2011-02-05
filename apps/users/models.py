@@ -93,7 +93,8 @@ class UserProfile(ModelBase):
     location = models.CharField(max_length=255, blank=True, default='')
     featured = models.BooleanField()
     newsletter = models.BooleanField()
-    broadcasts = models.TextField(blank=True, default='', editable=False)
+    disabled_broadcasts = models.TextField(
+        blank=True, default='', editable=False)
 
     created_on = models.DateTimeField(
         auto_now_add=True, default=datetime.date.today())
@@ -107,12 +108,12 @@ class UserProfile(ModelBase):
         return self.display_name or self.username
 
     def get_broadcasts(self):
-        if not self.broadcasts:
+        if not self.disabled_broadcasts:
             return Broadcast.objects.all()
         try:
-            broadcasts = simplejson.loads(self.broadcasts)
-            if isinstance(broadcasts, dict):
-                return Broadcast.objects.exclude(id__in=broadcasts.keys())
+            disabled = simplejson.loads(self.disabled_broadcasts)
+            if isinstance(disabled, dict):
+                return Broadcast.objects.exclude(id__in=disabled.keys())
         except:
             pass
         return None
