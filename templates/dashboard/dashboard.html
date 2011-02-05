@@ -101,7 +101,10 @@
         <header>
           <img class="close_button" src="{{ MEDIA_URL }}images/closeButton.png">
         </header>
-        {{ broadcast.text }}
+        {% comment %} 
+          broadcasts can only be created via the django admin, so it is okay to use safe here 
+        {% endcomment %}
+        {{ broadcast.text|safe }}
       </article>
     {% endfor %}
   {% endif %}
