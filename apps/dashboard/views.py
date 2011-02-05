@@ -49,6 +49,7 @@ def dashboard(request):
         return render_to_response('dashboard/setup_profile.html', {
             'form': form,
         }, context_instance=RequestContext(request))
+    broadcasts = profile.get_broadcasts()
     projects_following = profile.following(model=Project)
     users_following = profile.following()
     users_followers = profile.followers()
@@ -67,6 +68,7 @@ def dashboard(request):
         'projects_following': projects_following,
         'activities': activities,
         'projects': user_projects,
+        'broadcasts': broadcasts,
     }, context_instance=RequestContext(request))
 
 

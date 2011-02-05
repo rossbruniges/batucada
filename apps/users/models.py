@@ -8,6 +8,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
+from django.utils import simplejson
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 
@@ -20,6 +21,7 @@ from drumbeat.models import ModelBase
 from relationships.models import Relationship
 from projects.models import Project
 from users import tasks
+from broadcasts.models import Broadcast
 
 import caching.base
 
@@ -91,6 +93,8 @@ class UserProfile(ModelBase):
     location = models.CharField(max_length=255, blank=True, default='')
     featured = models.BooleanField()
     newsletter = models.BooleanField()
+    broadcasts = models.TextField(blank=True, default='', editable=False)
+
     created_on = models.DateTimeField(
         auto_now_add=True, default=datetime.date.today())
 
@@ -101,6 +105,17 @@ class UserProfile(ModelBase):
 
     def __unicode__(self):
         return self.display_name or self.username
+
+    def get_broadcasts(self):
+        if not self.broadcasts:
+            return Broadcast.objects.all()
+        try:
+            broadcasts = simplejson.loads(self.broadcasts)
+            if isinstance(broadcasts, dict):
+                return Broadcast.objects.exclude(id__in=broadcasts.keys())
+        except:
+            pass
+        return None
 
     def following(self, model=None):
         """

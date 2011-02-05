@@ -61,6 +61,13 @@
 		</p>
 	  </article>
 	{% endif %}
+
+{% if broadcasts %}
+  {% for broadcast in broadcasts %}
+    {{ broadcast }}
+  {% endfor %}
+{% endif %}
+
   <div id="create-post">
     <div class="post-container">
       <form id="post-status-update" method="post" action="{% locale_url statuses_create %}">
