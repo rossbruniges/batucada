@@ -6,6 +6,6 @@ from activity.models import Activity
 
 def index(request, activity_id):
     activity = get_object_or_404(Activity, id=activity_id)
-    return render_to_response('activity/index.html', {
+    return render_to_response('index.html', {
         'activity': activity,
     }, context_instance=RequestContext(request))

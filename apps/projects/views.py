@@ -51,13 +51,13 @@ def show(request, slug):
         'links': links,
         'files': files,
     }
-    return render_to_response('projects/project.html', context,
+    return render_to_response('project.html', context,
                           context_instance=RequestContext(request))
 
 
 def show_detailed(request, slug):
     project = get_object_or_404(Project, slug=slug)
-    return render_to_response('projects/project_full_description.html', {
+    return render_to_response('project_full_description.html', {
         'project': project,
     }, context_instance=RequestContext(request))
 
@@ -76,7 +76,7 @@ def edit(request, slug):
     else:
         form = project_forms.ProjectForm(instance=project)
 
-    return render_to_response('projects/project_edit_summary.html', {
+    return render_to_response('project_edit_summary.html', {
         'form': form,
         'project': project,
     }, context_instance=RequestContext(request))
@@ -101,7 +101,7 @@ def edit_description(request, slug):
                            _('There was a problem saving your description.'))
     else:
         form = project_forms.ProjectDescriptionForm(instance=project)
-    return render_to_response('projects/project_edit_description.html', {
+    return render_to_response('project_edit_description.html', {
         'form': form,
         'project': project,
     }, context_instance=RequestContext(request))
@@ -143,7 +143,7 @@ def edit_image(request, slug):
                            _('There was an error uploading your image'))
     else:
         form = project_forms.ProjectImageForm(instance=project)
-    return render_to_response('projects/project_edit_image.html', {
+    return render_to_response('project_edit_image.html', {
         'project': project,
         'form': form,
     }, context_instance=RequestContext(request))
@@ -175,7 +175,7 @@ def edit_media(request, slug):
                                       'your file.'))
     else:
         form = project_forms.ProjectMediaForm()
-    return render_to_response('projects/project_edit_media.html', {
+    return render_to_response('project_edit_media.html', {
         'files': files,
         'form': form,
         'project': project,
@@ -216,7 +216,7 @@ def edit_links(request, slug):
     else:
         form = project_forms.ProjectLinksForm()
     links = Link.objects.select_related('subscription').filter(project=project)
-    return render_to_response('projects/project_edit_links.html', {
+    return render_to_response('project_edit_links.html', {
         'project': project,
         'form': form,
         'links': links,
@@ -251,7 +251,7 @@ def list(request):
     assign_counts(new)
     assign_counts(active)
 
-    return render_to_response('projects/gallery.html', {
+    return render_to_response('gallery.html', {
         'featured': featured,
         'new': new,
         'active': active,
@@ -276,7 +276,7 @@ def create(request):
                 _("There was a problem creating your project."))
     else:
         form = project_forms.ProjectForm()
-    return render_to_response('projects/project_edit_summary.html', {
+    return render_to_response('project_edit_summary.html', {
         'form': form,
     }, context_instance=RequestContext(request))
 
@@ -299,7 +299,7 @@ def contact_followers(request, slug):
     else:
         form = project_forms.ProjectContactUsersForm()
         form.fields['project'].initial = project.pk
-    return render_to_response('projects/contact_users.html', {
+    return render_to_response('contact_users.html', {
         'form': form,
         'project': project,
     }, context_instance=RequestContext(request))

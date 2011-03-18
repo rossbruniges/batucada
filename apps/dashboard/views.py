@@ -55,7 +55,7 @@ def splash(request):
     activities = splash_page_activities()
     feed_entries = FeedEntry.objects.all().order_by('-created_on')[0:4]
     feed_url = getattr(settings, 'SPLASH_PAGE_FEED', None)
-    return render_to_response('dashboard/splash.html', {
+    return render_to_response('splash.html', {
         'activities': activities,
         'featured_project': project,
         'feed_entries': feed_entries,
@@ -89,7 +89,7 @@ def dashboard(request):
             'email': user.email,
             'username': username,
         })
-        return render_to_response('dashboard/setup_profile.html', {
+        return render_to_response('setup_profile.html', {
             'form': form,
         }, context_instance=RequestContext(request))
     projects_following = profile.following(model=Project)
@@ -112,7 +112,7 @@ def dashboard(request):
     ).order_by('-created_on')[0:25]
     user_projects = Project.objects.filter(created_by=profile)
     show_welcome = not profile.discard_welcome
-    return render_to_response('dashboard/dashboard.html', {
+    return render_to_response('dashboard.html', {
         'users_following': users_following,
         'users_followers': users_followers,
         'projects_following': projects_following,

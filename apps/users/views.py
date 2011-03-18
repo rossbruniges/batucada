@@ -100,7 +100,7 @@ def login(request):
 
     logout(request)
 
-    r = auth_views.login(request, template_name='users/signin.html',
+    r = auth_views.login(request, template_name='signin.html',
                          authentication_form=forms.AuthenticationForm)
 
     if isinstance(r, http.HttpResponseRedirect):
@@ -112,7 +112,7 @@ def login(request):
         if user.confirmation_code:
             logout(request)
             unconfirmed_account_notice(request, user)
-            return render_to_response('users/signin.html', {
+            return render_to_response('signin.html', {
                 'form': auth_forms.AuthenticationForm(),
             }, context_instance=RequestContext(request))
 
@@ -127,7 +127,7 @@ def login(request):
     elif request.method == 'POST':
         messages.error(request, _('Incorrect email or password.'))
         # run through auth_views.login again to render template with messages.
-        r = auth_views.login(request, template_name='users/signin.html',
+        r = auth_views.login(request, template_name='signin.html',
                          authentication_form=forms.AuthenticationForm)
 
     return r
@@ -138,12 +138,12 @@ def login_openid(request):
     if request.method == 'POST':
         return openid_views.login_begin(
             request,
-            template_name='users/login_openid.html',
+            template_name='login_openid.html',
             form_class=forms.OpenIDForm,
             login_complete_view='users_login_openid_complete')
     else:
         form = forms.OpenIDForm()
-    return render_to_response('users/login_openid.html', {
+    return render_to_response('login_openid.html', {
         'form': form,
     }, context_instance=RequestContext(request))
 
@@ -158,7 +158,7 @@ def login_openid_complete(request):
         if user.confirmation_code:
             logout(request)
             unconfirmed_account_notice(request, user)
-            return render_to_response('users/login_openid.html', {
+            return render_to_response('login_openid.html', {
                 'form': forms.OpenIDForm(),
             }, context_instance=RequestContext(request))
 
@@ -210,7 +210,7 @@ def register(request):
                                       'correct them and resubmit.'))
     else:
         form = forms.RegisterForm()
-    return render_to_response('users/register.html', {
+    return render_to_response('register.html', {
         'form': form,
     }, context_instance=RequestContext(request))
 
@@ -220,13 +220,13 @@ def register_openid(request):
     if request.method == 'POST':
         r = openid_views.login_begin(
             request,
-            template_name='users/register_openid.html',
+            template_name='register_openid.html',
             form_class=forms.OpenIDForm,
             login_complete_view='users_register_openid_complete')
         return r
     else:
         form = forms.OpenIDForm()
-    return render_to_response('users/register_openid.html', {
+    return render_to_response('register_openid.html', {
         'form': form,
     }, context_instance=RequestContext(request))
 
@@ -243,7 +243,7 @@ def user_list(request):
     featured = UserProfile.objects.filter(featured=True)
     new = UserProfile.objects.all().order_by('-created_on')[:4]
     popular = UserProfile.objects.get_popular(limit=8)
-    return render_to_response('users/user_list.html', {
+    return render_to_response('user_list.html', {
         'featured': featured,
         'new': new,
         'popular': popular,
@@ -297,7 +297,7 @@ def profile_view(request, username):
         Q(verb='http://activitystrea.ms/schema/1.0/follow'),
         Q(target_user__isnull=False),
     ).order_by('-created_on')[0:25]
-    return render_to_response('users/profile.html', {
+    return render_to_response('profile.html', {
         'profile': profile,
         'following': following,
         'followers': followers,
@@ -339,7 +339,7 @@ def profile_create(request):
     else:
         messages.error(request, _('There are errors in this form. Please '
                                       'correct them and resubmit.'))
-    return render_to_response('dashboard/setup_profile.html', {
+    return render_to_response('setup_profile.html', {
         'form': form,
     }, context_instance=RequestContext(request))
 
@@ -363,7 +363,7 @@ def profile_edit(request):
     else:
         form = forms.ProfileEditForm(instance=profile)
 
-    return render_to_response('users/profile_edit_main.html', {
+    return render_to_response('profile_edit_main.html', {
         'profile': profile,
         'form': form,
     }, context_instance=RequestContext(request))
@@ -404,7 +404,7 @@ def profile_edit_image(request):
     else:
         form = forms.ProfileImageForm(instance=profile)
 
-    return render_to_response('users/profile_edit_image.html', {
+    return render_to_response('profile_edit_image.html', {
         'profile': profile,
         'form': form,
     }, context_instance=RequestContext(request))
@@ -431,7 +431,7 @@ def profile_edit_links(request):
         form = forms.ProfileLinksForm()
     links = Link.objects.select_related('subscription').filter(user=profile)
 
-    return render_to_response('users/profile_edit_links.html', {
+    return render_to_response('profile_edit_links.html', {
         'profile': profile,
         'form': form,
         'links': links,
