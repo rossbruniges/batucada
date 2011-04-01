@@ -198,7 +198,6 @@ SUPERFEEDR_PASSWORD = ''
 
 # django-push settings
 PUSH_CREDENTIALS = 'links.utils.hub_credentials'
-PUSH_HUB = 'http://pubsubhubbub.appspot.com/'
 SOUTH_TESTS_MIGRATE = False
 
 # Feed to show contents of on the splash page
