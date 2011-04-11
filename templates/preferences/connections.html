@@ -1,0 +1,10 @@
+{% extends "preferences/settings.html" %}
+{% load l10n_tags %}
+{% block bodyclasses %}edit account connections{% endblock %}
+{% block title %}{{ _('Connected Applications') }}{% endblock %}
+{% block form %}
+<fieldset id="edit_account_connections" class="edit account connections tabpane">
+  <h2>{{ _('Connected Applications') }}</h2>
+  <p><a href="">{{ _('Twitter') }}</a></p>
+</fieldset>
+{% endblock %}

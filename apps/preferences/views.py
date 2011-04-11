@@ -47,3 +47,10 @@ def delete(request):
         return HttpResponseRedirect(reverse('users_logout'))
     return render_to_response('preferences/settings_delete.html', {
     }, context_instance=RequestContext(request))
+
+
+@login_required
+def connections(request):
+    return render_to_response('preferences/connections.html', {
+
+    }, context_instance=RequestContext(request))
