@@ -1,3 +1,6 @@
+/*!
+    Set of misc scripts inherited from initial drumbeat.org site
+*/
 var createPostTextArea = function() {
     $('#create-post').find('textarea').bind('keyup', function() {
         var max = 750;
@@ -142,109 +145,144 @@ var attachFileUploadHandler = function($inputs) {
 };
 
 var batucada = {
-    splash: {
-        onload: function() {
+    furnish : function(context) {
+        // if no contect is defined we know we're looking at the <body>
+        if (!context) { 
+            context = document.getElementsByTagName('body')[0];
+            var obj = batucada.areas[context.id];
+        } else {
+            conext = document.getElementById(context);
+            var obj = batucada.areas[context];
+            console.log(context, 'called with context');
+            console.log(typeof context);
         }
-    },
-    compose_message: {
-        onload: function() {
-            $('#id_recipient').autocomplete({
-                source: '/ajax/following/',
-                minLength: 2
-            });
-        }
-    },
-    create_profile: {
-        onload: function() {
-            usernameHint();
-            usernameAvailability();
-        }
-    },
-    signup: {
-        onload: function(){
-            usernameHint();
-            usernameAvailability();
-        }
-    },
-    signup_openid: {
-        onload: function() {
-            openidHandlers();
-        }
-    },
-    signin_openid: {
-        onload: function() {
-            openidHandlers();
-        }
-    },
-    dashboard: {
-        onload: function() {
-            createPostTextArea();
-            $('#post-update').bind('click', function() {
-                $('#post-status-update').submit();
-            });
-            $('a.activity-delete').bind('click', function(e) {
-                $(e.target).parent().submit();
-                return false;
-            });
-            $('.close_button').bind('click', function(e) {
-                e.preventDefault();
-                $('.welcome').animate({
-                    opacity: 'hide',
-                    height: 'hide',
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                    marginTop: 0,
-                    marginBottom: 0
-                }, 600, 'jswing', function() {
-                    $.post('/broadcasts/hide_welcome/');
+        console.log(obj);
+        // check object exists
+        if (obj) {
+            if (obj.requires && obj.requires.length) {
+                $LAB
+                .script(obj.requires[0])
+                .wait(function() {
+                    obj.onload();
                 });
-            });
-        }
-    },
-    project_landing: {
-        onload: function() {
-            createPostTextArea();
-            $('#post-project-update').bind('click', function() {
-                $('#post-project-status-update').submit();
-            });
-        }
-    },
-    challenge_landing: {
-        onload: function() {
-            createPostTextArea();
-            $('#post-challenge').bind('click', function() {
-                $('#post-challenge-summary').submit();
-            });
-        }
-    },
-    user_profile: {
-        onload: function() {
-            createPostTextArea();
-            $('#post-user-update').bind('click', function() {
-                $('#post-user-status-update').submit();
-            });
-        }
-    },
-    profile_edit: {
-        onload: function() {
-            var $inputs = $('input[type=file]');
-            if ($inputs) {
-                attachFileUploadHandler($inputs);
+            } else {
+                if (typeof obj.onload === 'function') {
+                    obj.onload();
+                }
             }
         }
     },
-    inbox: {
-        onload: function() {
-            loadMoreMessages();
-        }
-    },
-    journalism: {
-        onload: function() {
-            VideoJS.setupAllWhenReady();
+    areas : {
+        splash: {
+            onload: function() {}
+        },
+        compose_message: {
+            onload: function() {
+                $('#id_recipient').autocomplete({
+                    source: '/ajax/following/',
+                    minLength: 2
+                });
+            }
+        },
+        create_profile: {
+            onload: function() {
+                usernameHint();
+                usernameAvailability();
+            }
+        },
+        signup: {
+            onload: function(){
+                usernameHint();
+                usernameAvailability();
+            }
+        },
+        signup_openid: {
+            onload: function() {
+                openidHandlers();
+            }
+        },
+        signin_openid: {
+            onload: function() {
+                openidHandlers();
+            }
+        },
+        dashboard: {
+            onload: function() {
+                createPostTextArea();
+                $('#post-update').bind('click', function() {
+                    $('#post-status-update').submit();
+                });
+                $('a.activity-delete').bind('click', function(e) {
+                    $(e.target).parent().submit();
+                    return false;
+                });
+                $('.close_button').bind('click', function(e) {
+                    e.preventDefault();
+                    $('.welcome').animate({
+                        opacity: 'hide',
+                        height: 'hide',
+                        paddingTop: 0,
+                        paddingBottom: 0,
+                        marginTop: 0,
+                        marginBottom: 0
+                    }, 600, 'jswing', function() {
+                        $.post('/broadcasts/hide_welcome/');
+                    });
+                });
+            }
+        },
+        project_landing: {
+            onload: function() {
+                createPostTextArea();
+                $('#post-project-update').bind('click', function() {
+                    $('#post-project-status-update').submit();
+                });
+            }
+        },
+        project_edit_description : {
+            requires: ['/media/js/libs/jquery.wmd.js'],
+            onload: function() {
+                initWMD();
+            }
+        },
+        challenge_landing: {
+            onload: function() {
+                createPostTextArea();
+                $('#post-challenge').bind('click', function() {
+                    $('#post-challenge-summary').submit();
+                });
+            }
+        },
+        user_profile: {
+            onload: function() {
+                createPostTextArea();
+                $('#post-user-update').bind('click', function() {
+                    $('#post-user-status-update').submit();
+                });
+            }
+        },
+        profile_edit: {
+            onload: function() {}
+        },
+        profile_edit_image: {
+            requires: ['/media/js/libs/jquery.ajaxupload.js'],
+            onload: function() {
+                attachFileUploadHandler($('input[type=file]'));
+            }
+        },
+        inbox: {
+            requires: ['/media/js/libs/jquery.tmpl.min.js'],
+            onload: function() {
+                loadMoreMessages();
+            }
+        },
+        journalism: {
+            onload: function() {
+                VideoJS.setupAllWhenReady();
+            }
         }
     }
 };
-
 jQuery.fn.tabLinks = function(element) {
     var $modal = $(this).parents('.modal');
     $modal.addClass('tab-links');
@@ -269,9 +307,8 @@ jQuery.fn.tabLinks = function(element) {
         $(this).parent('li').setActive();
     };
     $.fn.initForm = function() {
-        attachFileUploadHandler($(this).find('input[type=file]'));
         $(this).attachDirtyOnChangeHandler();
-        initWMD();
+        batucada.furnish($(this).attr('id'));
         return this;
     };
     var saveModal = function(e) {
@@ -388,7 +425,8 @@ jQuery.fn.tabLinks = function(element) {
     }).activateOnLoad();
 };
 
-var initWMD = function(){    
+var initWMD = function(){
+    console.log('init WMD called');
     $('textarea.wmd').not(function(){
         // we need to make sure this textarea hasn't been initialized already
         return ($(this).siblings('.wmd-button-bar').length != 0);
@@ -396,12 +434,8 @@ var initWMD = function(){
 };
 
 $(document).ready(function() {
-    // dispatch per-page onload handlers 
-    var ns = window.batucada;
-    var bodyId = document.body.id;
-    if (ns && ns[bodyId] && (typeof ns[bodyId].onload == 'function')) {
-        ns[bodyId].onload();
-    }
+    // dispatch per-page onload handlers using batucada.furnish
+    batucada.furnish();
     // attach handlers for elements that appear on most pages
     $('#user-nav').find('li.menu').bind('click', function(event) {
 		var current = $(this);
@@ -414,8 +448,9 @@ $(document).ready(function() {
 	/*
 	TODO - would be nice to add in a timer to rollout to hide the menu automagically
     */
-	// wire up any RTEs with wmd
-    initWMD();
+	/* wire up any RTEs with wmd
+       not anymore we don't -  initWMD();
+    */
 
     // modals using jQueryUI dialog
     $('.button.openmodal').live('click', function(){
