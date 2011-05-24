@@ -410,10 +410,23 @@ $(document).ready(function() {
         target.toggleClass('open');
 		// return false to ensure that we don't get '#' appear in the URL
 		return false;
+    }).end().find('li.menu')
+    .bind('mouseenter', function() {
+        if ($(this).is('.open')) {
+            window.clearTimeout(batucada.fader);
+        }
+    })
+    .bind('mouseleave', function() {
+        if ($(this).is('.open')) {
+            var current = $(this);
+            batucada.fader = window.setTimeout(function() {
+                current.removeClass('open');
+                current.find('ul').fadeOut('fast', function() {
+                    $(this).attr('style', '');
+                });
+            }, 1000);
+        }        
     });
-	/*
-	TODO - would be nice to add in a timer to rollout to hide the menu automagically
-    */
 	// wire up any RTEs with wmd
     initWMD();
 
