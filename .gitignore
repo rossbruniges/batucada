@@ -11,3 +11,4 @@ sql/
 celery-schedule
 *.komodoproject
 *.DS_Store
+media/js/tmp
