@@ -1,0 +1,7 @@
+{% for file in files %}
+  {% if type == 'css' %}
+        <link href='{{ file }}' rel='stylesheet'></link>
+    {% else %}
+        <script src='{{ file }}'></script>
+    {% endif %}
+{% endfor %}

@@ -131,7 +131,8 @@ INSTALLED_APPS = (
     'djcelery',
     'events',
     'django_openid_auth',
-    'voting'
+    'voting',
+    'assetmanager'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -206,3 +207,35 @@ SOUTH_TESTS_MIGRATE = False
 
 # Feed to show contents of on the splash page
 SPLASH_PAGE_FEED = 'http://planet.drumbeat.org/atom.xml'
+
+ASSETS = {
+    'css':{
+        'site' : {
+            'dev':('/media/css/style.css','/media/css/batucada.css'),
+            'live':('/media/css/packs/site.min.css',)
+        }
+    },
+    'js':{
+        'styling' : {
+            'dev':(
+                '/media/fonts/MuseoSans500/MuseoSans500.js',
+                '/media/js/libs/modernizr-1.6.min.js'
+            ),
+            'live':(
+                '/media/js/packs/styling.js',
+            )
+        },
+        'code' : {
+            'dev':(
+                '/media/js/libs/LAB.min.js',
+                '/media/js/libs/jquery-1.4.2.min.js',
+                '/media/js/libs/jquery.easing.1.3.js',
+                '/media/js/plugins.js',
+                '/media/js/script.js'
+            ),
+            'live':(
+                '/media/js/packs/libs.js',
+            )
+        }
+    }
+}

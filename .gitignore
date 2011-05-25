@@ -12,3 +12,4 @@ celery-schedule
 *.komodoproject
 *.DS_Store
 media/js/tmp
+media/css/tmp
