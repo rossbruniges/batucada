@@ -208,6 +208,11 @@ SOUTH_TESTS_MIGRATE = False
 # Feed to show contents of on the splash page
 SPLASH_PAGE_FEED = 'http://planet.drumbeat.org/atom.xml'
 
+# All base site assets
+# Is the loss of dynamic MEDIA_URL going to cause issues?
+# Dev far-future may cause a bit of pain?
+# Would be awesome if this could somehow be dynamic - no idea how though...
+# Compression and concatination is currently manual using YUI compressor - should maybe create a build script?
 ASSETS = {
     'css':{
         'site' : {

@@ -491,3 +491,4 @@ $('#recaptcha_help').click(function(e) {
     e.preventDefault();
     Recaptcha.showhelp();
 });
+

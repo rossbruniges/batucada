@@ -1,4 +1,4 @@
-/*
+/*!
  * MyFonts Webfont Build ID 235749, 2011-01-03T09:54:22-0500
  * 
  * The fonts listed in this notice are subject to the End User License
@@ -172,3 +172,4 @@ switch (webfontType)
 }
 
 //document.write(browserName + ' ' + browserVersion + ': ' + webfontType + ' [' + navigator.userAgent + ']');
+
