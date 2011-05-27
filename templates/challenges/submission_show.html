@@ -36,6 +36,7 @@
       <span>{{ submission.created_on|timesince }} {{ _(' ago') }}</span>
     </div>
 <br />
+<div class="ajax_copy">
 <h2>{{ _('Summary') }}</h2>
     <div class="summary">
       {{ submission.summary }}
@@ -45,6 +46,7 @@
     <div class="details">
       {{ submission.description_html|safe }}
     </div>
+   </div>
     <br />
   </article>
   
