@@ -168,7 +168,7 @@ def show_challenge(request, slug):
         },
         order_by=['-created_on']
     )
-    paginator = Paginator(submission_set, 10)
+    paginator = Paginator(submission_set, 4)
 
     try:
         page = int(request.GET.get('page', '1'))
