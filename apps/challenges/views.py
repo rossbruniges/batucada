@@ -155,7 +155,10 @@ def show_challenge(request, slug):
     qn = connection.ops.quote_name
     ctype = ContentType.objects.get_for_model(Submission)
 
-    submission_set = challenge.submission_set.filter(is_published=True).extra(select={'score': """
+    nsubmissions = challenge.submission_set.count()
+
+    submission_set = challenge.submission_set.filter(is_published=True).extra(
+        select={'score': """
         SELECT SUM(vote)
         FROM %s
         WHERE content_type_id = %s
@@ -188,6 +191,7 @@ def show_challenge(request, slug):
     context = {
         'challenge': challenge,
         'submissions': submissions,
+        'nsubmissions': nsubmissions,
         'form': form,
         'profile': profile,
         'remaining': remaining,
