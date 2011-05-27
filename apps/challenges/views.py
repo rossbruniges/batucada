@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import connection
 from django.db.utils import IntegrityError
 from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponseForbidden)
+                         HttpResponseForbidden, Http404)
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils import simplejson
 from django.utils.translation import ugettext as _
@@ -282,7 +282,10 @@ def edit_submission(request, slug, submission_id):
     if not challenge.entrants_can_edit:
         return HttpResponseForbidden()
 
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     if request.method == 'POST':
         form = SubmissionForm(request.POST, instance=submission)
@@ -319,7 +322,11 @@ def edit_submission_description(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
     if not challenge.entrants_can_edit:
         return HttpResponseForbidden()
-    submission = get_object_or_404(Submission, pk=submission_id)
+
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     if request.method == 'POST':
         form = SubmissionDescriptionForm(request.POST, instance=submission)
@@ -354,7 +361,10 @@ def edit_submission_description(request, slug, submission_id):
 @submission_owner_required
 def edit_submission_share(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     url = request.build_absolute_uri(reverse('submission_show', kwargs={
         'slug': challenge.slug, 'submission_id': submission.pk
@@ -374,7 +384,10 @@ def edit_submission_share(request, slug, submission_id):
 @submission_owner_required
 def delete_submission(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -398,7 +411,14 @@ def delete_submission(request, slug, submission_id):
 
 def show_submission(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
+
+    user = request.user.get_profile()
+    if not submission.is_published and user != submission.created_by:
+        raise Http404
 
     context = {
         'challenge': challenge,
