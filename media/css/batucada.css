@@ -2538,18 +2538,25 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     font-size: 18px;
     margin-bottom: 1em
 }
-#challenge_landing #posts {
-    width: 960px;
+#votes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     overflow: hidden;
+}
+#challenge_landing #votes {
+    width: 960px;
+}
+#votes .submission {
+    margin-right: 10px;
 }
 #challenge_landing .submission {
     float: left;
-    margin-right: 10px;
 }
-#challenge_landing .submission h2 {
+#votes .submission h2 {
     font-size: 16px;
 }
-#challenge_landing .submission .post-contents {
+#votes .submission .post-contents {
     background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f4f4f4));
       background: -moz-linear-gradient(top,#fff,#f4f4f4);
 	  background: -o-linear-gradient(top, #fff, #f4f4f4);
@@ -2563,18 +2570,24 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
       border: 1px solid #c6c6c6;
       padding: 8px;
       behavior: url("/media/css/PIE.htc");
-      float: left;
-      width: 210px;
       position: relative;
       z-index: 2;
 }
-#challenge_landing .submission form {
+#challenge_landing .submission .post-contents {
+    width: 210px;
+    float: left;
+}
+#votes .post-body,
+#votes .post-body p {
+    margin: 10px 0;
+}
+#votes .submission form {
     margin-top: 6px;
 }
 #challenge_landing .submission .details {
     min-height: 140px;
 }
-#challenge_landing .submission .voting {
+#votes .submission .voting {
     margin: 10px -9px -9px;
     padding: 8px;
     background: #f4f4f4;
@@ -2584,13 +2597,13 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     border-bottom-left-radius: 6px;
     border: 1px solid #cfcfcf;
 }
-#challenge_landing .submission .voting p {
+#votes .submission .voting p {
     margin-bottom :0;
 }
-#challenge_landing .submission form p {
+#votes .submission form p {
     font-weight: bold;
 }
-#challenge_landing .submission .trigger {
+#votes .submission .trigger {
     background: #fff url(/media/images/thumb_up.png) no-repeat 4px 2px;
     border: 1px solid #cfcfcf;
     color: #474747;
@@ -2600,7 +2613,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     padding: 4px 4px 4px 20px;
     margin-top: 6px;
 }
-#challenge_landing .submission .clear {
+#votes .submission .clear {
     background-image : url(/media/images/cancel.png)
 }
 /* Ajax loaded content */

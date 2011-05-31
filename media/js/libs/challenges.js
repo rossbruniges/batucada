@@ -1,9 +1,10 @@
 var batucada = window.batucada || {};
 
 batucada.challenges = function() {
-    var init = function() {
-        if ($('li.submission').length) {
-            $('#posts').bind('click', function(e) {
+    var votes = $('#votes'),
+        init = function() {
+        if (votes.length) {
+            votes.bind('click', function(e) {
                 if ($(e.target).is('input.trigger')) {
                     var text_values= {
                             up: {
@@ -18,10 +19,12 @@ batucada.challenges = function() {
                                 input_txt:"Cancel my vote",
                                 input_cls:"trigger clear"
                             }
-                        },form = $(e.target).parents('form'),
+                        },
+                        form = $(e.target).parents('form'),
                         action = form.attr('action'),
                         csrf = form.find('input[name="csrfmiddlewaretoken"]').attr('value'),
                         voting_html = form.parent();
+
                     $.ajax({
                         type:"POST",
                         dataType:"json",

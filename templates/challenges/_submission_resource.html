@@ -3,7 +3,6 @@
 {% score_for_object submission as score %}
 {% vote_by_user user on submission as vote %}
 
-<li class="submission">
   <div class="post-contents">
     <div class="details">
     <h2 class="title"><a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk %}">{{ submission.title }} </a></h2>
@@ -32,5 +31,4 @@
     </div>
     {% endif %}
 
-  </div>
-</li> <!-- /li.post-container -->
+  </div> <!-- /div.post-container -->
