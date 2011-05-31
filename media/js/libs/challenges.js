@@ -46,18 +46,25 @@ batucada.challenges = function() {
                     });
                     return false;
                 }
-                if ($(e.target).is('a.more')) {
+                if ($(e.target).is('a.more') && $('body').is('#challenge_landing')) {
                     var url = $(e.target).attr('href'),
                         parent = $(e.target).parents('li.submission'),
-                        ajax_loader = $('#ajax_space');
-                    parent.siblings().fadeOut('normal');
-                    if (!ajax_loader.length) {
-                        ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
-                    }
-                    ajax_loader.load(url + ' div.ajax_copy', function() {
-                        ajax_loader.appendTo(parent);
-                        ajax_loader.append('<button>Close</button>');
-                        ajax_loader.fadeIn('fast');
+                        ajax_loader = $('#ajax_space'),
+                        siblings = parent.siblings(),
+                        num_siblings = siblings.length,
+                        tmp = 0;
+                    siblings.fadeOut('normal', function() {
+                        tmp++;
+                        if (tmp === num_siblings) {
+                            if (!ajax_loader.length) {
+                                ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
+                            }
+                            ajax_loader.load(url + ' div.ajax_copy', function() {
+                                ajax_loader.appendTo(parent);
+                                ajax_loader.append('<button>Close</button>');
+                                ajax_loader.fadeIn('fast');
+                            });
+                        }
                     });
                     return false;
                 }
