@@ -131,7 +131,8 @@ INSTALLED_APPS = (
     'djcelery',
     'events',
     'django_openid_auth',
-    'voting'
+    'voting',
+    'feeds',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -143,7 +144,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'drumbeat.context_processors.django_conf',
     'messages.context_processors.inbox',
     'users.context_processors.messages',
-    'users.context_processors.login_with_redirect_url',
+    'users.context_processors.redirect_urls',
 )
 
 TEST_RUNNER = 'test_utils.runner.RadicalTestSuiteRunner'
@@ -205,4 +206,7 @@ PUSH_HUB = 'http://pubsubhubbub.appspot.com/'
 SOUTH_TESTS_MIGRATE = False
 
 # Feed to show contents of on the splash page
-SPLASH_PAGE_FEED = 'http://planet.drumbeat.org/atom.xml'
+FEED_URLS = {
+    'splash': 'http://planet.drumbeat.org/atom.xml',
+    'mojo': 'http://planet.drumbeat.org/mojo/atom.xml',
+}

@@ -5,14 +5,16 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection
+from django.db.models import Q
 from django.db.utils import IntegrityError
 from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponseForbidden)
+                         HttpResponseForbidden, Http404)
 from django.shortcuts import get_object_or_404, render_to_response
 from django.utils import simplejson
 from django.utils.translation import ugettext as _
 from django.template import RequestContext
 from django.template.defaultfilters import truncatewords
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 
 from commonware.decorators import xframe_sameorigin
@@ -155,7 +157,10 @@ def show_challenge(request, slug):
     qn = connection.ops.quote_name
     ctype = ContentType.objects.get_for_model(Submission)
 
-    submission_set = challenge.submission_set.extra(select={'score': """
+    nsubmissions = challenge.submission_set.count()
+
+    submission_set = challenge.submission_set.filter(is_published=True).extra(
+        select={'score': """
         SELECT SUM(vote)
         FROM %s
         WHERE content_type_id = %s
@@ -188,6 +193,7 @@ def show_challenge(request, slug):
     context = {
         'challenge': challenge,
         'submissions': submissions,
+        'nsubmissions': nsubmissions,
         'form': form,
         'profile': profile,
         'remaining': remaining
@@ -280,6 +286,40 @@ def contact_entrants(request, slug):
 
 
 @login_required
+def voting_get_more(request, slug):
+    challenge = get_object_or_404(Challenge, slug=slug)
+    if not challenge.allow_voting:
+        return HttpResponseForbidden()
+
+    count = request.GET.get('count', 1)
+    exclude = request.GET.get('exclude', [])
+    if exclude:
+        exclude = exclude.split(',')
+
+    # also exclude items already voted on
+    ctype = ContentType.objects.get_for_model(Submission)
+    voted = Vote.objects.filter(
+        content_type=ctype.id).filter(
+        user=request.user).values_list('object_id', flat=True)
+
+    exclude.extend(voted)
+    submissions = challenge.submission_set.exclude(
+        pk__in=exclude).order_by('?')[:count]
+
+    response = []
+    for submission in submissions:
+        response.append(
+            render_to_string('challenges/_submission_resource.html',
+                             {'submission': submission,
+                              'challenge': challenge}
+                             ))
+
+    return HttpResponse(simplejson.dumps({
+        'submissions': response,
+    }))
+
+
+@login_required
 def create_submission(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
     if not challenge.is_active():
@@ -296,6 +336,7 @@ def create_submission(request, slug):
             submission = form.save(commit=False)
             submission.title = truncate_title(submission.summary)
             submission.created_by = user
+            submission.is_published = False
             submission.save()
 
             submission.challenge.add(challenge)
@@ -326,13 +367,19 @@ def edit_submission(request, slug, submission_id):
     if not challenge.entrants_can_edit:
         return HttpResponseForbidden()
 
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     if request.method == 'POST':
         form = SubmissionForm(request.POST, instance=submission)
         if form.is_valid():
-            form.save()
+            submission = form.save()
             messages.success(request, _('Your submission has been edited.'))
+
+            if 'publish' in request.POST:
+                submission.publish()
 
             return HttpResponseRedirect(reverse('submission_edit_description',
                 kwargs={
@@ -360,13 +407,20 @@ def edit_submission_description(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
     if not challenge.entrants_can_edit:
         return HttpResponseForbidden()
-    submission = get_object_or_404(Submission, pk=submission_id)
+
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     if request.method == 'POST':
         form = SubmissionDescriptionForm(request.POST, instance=submission)
         if form.is_valid():
-            form.save()
+            submission = form.save()
             messages.success(request, _('Your submission has been edited.'))
+
+            if 'publish' in request.POST:
+                submission.publish()
 
             return HttpResponseRedirect(reverse('submission_edit_share',
                 kwargs={
@@ -392,7 +446,10 @@ def edit_submission_description(request, slug, submission_id):
 @submission_owner_required
 def edit_submission_share(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
 
     url = request.build_absolute_uri(reverse('submission_show', kwargs={
         'slug': challenge.slug, 'submission_id': submission.pk
@@ -408,9 +465,45 @@ def edit_submission_share(request, slug, submission_id):
                               ctx, context_instance=RequestContext(request))
 
 
+@login_required
+@submission_owner_required
+def delete_submission(request, slug, submission_id):
+    challenge = get_object_or_404(Challenge, slug=slug)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
+
+    if request.method == 'POST':
+        post_data = request.POST.copy()
+        if post_data['confirm']:
+            submission.delete()
+            messages.success(request, _('Your submission has been deleted'))
+
+            return HttpResponseRedirect(reverse('challenges_show',
+                kwargs={'slug': challenge.slug}))
+        else:
+            messages.error(request, _('Unable to delete submission'))
+
+    context = {
+        'challenge': challenge,
+        'submission': submission
+    }
+
+    return render_to_response('challenges/delete_confirm.html', context,
+                              context_instance=RequestContext(request))
+
+
 def show_submission(request, slug, submission_id):
     challenge = get_object_or_404(Challenge, slug=slug)
-    submission = get_object_or_404(Submission, pk=submission_id)
+    try:
+        submission = challenge.submission_set.get(pk=submission_id)
+    except:
+        raise Http404
+
+    user = request.user.get_profile()
+    if not submission.is_published and user != submission.created_by:
+        raise Http404
 
     context = {
         'challenge': challenge,
