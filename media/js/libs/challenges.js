@@ -1,9 +1,10 @@
 var batucada = window.batucada || {};
 
 batucada.challenges = function() {
-    var init = function() {
-        if ($('li.submission').length) {
-            $('#posts').bind('click', function(e) {
+    var votes = $('#votes'),
+        init = function() {
+        if (votes.length) {
+            votes.bind('click', function(e) {
                 if ($(e.target).is('input.trigger')) {
                     var text_values= {
                             up: {
@@ -18,10 +19,12 @@ batucada.challenges = function() {
                                 input_txt:"Cancel my vote",
                                 input_cls:"trigger clear"
                             }
-                        },form = $(e.target).parents('form'),
+                        },
+                        form = $(e.target).parents('form'),
                         action = form.attr('action'),
                         csrf = form.find('input[name="csrfmiddlewaretoken"]').attr('value'),
                         voting_html = form.parent();
+
                     $.ajax({
                         type:"POST",
                         dataType:"json",
@@ -43,18 +46,25 @@ batucada.challenges = function() {
                     });
                     return false;
                 }
-                if ($(e.target).is('a.more')) {
+                if ($(e.target).is('a.more') && $('body').is('#challenge_landing')) {
                     var url = $(e.target).attr('href'),
                         parent = $(e.target).parents('li.submission'),
-                        ajax_loader = $('#ajax_space');
-                    parent.siblings().fadeOut('normal');
-                    if (!ajax_loader.length) {
-                        ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
-                    }
-                    ajax_loader.load(url + ' div.ajax_copy', function() {
-                        ajax_loader.appendTo(parent);
-                        ajax_loader.append('<button>Close</button>');
-                        ajax_loader.fadeIn('fast');
+                        ajax_loader = $('#ajax_space'),
+                        siblings = parent.siblings(),
+                        num_siblings = siblings.length,
+                        tmp = 0;
+                    siblings.fadeOut('normal', function() {
+                        tmp++;
+                        if (tmp === num_siblings) {
+                            if (!ajax_loader.length) {
+                                ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
+                            }
+                            ajax_loader.load(url + ' div.ajax_copy', function() {
+                                ajax_loader.appendTo(parent);
+                                ajax_loader.append('<button>Close</button>');
+                                ajax_loader.fadeIn('fast');
+                            });
+                        }
                     });
                     return false;
                 }

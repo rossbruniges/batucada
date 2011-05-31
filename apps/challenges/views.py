@@ -196,10 +196,59 @@ def show_challenge(request, slug):
         'nsubmissions': nsubmissions,
         'form': form,
         'profile': profile,
-        'remaining': remaining,
+        'remaining': remaining
     }
 
     return render_to_response('challenges/challenge.html', context,
+                              context_instance=RequestContext(request))
+
+
+def show_all_submissions(request, slug):
+    challenge = get_object_or_404(Challenge, slug=slug)
+
+    qn = connection.ops.quote_name
+    ctype = ContentType.objects.get_for_model(Submission)
+
+    submission_set = challenge.submission_set.filter(is_published=True).extra(select={'score': """
+        SELECT SUM(vote)
+        FROM %s
+        WHERE content_type_id = %s
+        AND object_id = %s.id
+        """ % (qn(Vote._meta.db_table), ctype.id,
+               qn(Submission._meta.db_table))
+        },
+        order_by=['-created_on']
+    )
+    paginator = Paginator(submission_set, 10)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        submissions = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        submissions = paginator.page(paginator.num_pages)
+
+    form = SubmissionSummaryForm()
+    remaining = challenge.end_date - datetime.now()
+
+    try:
+        profile = request.user.get_profile()
+    except:
+        profile = None
+
+    context = {
+        'challenge': challenge,
+        'submissions': submissions,
+        'form': form,
+        'profile': profile,
+        'remaining': remaining,
+        'full_data' : 'true'
+    }
+
+    return render_to_response('challenges/all_submissions.html', context,
                               context_instance=RequestContext(request))
 
 
