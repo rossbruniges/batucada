@@ -14,7 +14,7 @@
 {% if challenge.allow_voting %}
     <div class="voting">
         <h3>Voting</h3>
-      <p>This idea has so far been liked <span class="score">{{ score.score|default:0 }}</span> {% if score.score == 1 %}time{% else %}times{% endif %}.</p>
+      <p>Total likes for this idea: <span class="score">{{ score.score|default:0 }}</span></p>
       {% if user.is_authenticated %}
       <form method="post" id="upvote-{{ submission.pk }}" action="{% if vote and vote.is_upvote %}{% locale_url submission_vote object_id=submission.pk direction='clear' %}{% else %}{% locale_url submission_vote object_id=submission.pk direction='up' %}{% endif %}">
         {% csrf_token %}

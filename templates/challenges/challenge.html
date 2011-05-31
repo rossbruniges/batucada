@@ -98,7 +98,7 @@
   {% endif %}
   
   {% if submissions.object_list %}
-  <ul id="votes">
+  <ul id="votes" data-total-votes="{{ nsubmissions }}">
     {% for submission in submissions.object_list %}
     <li class="submission">
     {% include "challenges/_submission_resource.html" %}
@@ -126,7 +126,7 @@
       {% endif %}
   </div>
   {% endif %}
-  <p><a href="{% locale_url all_submissions slug=challenge.slug %}">View all submissions</a></p>
+  <p><a href="{% locale_url all_submissions slug=challenge.slug %}">View all {{ nsubmissions }} submissions</a></p>
 </div>
 {% endblock %}
 

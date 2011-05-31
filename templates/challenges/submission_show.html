@@ -33,7 +33,7 @@
   <article>
     <h1 id="challenge-title">{{ submission.title }}</h1><br />
     <div class="post-details">
-      <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
+      Idea from <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
       <span>{{ submission.created_on|timesince }} {{ _(' ago') }}</span>
     </div>
 <br />
@@ -57,8 +57,12 @@
     <br />
     {% endif %}
   </article>
-  
-  <div id="comments">
+  <div id="votes">
+  <div class="submission">
+{% include "challenges/_submission_resource.html" %}  
+ </div>
+ </div>
+ <div id="comments">
     <h1>{{ _('Comments') }}</h1><br />
     
     {% get_comment_list for submission as comment_list %}

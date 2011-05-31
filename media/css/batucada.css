@@ -2512,7 +2512,11 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #challenge_landing #sidebar {
     width: 960px;
 }
-#challenge_landing #sidebar h2 {
+#sidebar #challenge {
+    margin-top: 0;
+    padding-bottom: 0;
+}
+#sidebar #challenge h2 {
     font-weight: normal;
     font-size: 16px;
     margin-bottom: 0.8em;
@@ -2557,10 +2561,10 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     font-size: 16px;
 }
 #votes .submission .post-contents {
-    background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f4f4f4));
+     background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f4f4f4));
       background: -moz-linear-gradient(top,#fff,#f4f4f4);
 	  background: -o-linear-gradient(top, #fff, #f4f4f4);
-      -pie-background: linear-gradient(top,#fff,#f4f4f4);
+     -pie-background: linear-gradient(top,#fff,#f4f4f4);
       border-radius: 6px;
       -moz-border-radius: 6px;
       -o-border-radius: 6px;
@@ -2587,6 +2591,9 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #challenge_landing .submission .details {
     min-height: 140px;
 }
+#submission_show .submission .details {
+    display: none;
+}
 #votes .submission .voting {
     margin: 10px -9px -9px;
     padding: 8px;
@@ -2596,6 +2603,16 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     border: 1px solid #cfcfcf;
+}
+#submission_show .submission .voting {
+    margin-top: -9px;
+    -webkit: border-radius: 6px;
+    -moz-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+     background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f4f4f4));
+      background: -moz-linear-gradient(top,#fff,#f4f4f4);
+	  background: -o-linear-gradient(top, #fff, #f4f4f4);
 }
 #votes .submission .voting p {
     margin-bottom :0;

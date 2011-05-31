@@ -209,7 +209,7 @@ def show_all_submissions(request, slug):
     qn = connection.ops.quote_name
     ctype = ContentType.objects.get_for_model(Submission)
 
-    submission_set = challenge.submission_set.extra(select={'score': """
+    submission_set = challenge.submission_set.filter(is_published=True).extra(select={'score': """
         SELECT SUM(vote)
         FROM %s
         WHERE content_type_id = %s
