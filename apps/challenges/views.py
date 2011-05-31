@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection
+from django.db.models import Q
 from django.db.utils import IntegrityError
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseForbidden, Http404)
@@ -13,6 +14,7 @@ from django.utils import simplejson
 from django.utils.translation import ugettext as _
 from django.template import RequestContext
 from django.template.defaultfilters import truncatewords
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 
 from commonware.decorators import xframe_sameorigin
@@ -232,6 +234,40 @@ def contact_entrants(request, slug):
         'form': form,
         'challenge': challenge,
     }, context_instance=RequestContext(request))
+
+
+@login_required
+def voting_get_more(request, slug):
+    challenge = get_object_or_404(Challenge, slug=slug)
+    if not challenge.allow_voting:
+        return HttpResponseForbidden()
+
+    count = request.GET.get('count', 1)
+    exclude = request.GET.get('exclude', [])
+    if exclude:
+        exclude = exclude.split(',')
+
+    # also exclude items already voted on
+    ctype = ContentType.objects.get_for_model(Submission)
+    voted = Vote.objects.filter(
+        content_type=ctype.id).filter(
+        user=request.user).values_list('object_id', flat=True)
+
+    exclude.extend(voted)
+    submissions = challenge.submission_set.exclude(
+        pk__in=exclude).order_by('?')[:count]
+
+    response = []
+    for submission in submissions:
+        response.append(
+            render_to_string('challenges/_submission_resource.html',
+                             {'submission': submission,
+                              'challenge': challenge}
+                             ))
+
+    return HttpResponse(simplejson.dumps({
+        'submissions': response,
+    }))
 
 
 @login_required
