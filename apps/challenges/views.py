@@ -306,13 +306,19 @@ def voting_get_more(request, slug):
     submissions = challenge.submission_set.exclude(
         pk__in=exclude).order_by('?')[:count]
 
+    try:
+        profile = request.user.get_profile()
+    except:
+        profile = None
+
     response = []
     for submission in submissions:
         response.append(
             render_to_string('challenges/_submission_resource.html',
                              {'submission': submission,
-                              'challenge': challenge}
-                             ))
+                              'challenge': challenge,
+                              'profile': profile},
+                            context_instance=RequestContext(request)))
 
     return HttpResponse(simplejson.dumps({
         'submissions': response,
