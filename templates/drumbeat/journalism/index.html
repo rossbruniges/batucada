@@ -37,44 +37,43 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
       <div class="container">
         <div class="column-left">
           <div class="challengebox">
-            <p class="first">
-              Challenge 3:<br />
-              <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}"> <strong>What would you build to make news better for the people who create and read it?</strong></a>
-            </p>
-            <br />
-            <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}"> <img style="float: right; margin-top: -10px;" src="{{ MEDIA_URL }}images/mojo/challenge3-image.png" width="190" height="126" alt=""></a>
-            <p class="inner">
-How would you involve the public in the newsmaking, editing or sharing process? The primary constraint: you're limited to web native technology like HTML, Javascript and CSS.</p>
-            <a class="button-white" href="{% locale_url challenges_show slug="open-webs-killer-app" %}"><span>Submit Your Idea</span></a>
-          </div>
-          {% if recent_submissions %}
-          <h3>Recent Submissions for Challenge #2</h3>
-          <ul class="popularideas">
-            {% for submission in recent_submissions %}
-            <li>
-              <p>{{ submission.summary }} | <a href="{% locale_url submission_show slug=current_challenge.slug submission_id=submission.pk %}">Read more...</a></p>
-            </li>
-            {% endfor %}
-          </ul>
-          <a class="viewallideas" href="{% locale_url challenges_show slug="beyond-comment-threads" %}">View All Challenge #2 Ideas</a>
-          {% endif %}
+          <h3>Submissions closed, voting open</h3>
+            <p class="first">Voting for our three challenges is now closed so now is the time to let us know your favourites.</p>
+            <p>Let the judges know which of the ideas in each of the challenges you like and then maybe your favourite will get made!</p>
+            <ul class="challenge_list">
+                <li>
+                <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">
+                <h4>
+                    <img src="{{ MEDIA_URL }}images/mojo/challenge3-image.png" width="115" height="86" alt="" />
+                    <em>People powered news</em>
+                    {var} submitted ideas
+                </h4>
+                <p>How would you involve the public in the newsmaking, editing or sharing process? The primary constraint; use HTML5 and native web technologies.</p>
+                </a>
+                </li>
+                <li>
+                <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">
+                   <h4> <img src="{{ MEDIA_URL }}images/mojo/challenge2-image.png" width="115" height="86" alt="" />
+                    <em>Beyond comments</em>
+                    {var} submitted ideas
+                </h4>
+                <p>The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
+                </a>
+                </li>
+                <li>
+                <a href="{% locale_url challenges_show slug="unlocking-video" %}">
+                <h4>
+                    <img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="86" alt="" />
+                    <em>Unlocking video</em>
+                    {var} submitted ideas
+                </h4>
+                <p>Video is a central part of many people's daily news experience. But most online video is still stuck in a boring embedded box, like "TV on a web page." How do we make web video more like the web?</p>
+                </a>
+                </li>
+            </ul>
+        </div>
         </div>
         <div class="column-right">
-          <div class="challengebox">
-            <a href="{% locale_url challenges_show slug="unlocking-video" %}"><img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="83" alt="Challenge 1" style="float:left;"></a>
-            <p class="first">
-              <a href="{% locale_url challenges_show slug="unlocking-video" %}">Challenge 1: Unlock Video</a><br />
-              <p class="inner">Ends June 6th.</p>
-            </p>
-          </div>
-          <div class="challengebox">
-                       <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}"><img src="{{ MEDIA_URL }}images/mojo/smallchallenge2.png" width="115" height="83" alt="Challenge 2" style="float:left;"></a>
-            <p class="first">
-              <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">Challenge 2: Beyond Comments</a><br />
-              <p class="inner">Ends June 6th.</a>
-            </p>
-          </div>
-
           <h3>
             <a style="float: right;" href="{{ feed_url }}"><img src="{{ MEDIA_URL }}images/feed-icon-16x16.png" width="16" height="16" alt="Feed Icon 16x16"></a>
             <a href="http://planet.drumbeat.org/mojo/">Community Feed</a>
@@ -82,12 +81,12 @@ How would you involve the public in the newsmaking, editing or sharing process? 
           <div class="rule2"></div>
           <ul class="feed">
             {% for entry in feed_entries %}
-              <li>
-                <a href="{{ entry.link }}">{{ entry.title }}</a>
-                <p>{{ entry.body|truncatewords:50 }}</p>
-              </li>
+                <li>
+                    <a href="{{ entry.link }}">{{ entry.title }}</a>
+                    <p>{{ entry.body|truncatewords:50 }}</p>
+                </li>
             {% endfor %}
-          </ul>
+        </ul>
         </div>
       </div>
     </div>
