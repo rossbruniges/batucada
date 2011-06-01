@@ -31,33 +31,35 @@
 <div id="main">
 <section class="submission">
   <article>
-    <h1 id="challenge-title">{{ submission.title }}</h1><br />
+    <h1 id="challenge-title">{{ submission.title }}</h1>
     <div class="post-details">
       Idea from <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
       <span>{{ submission.created_on|timesince }} {{ _(' ago') }}</span>
     </div>
-<br />
 <div class="ajax_copy">
 <h2>{{ _('Summary') }}</h2>
     <div class="summary">
       {{ submission.summary }}
     </div>
-    <br />
+    {% if submission.description_html %}
     <h2>{{ _('Description') }}</h2>
     <div class="details">
       {{ submission.description_html|safe }}
     </div>
+   {% endif %}
    </div>
-    <br />
     {% if submission.bio %}
+    <div class="author_bio">
     <h2>{{ _('About this entrant') }}</h2>
+    <img width="54" height="54" src="{{ MEDIA_URL }}{{ submission.created_by.image_or_default }}" class="member-picture" />
     <div class="bio">
       {{ submission.bio }}
     </div>
-    <br />
+    </div>
     {% endif %}
   </article>
   <div id="votes">
+  {% include "challenges/_voting_blurb.html" %}
   <div class="submission">
 {% include "challenges/_submission_resource.html" %}  
  </div>

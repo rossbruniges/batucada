@@ -3,6 +3,50 @@ var batucada = window.batucada || {};
 batucada.challenges = function() {
     var votes = $('#votes'),
         init = function() {
+        if ($('#challenge_landing').length && votes.length) {
+            // only got this far if the total submissions are greater than what are on display
+            if (votes.find('li.submission').length >= votes.attr('data-total-votes')) {
+                return false;
+            }
+            var moar = $('<div id="browse"><button>Show me more ideas</button><p>Those are all the ideas for this challenge - <a href="'+ window.location.href +'">Start again</a></p></div>').insertAfter(votes),
+                num_entries = votes.attr('data-total-votes');
+            // add in the exclude list
+            votes.attr('data-excludes','');
+            // click event for the moar button
+            moar.find('button').bind('click', function(e) {
+                votes.css('visibility','hidden');
+                var excludes = votes.attr('data-excludes'),
+                    tmp;
+                    if (excludes != "") {
+                        tmp = excludes.split(",");
+                    } else {
+                        tmp = [];
+                    }
+                votes.find('div.post-contents').each(function(i) {
+                    tmp.push($(this).attr('data-unique'));
+                    if (i === 3) {
+                        excludes = tmp.join(",");
+                        votes.attr('data-excludes',excludes);
+                        $.ajax({
+                            url:window.location.pathname + "voting/get_more/?count=4&exclude=" + excludes,
+                            type:"GET",
+                            dataType:"json",
+                            success:function(data) {
+                                var tmp = "";
+                                console.log(data);
+                                $.each(data.submissions, function(i) {
+                                    tmp += "<li class='submission'>" + data.submissions[i] + "</li>";
+                                });
+                                if (data.submissions.length < 4) {
+                                    moar.addClass('restart');
+                                }
+                                votes.html(tmp).attr("style", "");
+                            }
+                        });
+                    }
+                });
+            });
+        }
         if (votes.length) {
             votes.bind('click', function(e) {
                 if ($(e.target).is('input.trigger')) {
@@ -61,7 +105,7 @@ batucada.challenges = function() {
                             }
                             ajax_loader.load(url + ' div.ajax_copy', function() {
                                 ajax_loader.appendTo(parent);
-                                ajax_loader.append('<button>Close</button>');
+                                ajax_loader.append('<div class="meta"><p><a href="' + parent.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
                                 ajax_loader.fadeIn('fast');
                             });
                         }

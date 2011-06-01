@@ -3,11 +3,15 @@
 {% score_for_object submission as score %}
 {% vote_by_user user on submission as vote %}
 
-  <div class="post-contents">
+  <div class="post-contents" data-unique="{{ submission.pk }}">
     <div class="details">
-    <h2 class="title"><a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk %}">{{ submission.title }} </a></h2>
+    <h2 class="title">{{ submission.title }}</h2>
     <div class="post-body">
-      {{ submission.summary }}
+      {% if not full_data %}
+        {{ submission.summary }}
+      {% else %}
+        {{ submission.summary|truncatewords_html:40 }}
+      {% endif %}
       <p><a class="more" href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk %}">Read the full idea</a>.</p>
     </div>
     </div>
