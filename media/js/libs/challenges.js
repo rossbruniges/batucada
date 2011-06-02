@@ -15,11 +15,11 @@ batucada.challenges = function() {
             });
         },
         pull : function(target) {
-            var url, parent, ajax_loader, sibs, num_sibs, tmp;
-            url = target.attr('href'),
-            parent = target.parents('li.submission'),
-            sibs = parent.siblings(),
-            num_sibs = sibs.length,
+            var url, parent, sibs, num_sibs, tmp;
+            url = target.attr('href');
+            parent = target.parents('li.submission');
+            sibs = parent.siblings();
+            num_sibs = sibs.length;
             tmp = 0;
             if (num_sibs !== 0) {
                 sibs.fadeOut('normal', function() {
@@ -49,7 +49,7 @@ batucada.challenges = function() {
             }
         },
         vote : function(target) {
-            var form, action, csrf, voting_html;
+            var form, action, csrf, voting_html, obj;
             form = target.parents('form');
             action = form.attr('action');
             csrf = form.find('input[name="csrfmiddlewaretoken"]').attr('value');
@@ -58,12 +58,12 @@ batucada.challenges = function() {
                 type:"POST",
                 dataType:"json",
                 url:action,
-                data:"csrfmiddlewaretoken=" + csrf + "",
+                data:"csrfmiddlewaretoken=" + csrf,
                 success:function(data) {
                     if (data.score.score === 1) {
-                        var obj = vote_up.text_values.clear;
+                        obj = vote_up.text_values.clear;
                     } else {
-                        var obj = vote_up.text_values.up;
+                        obj = vote_up.text_values.up;
                     }
                     voting_html.css('visibility','hidden');
                     voting_html.find('span.score').text(data.score.num_votes);
@@ -82,11 +82,11 @@ batucada.challenges = function() {
         // add in the exclude list
         votes.attr('data-excludes','');
         // click event for the moar button
-        moar.find('button').bind('click', function(e) {
+        moar.find('button').bind('click', function() {
             votes.css('visibility','hidden');
             var excludes = votes.attr('data-excludes'),
             tmp;
-            if (excludes != "") {
+            if (excludes !== "") {
                 tmp = excludes.split(",");
             } else {
                 tmp = [];
@@ -144,7 +144,7 @@ batucada.challenges = function() {
     };
     return {
         init:init
-    }
+    };
 }();
 
 $(function() {
