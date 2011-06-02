@@ -33,7 +33,6 @@ batucada.challenges = function() {
                             dataType:"json",
                             success:function(data) {
                                 var tmp = "";
-                                console.log(data);
                                 $.each(data.submissions, function(i) {
                                     tmp += "<li class='submission'>" + data.submissions[i] + "</li>";
                                 });
@@ -96,20 +95,29 @@ batucada.challenges = function() {
                         ajax_loader = $('#ajax_space'),
                         siblings = parent.siblings(),
                         num_siblings = siblings.length,
-                        tmp = 0;
-                    siblings.fadeOut('normal', function() {
-                        tmp++;
-                        if (tmp === num_siblings) {
-                            if (!ajax_loader.length) {
-                                ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
-                            }
-                            ajax_loader.load(url + ' div.ajax_copy', function() {
-                                ajax_loader.appendTo(parent);
-                                ajax_loader.append('<div class="meta"><p><a href="' + parent.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
-                                ajax_loader.fadeIn('fast');
-                            });
+                        tmp = 0,
+                        load_content;
+                    load_content = function() {
+                        if (!ajax_loader.length) {
+                            ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
                         }
-                    });
+                        ajax_loader.load(url + ' div.ajax_copy', function() {
+                            ajax_loader.appendTo(parent);
+                            ajax_loader.append('<div class="meta"><p><a href="' + parent.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
+                            ajax_loader.fadeIn('fast');
+                        });
+
+                    };
+                    if (num_siblings !== 0) {
+                        siblings.fadeOut('normal', function() {
+                            tmp++;
+                            if (tmp === num_siblings) {
+                                load_content();
+                            }
+                        });
+                    } else {
+                        load_content();
+                    }
                     return false;
                 }
                 if ($(e.target).is('button')) {
