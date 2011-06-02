@@ -118,8 +118,6 @@ batucada.challenges = function() {
     init = function() {
         if (votes.length) {
             if (body_id === "challenge_landing") {
-                console.log(votes.find('li.submission').length);
-                console.log(votes.attr('data-total-votes'));
                 if (votes.find('li.submission').length <= votes.attr('data-total-votes')) {
                     randomizr();
                 }
