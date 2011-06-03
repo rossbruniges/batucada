@@ -1,7 +1,7 @@
 var batucada = window.batucada || {};
 
 batucada.challenges = function() {
-    var votes = $('#votes'), body_id = $('body').attr('id'), init, randomizr, vote_up, load_ideas;
+    var votes = $('#votes'), body_id = $('body').attr('id'), init, randomizr, vote_up, load_ideas, expandr;
     load_ideas = {
         load_content : function(url, dest) {
             var ajax_loader = $('#ajax_space');
@@ -117,11 +117,44 @@ batucada.challenges = function() {
             });
         });
     };
+    expandr = function () {
+        var elm = $('div.expando'),
+            txt = {
+                open:"Close summary",
+                closed:"Read challenge summary"
+            },
+            trigger = $('<a id="expandr" href="#">' + txt.closed + '</a>').insertAfter(elm);
+        trigger.bind('click', function() {
+            var el = $(this);
+            el.css('display','none');
+            if (el.is('.open')) {
+                 elm.slideUp('normal', function() {
+                    el.text(txt.closed);
+                    el.attr({
+                        'class':'closed',
+                        'style':''
+                    });
+                });
+            } else {
+                elm.slideDown('normal', function() {
+                    el.text(txt.open);
+                    el.attr({
+                        'class':'open',
+                        'style':''
+                    });
+                });
+            }
+            return false;
+        });
+    };
     init = function() {
         if (votes.length) {
             if (body_id === "challenge_landing") {
                 if (votes.find('li.submission').length <= votes.attr('data-total-votes')) {
                     randomizr();
+                }
+                if ($('div.expando').length) {
+                    expandr();
                 }
             }
             votes.bind('click', function(e) {

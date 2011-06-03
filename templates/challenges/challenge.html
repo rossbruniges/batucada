@@ -45,15 +45,48 @@
 {% block bodyid %}challenge_landing{% endblock %}
 {% block body %}
 
-   
+<div id="sidebar">
+<section id="challenge" class="panel">
+    <h1 id="challenge-title">{{ challenge.title }}</h1>    
+    {% if challenge.project.slug != 'mojo' %}
+    <h2 id="project-name">
+      <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
+    </h2>
+    {% endif %}
 
-{% include "challenges/_challenge_sidebar.html" %}
-<div id="main">
-  {% if challenge.above_fold %}
+    {% if challenge.project.slug == 'mojo' %}
+    <h2 id="project-name">
+      A challenge from  <a href="{% locale_url drumbeat_journalism %}">{{ challenge.project.name }}</a> 
+    </h2>
+    {% endif %}
+    {% if challenge.is_active %}
+    <dl id="project-stats">
+      <dt>{{ _('Start date') }}:</dt>
+      <dd>{{ challenge.start_date|date:"F d, Y" }}</dd>
+
+      <dt>{{ _('End date') }}:</dt>
+      <dd>{{ challenge.end_date|date:"F d, Y" }}</dd>      
+    </dl>
+    {% endif %}
+   {% if challenge.above_fold %}
     {{ challenge.above_fold|safe }}
+  {% endif %} 
+  <div class="challenge_brief{% if challenge.above_fold  %} expando{% endif %}">
+  {% if challenge.sidebar %}
+    {{ challenge.sidebar|safe }}
+  {% else %}
+    {{ challenge.brief|safe }}
+  {% endif %} 
+  <p><a  href="{% locale_url challenges_show_full slug=challenge.slug %}">Read the full challenge brief</a></p>
+  </div>  
+  </section>
+{% if challenge.image %}
+  <img src="{{ challenge.image.url }}" alt="{{ challenge }} image" width="300"/>  
   {% endif %}
 
-  {% if challenge.is_active %}
+</div>
+<div id="main">
+   {% if challenge.is_active %}
   <p>{{ remaining.days }} days to respond to this challenge</p>
 
   {% if user.is_authenticated %}

@@ -14,6 +14,9 @@
       A challenge from  <a href="{% locale_url drumbeat_journalism %}">{{ challenge.project.name }}</a> 
     </h2>
     {% endif %}
+{% if challenge.image %}
+  <img src="{{ challenge.image.url }}" alt="{{ challenge }} image" width="300"/>  
+  {% endif %}
     {% if challenge.is_active %}
     <dl id="project-stats">
       <dt>{{ _('Start date') }}:</dt>
@@ -32,8 +35,4 @@
   <p><a  href="{% locale_url challenges_show_full slug=challenge.slug %}">Read the full challenge brief</a></p>
   </div>  
   </section>
-{% if challenge.image %}
-  <img src="{{ challenge.image.url }}" alt="{{ challenge }} image" width="300"/>  
-  {% endif %}
-
 </div><!-- /#sidebar -->

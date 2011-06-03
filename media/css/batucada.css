@@ -2701,3 +2701,14 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #submission_show .author_bio .bio {
     float: left;
 }
+/* expando areas */
+div.expando {
+    display: none;
+}
+a#expandr {
+    padding-left: 20px;
+    background: transparent url(/media/images/mini_arrow_down.png) no-repeat 0 0;
+ }
+ #expandr.open {
+     background-image: url(/media/images/mini_arrow_up.png);
+ }
