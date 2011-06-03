@@ -2554,6 +2554,9 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #votes .submission {
     margin-right: 10px;
 }
+#votes .expanded {
+    margin-right: 0;
+}
 #challenge_landing .submission {
     float: left;
 }
@@ -2576,6 +2579,9 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
       behavior: url("/media/css/PIE.htc");
       position: relative;
       z-index: 2;
+}
+#challenge_landing .expanded .post-contents {
+    border-radius: 6px 0 0 6px;
 }
 #challenge_landing .submission .post-contents {
     width: 210px;
@@ -2603,6 +2609,9 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     border: 1px solid #cfcfcf;
+}
+#votes .expanded .voting {
+    border-bottom-right-radius: 0;
 }
 #submission_show .submission .voting {
     margin-top: -9px;
@@ -2645,9 +2654,9 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     background: #ebebeb;
     border: 1px solid #cfcfcf;
     border-radius: 0 6px 6px 0;
-    margin-left: -6px;
     position:relative;
     z-index:1;
+    margin-left: -1px;
 }
 .submission #ajax_space .meta {
     margin-top: 1em;

@@ -11,7 +11,9 @@ batucada.challenges = function() {
             ajax_loader.load(url + ' div.ajax_copy', function() {
                 ajax_loader.appendTo(dest);
                 ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
-                ajax_loader.fadeIn('fast');
+                ajax_loader.fadeIn('fast', function() {
+                    dest.addClass('expanded')
+                });
             });
         },
         pull : function(target) {
@@ -135,6 +137,7 @@ batucada.challenges = function() {
                 if (elm.is('button')) {
                     var parent = elm.parents('li.submission');
                     $('#ajax_space').fadeOut('normal', function() {
+                        parent.removeClass('expanded');
                         parent.siblings().fadeIn('normal');
                      });
                 }
