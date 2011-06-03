@@ -2511,6 +2511,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 }
 #challenge_landing #sidebar {
     width: 960px;
+    margin-bottom: 1em;
 }
 #sidebar #challenge {
     margin-top: 0;
@@ -2521,13 +2522,13 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     font-size: 16px;
     margin-bottom: 0.8em;
 }
-#challenge_landing #sidebar img {
+#challenge_landing #sidebar header {
     float: left;
     margin-right: 10px;
+    width: 300px;
 }
 #challenge_landing #sidebar section {
     float: right;
-    width: 650px;
     border-bottom: none;
     box-shadow: none;
     -webkit-box-shadow: none;
