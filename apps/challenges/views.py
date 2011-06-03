@@ -196,7 +196,8 @@ def show_challenge(request, slug):
         'nsubmissions': nsubmissions,
         'form': form,
         'profile': profile,
-        'remaining': remaining
+        'remaining': remaining,
+        'full_data': 'false'
     }
 
     return render_to_response('challenges/challenge.html', context,
@@ -244,8 +245,7 @@ def show_all_submissions(request, slug):
         'submissions': submissions,
         'form': form,
         'profile': profile,
-        'remaining': remaining,
-        'full_data' : 'true'
+        'remaining': remaining
     }
 
     return render_to_response('challenges/all_submissions.html', context,
@@ -306,13 +306,19 @@ def voting_get_more(request, slug):
     submissions = challenge.submission_set.exclude(
         pk__in=exclude).order_by('?')[:count]
 
+    try:
+        profile = request.user.get_profile()
+    except:
+        profile = None
+
     response = []
     for submission in submissions:
         response.append(
             render_to_string('challenges/_submission_resource.html',
                              {'submission': submission,
-                              'challenge': challenge}
-                             ))
+                              'challenge': challenge,
+                              'profile': profile},
+                            context_instance=RequestContext(request)))
 
     return HttpResponse(simplejson.dumps({
         'submissions': response,
@@ -501,9 +507,12 @@ def show_submission(request, slug, submission_id):
     except:
         raise Http404
 
-    user = request.user.get_profile()
-    if not submission.is_published and user != submission.created_by:
-        raise Http404
+    if not submission.is_published:
+        if not user.is_authenticated():
+            raise Http404
+        user = request.user.get_profile()
+        if user != submission.created_by:
+            raise Http404
 
     context = {
         'challenge': challenge,

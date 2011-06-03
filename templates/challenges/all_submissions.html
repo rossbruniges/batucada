@@ -82,16 +82,8 @@
   {% endif %}
   {% else %}
     {% if challenge.allow_voting %}
-    <div class="voting-info">
-        <h2>Voting is now open</h2>
-        <p>Welcome to crowd evaluation - let us know which of the submissions you like, read the full ideas and leave us any comments.</p>
-        {% if user.is_authenticated %}
-        <p>You have until <strong>16th June</strong> to vote so let us know your favourites.</p>
+        {% include "challenges/_voting_blurb.html" %}
         {% else %}
-        <p>You have to be logged into your drumbeat account to vote so please <a href="{{ login_with_redirect_url }}">login</a> or <a href="{% locale_url users_register %}">sign up for an account</a>.</p>
-        {% endif %}
-    </div>
-    {% else %}
          This challenge is currently closed to new entries.
      <h2>{{ _('Newest Ideas') }}</h2>
     {% endif %} 
@@ -111,7 +103,7 @@
   <div class="pagination">
       {% if submissions.has_previous %}
       <a href="?page={{ submissions.previous_page_number }}" class="btn">← prev</a>
-      {% else % }
+      {% else %}
 	  <span class="btn">← prev</span>
 	  {% endif %}
       

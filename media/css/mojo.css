@@ -660,11 +660,49 @@ text-align: center;
   .challengebox .button-white {
     margin-top: 11px;
   }
-
+/* Challenge voting*/
+.column-left .challengebox h3 {
+    font-weight: bold;
+    margin-top: 0;
+    font-size: 18px;
+}
+.column-left .challengebox p {
+    font-size: 14px;
+}
 .column-right .challengebox {
   text-align: right;
-}  
-  .column-right .challengebox p.details {
+}
+.challengebox .challenge_list {
+    overflow: hidden;
+}
+.challengebox .challenge_list li {
+    font-size: 12px;
+    float: left;
+    clear: left;
+    position: relative;
+    padding-left: 135px;
+    min-height: 86px;
+    margin-bottom: 1em;
+}
+.challengebox .challenge_list li:last-child {
+    margin-bottom: 0;
+}
+.challengebox .challenge_list img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.challengebox .challenge_list em {
+    display: block;
+    font-weight: bold;
+    color: #474747;
+    font-size: 16px;
+}
+.challengebox .challenge_list p {
+    font-size: 12px;
+    color: #474747;
+}
+.column-right .challengebox p.details {
     font-size: 12px;
     margin: -5px 0 0 0;
     line-height: 18px;

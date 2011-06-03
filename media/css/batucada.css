@@ -2535,10 +2535,10 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     margin-left: 0;
     width: auto;
 }
-#challenge_landing .voting-info h2 {
+.voting-info h2 {
     font-size: 20px;
 }
-#challenge_landing .voting-info p {
+.voting-info p {
     font-size: 18px;
     margin-bottom: 1em
 }
@@ -2588,8 +2588,8 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #votes .submission form {
     margin-top: 6px;
 }
-#challenge_landing .submission .details {
-    min-height: 140px;
+#challenge_landing .post-contents .details {
+    min-height: 220px;
 }
 #submission_show .submission .details {
     display: none;
@@ -2648,4 +2648,47 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     margin-left: -6px;
     position:relative;
     z-index:1;
+}
+.submission #ajax_space .meta {
+    margin-top: 1em;
+    border-top: 1px solid #cfcfcf;
+    padding-top: 1em;
+}
+.submission #ajax_space .meta p {
+    margin-bottom: 1em;
+}
+#browse {
+    margin: 1em 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+#browse button {
+    width: 940px;
+    text-align: center;
+    padding: 1em;
+    font-weight: bold;
+}
+#browse.restart button {
+    display: none;
+}
+#browse p {
+    display: none;
+    margin-bottom: 0;
+}
+#browse.restart p {
+    display: block;
+}
+/* submission pages */
+#submission_show .submission h2 {
+    margin-top: 1em;
+}
+#submission_show .author_bio {
+    overflow: hidden;
+}
+#submission_show .author_bio img {
+    float: left;
+    margin-right: 0.5em;
+}
+#submission_show .author_bio .bio {
+    float: left;
 }
