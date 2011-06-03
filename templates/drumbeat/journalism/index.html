@@ -34,12 +34,13 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
     </div>
     
     <div class="homepage">
-      <div class="container">
+      <div class="container clearfix">
         <div class="column-left">
           <div class="challengebox">
-          <h3>Submissions closed, voting open</h3>
-            <p class="first">Voting for our three challenges is now open so now is the time to let us know your favourites.</p>
-            <p>Let the judges know which of the ideas in each of the challenges you like and then maybe your favourite will get made!</p>
+          <h3>Voting is now open</h3>
+          <img style="float:right; margin-top: -60px; margin-right:-30px;" src="{{ MEDIA_URL }}images/mojo/voting_open.png" width="129" height="129" alt="" />
+          <p> Submissions for the 2011 challenge cycle are closed. Welcome to crowd evaluation. You can vote up your favorite ideas and leave comments. What do you like about these ideas? What would make them better?</p>
+          <p>Your feedback, along with our review board, determines who advances to the <a href="{% locale_url drumbeat_journalism_process %}">next stage of the program</a>.</p>
             <ul class="challenge_list">
                 <li>
                 <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">
@@ -48,8 +49,8 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
                     <em>People powered news</em>
                     {var} submitted ideas
                 </h4>
-                <p>How would you involve the public in the newsmaking, editing or sharing process? The primary constraint; use HTML5 and native web technologies.</p>
                 </a>
+                <p>How would you involve the public in the newsmaking, editing or sharing process? The primary constraint; use HTML5 and native web technologies.</p>
                 </li>
                 <li>
                 <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">
@@ -57,8 +58,8 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
                     <em>Beyond comments</em>
                     {var} submitted ideas
                 </h4>
-                <p>The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
                 </a>
+                <p>The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
                 </li>
                 <li>
                 <a href="{% locale_url challenges_show slug="unlocking-video" %}">
@@ -67,8 +68,8 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
                     <em>Unlocking video</em>
                     {var} submitted ideas
                 </h4>
-                <p>Video is a central part of many people's daily news experience. But most online video is still stuck in a boring embedded box, like "TV on a web page." How do we make web video more like the web?</p>
                 </a>
+                <p>Video is a central part of many people's daily news experience. But most online video is still stuck in a boring embedded box, like "TV on a web page." How do we make web video more like the web?</p>
                 </li>
             </ul>
         </div>
@@ -80,13 +81,7 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
           </h3>
           <div class="rule2"></div>
           <ul class="feed">
-            {% for entry in feed_entries %}
-                <li>
-                    <a href="{{ entry.link }}">{{ entry.title }}</a>
-                    <p>{{ entry.body|truncatewords:50 }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+          </ul>
         </div>
       </div>
     </div>

@@ -2559,10 +2559,14 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #votes .expanded {
     margin-right: 0;
 }
+#challenge_landing h2 {
+    font-size: 18px;
+    margin-bottom: 0.6em;
+}
 #challenge_landing .submission {
     float: left;
 }
-#votes .submission h2 {
+#votes .submission h3 {
     font-size: 16px;
 }
 #votes .submission .post-contents {

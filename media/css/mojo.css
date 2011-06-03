@@ -612,6 +612,9 @@ text-align: center;
   font-size: 12px;
   overflow: auto;
 }
+#splash .homepage {
+    overflow: visible;
+}
   .homepage .column-left {
     float: left;
     margin-right: 30px;

@@ -49,10 +49,7 @@
 
 {% include "challenges/_challenge_sidebar.html" %}
 <div id="main">
-  {% if challenge.above_fold %}
-    {{ challenge.above_fold|safe }}
-  {% endif %}
-
+ 
   {% if challenge.is_active %}
   <p>{{ remaining.days }} days to respond to this challenge</p>
 
@@ -80,13 +77,6 @@
   {% else %}
   <p>Want to participate? You should <a href="{% locale_url users_login %}">sign in</a>.</p>
   {% endif %}
-  {% else %}
-    {% if challenge.allow_voting %}
-        {% include "challenges/_voting_blurb.html" %}
-        {% else %}
-         This challenge is currently closed to new entries.
-     <h2>{{ _('Newest Ideas') }}</h2>
-    {% endif %} 
   {% endif %}
   
   {% if submissions.object_list %}

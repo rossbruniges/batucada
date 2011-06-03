@@ -5,7 +5,7 @@
 
   <div class="post-contents" data-unique="{{ submission.pk }}">
     <div class="details">
-    <h2 class="title">{{ submission.title }}</h2>
+    <h3 class="title">{{ submission.title }}</h3>
     <div class="post-body">
       {% if not full_data %}
         {{ submission.summary }}
@@ -17,7 +17,7 @@
     </div>
 {% if challenge.allow_voting %}
     <div class="voting">
-        <h3>Voting</h3>
+        <h4>Voting</h4>
       <p>Total likes for this idea: <span class="score">{{ score.score|default:0 }}</span></p>
       {% if user.is_authenticated %}
       <form method="post" id="upvote-{{ submission.pk }}" action="{% if vote and vote.is_upvote %}{% locale_url submission_vote object_id=submission.pk direction='clear' %}{% else %}{% locale_url submission_vote object_id=submission.pk direction='up' %}{% endif %}">

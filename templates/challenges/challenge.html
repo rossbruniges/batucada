@@ -117,7 +117,12 @@
   {% endif %}
   {% else %}
     {% if challenge.allow_voting %}
-        {% include "challenges/_voting_blurb.html" %}
+    <div class="voting-info">
+        <h2>Voting is now open</h2>
+        <p>Welcome to crowd evaluation. You can vote up ideas and leave comments for the authors. <strong>Voting ends June 16th</strong>.</p>
+
+      <p><a href="{% locale_url drumbeat_journalism %}">Learn more about MoJo</a><p>
+        </div>
         {% else %}
          This challenge is currently closed to new entries.
      <h2>{{ _('Newest Ideas') }}</h2>
@@ -125,6 +130,7 @@
   {% endif %}
   
   {% if submissions.object_list %}
+<h2>Ideas</h2>
   <ul id="votes" data-total-votes="{{ nsubmissions }}">
     {% for submission in submissions.object_list %}
     <li class="submission">
