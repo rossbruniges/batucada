@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 
 from users import tasks
-from links.models import Link
 from projects.models import Project, ProjectMedia
 
 log = logging.getLogger(__name__)
@@ -27,13 +26,6 @@ class ProjectDescriptionForm(forms.ModelForm):
         widgets = {
             'detailed_description': forms.Textarea(attrs={'class': 'wmd'}),
         }
-
-
-class ProjectLinksForm(forms.ModelForm):
-
-    class Meta:
-        model = Link
-        fields = ('name', 'url',)
 
 
 class ProjectImageForm(forms.ModelForm):

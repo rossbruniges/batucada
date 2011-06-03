@@ -23,6 +23,7 @@ from users.models import UserProfile
 from users.fields import UsernameField
 from users.decorators import anonymous_only, login_required
 from links.models import Link
+from links import forms as link_forms
 from projects.models import Project
 from drumbeat import messages
 from activity.models import Activity
@@ -427,11 +428,15 @@ def profile_edit_image(request):
 def profile_edit_links(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':
-        form = forms.ProfileLinksForm(request.POST)
+        form = link_forms.LinksForm(request.POST)
         if form.is_valid():
             messages.success(request, _('Profile link added.'))
             link = form.save(commit=False)
             log.debug("User instance: %s" % (profile.user,))
+
+            if request.POST.get('broadcast', None):
+               link.broadcast = True
+
             link.user = profile
             link.save()
             return http.HttpResponseRedirect(
@@ -441,7 +446,7 @@ def profile_edit_links(request):
             messages.error(request, _('There was an error saving '
                                       'your link.'))
     else:
-        form = forms.ProfileLinksForm()
+        form = link_forms.LinksForm()
     links = Link.objects.select_related('subscription').filter(user=profile)
 
     return render_to_response('users/profile_edit_links.html', {

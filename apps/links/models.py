@@ -21,6 +21,15 @@ class Link(models.Model):
     project = models.ForeignKey('projects.Project', null=True)
     user = models.ForeignKey('users.UserProfile', null=True)
     subscription = models.ForeignKey(Subscription, null=True)
+    __broadcast = False
+
+    def getbroadcast(self):
+        return self.__broadcast
+
+    def setbroadcast(self, broadcast):
+        self.__broadcast = broadcast
+
+    broadcast = property(getbroadcast, setbroadcast)
 
 
 def link_create_handler(sender, **kwargs):
@@ -28,7 +37,7 @@ def link_create_handler(sender, **kwargs):
     link = kwargs.get('instance', None)
     created = kwargs.get('created', False)
 
-    if not created or not isinstance(link, Link):
+    if not link.broadcast or not created or not isinstance(link, Link):
         return
 
     tasks.SubscribeToFeed.apply_async(args=(link,))

@@ -13,10 +13,28 @@ from activity.models import Activity
 from users.models import UserProfile
 
 
-def mock_open(r):
+class MockFileObject(object):
+    def read(self):
+        return """
+        <html>
+        <head>
+          <title>Test HTML</title>
+          <link rel="alternate" type="application/rss+xml"
+             href="http://example.com/rss">
+        </head>
+        <body>
+           <h1>Test</h1>
+        </body>
+        </html>
+        """
+
+def mock_open_success(url):
+    return MockFileObject()
+
+def mock_open_failure(r):
     return urllib2.HTTPError('request', 204, 'no-op', {}, StringIO(''))
 
-urllib2.urlopen = mock_open
+urllib2.urlopen = mock_open_failure
 urllib2.Request = lambda x, y, z: 'request'
 
 
@@ -171,3 +189,25 @@ class TestLinkParsing(TestCase):
         handler = tasks.HandleNotification()
         handler.run(parsed, sub)
         self.assertEqual(Activity.objects.count(), count + 1)
+
+    def test_broadcast_link_feed(self):
+        """Test subscription to link feed is created if user wants to broadcast that feed."""
+        urllib2.urlopen = mock_open_success
+        count = Subscription.objects.count()
+        Link.objects.create(
+            name='foo',
+            url='http://blah',
+            user=self.user,
+            broadcast=True)
+        self.assertEqual(Subscription.objects.count(), count + 1)
+
+    def test_do_not_broadcast_link_feed(self):
+        """Test subscription to link feed is not created if user does not want to broadcast that feed."""
+        urllib2.urlopen = mock_open_success
+        count = Subscription.objects.count()
+        Link.objects.create(
+            name='foo',
+            url='http://blah/',
+            user=self.user,
+            broadcast=False)
+        self.assertEqual(Subscription.objects.count(), count)

@@ -20,6 +20,7 @@ from projects.models import Project, ProjectMedia
 from relationships.models import Relationship
 from activity.models import Activity
 from links.models import Link
+from links import forms as link_forms
 from statuses.models import Status
 from drumbeat import messages
 from users.decorators import login_required
@@ -207,11 +208,15 @@ def delete_media(request, slug):
 def edit_links(request, slug):
     project = get_object_or_404(Project, slug=slug)
     if request.method == 'POST':
-        form = project_forms.ProjectLinksForm(request.POST)
+        form = link_forms.LinksForm(request.POST)
         if form.is_valid():
             link = form.save(commit=False)
             link.project = project
             link.user = project.created_by
+
+            if request.POST.get('broadcast', None):
+               link.broadcast = True
+
             link.save()
             messages.success(request, _('Project link added.'))
             return http.HttpResponseRedirect(
@@ -219,7 +224,7 @@ def edit_links(request, slug):
         else:
             messages.error(request, _('There was an error adding your link.'))
     else:
-        form = project_forms.ProjectLinksForm()
+        form = link_forms.LinksForm()
     links = Link.objects.select_related('subscription').filter(project=project)
     return render_to_response('projects/project_edit_links.html', {
         'project': project,

@@ -11,7 +11,6 @@ from captcha import fields as captcha_fields
 from users.blacklist import passwords as blacklisted_passwords
 from users.models import UserProfile
 from users.fields import UsernameField
-from links.models import Link
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
@@ -141,10 +140,3 @@ class ProfileImageForm(forms.ModelForm):
                 _("Image exceeds max image size: %(max)dk") % dict(
                     max=max_size))
         return self.cleaned_data['image']
-
-
-class ProfileLinksForm(forms.ModelForm):
-
-    class Meta:
-        model = Link
-        exclude = ('project', 'user', 'subscription')

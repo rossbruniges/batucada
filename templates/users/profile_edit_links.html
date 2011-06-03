@@ -19,7 +19,12 @@
     {{ form.url }}
     {{ form.url.errors }}
   </div>
-  <p class="buttons add-link">
+  <p class="add-link">
+    <label for="id_broadcast">
+    {{ form.broadcast }}
+    {{ form.broadcast.errors }}
+    {{ _('I want to broadcast this activity on Drumbeat.org') }}
+    </label>
     <button type="submit">{{ _('Add') }}</button>
   </p>
 </form>
