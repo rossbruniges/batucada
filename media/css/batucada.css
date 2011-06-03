@@ -2296,13 +2296,13 @@ div.warning h2 {
 /* Welcome to profile page */
 .welcome {
 	padding: 24px 24px 6px;
-	background: -moz-linear-gradient(top, 
+		background: -moz-linear-gradient(top, 
 		#FFFAE4 0%, 
 		#FFF4BE 100%); /* firefox */
 	background: -webkit-gradient(linear, left top, left bottom, 
 		color-stop(0%,#FFFAE4), 
 		color-stop(100%,#FFF4BE)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( 
+filter: progid:DXImageTransform.Microsoft.gradient( 
 		startColorstr='#FFFAE4',
 		endColorstr='#FFF4BE',GradientType=0 );
 	border: 2px solid #e9d86c;
@@ -2554,7 +2554,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     width: 960px;
 }
 #votes .submission {
-    margin-right: 10px;
+    margin: 0 0 10px 10px;
 }
 #votes .expanded {
     margin-right: 0;
@@ -2584,6 +2584,10 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
       behavior: url("/media/css/PIE.htc");
       position: relative;
       z-index: 2;
+      overflow: hidden;
+}
+#submission_show .submission .post-contents {
+    padding: 0;
 }
 #challenge_landing .expanded .post-contents {
     border-radius: 6px 0 0 6px;
@@ -2606,27 +2610,39 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     display: none;
 }
 #votes .submission .voting {
-    margin: 10px -9px -9px;
+    margin: 0 0 8px 8px;
     padding: 8px;
-    background: #f4f4f4;
-    float: none;
-    width: auto;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
+ background: #FFF9DE;
+    background: -moz-linear-gradient(top, 
+		#FFFAE4 0%, 
+		#FFF4BE 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, 
+		color-stop(0%,#FFFAE4), 
+		color-stop(100%,#FFF4BE)); /* webkit */ 
+    float: right;
+    width: 60px;
+    border-radius: 6px;
     border: 1px solid #cfcfcf;
+    overflow: hidden;
 }
-#votes .expanded .voting {
-    border-bottom-right-radius: 0;
+#votes .submission .voting h4 {
+    position: absolute;
+    left: -9999em;
+}
+.submission .voting p {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+#submission_show #votes {
+    float:right;
 }
 #submission_show .submission .voting {
-    margin-top: -9px;
     -webkit: border-radius: 6px;
     -moz-border-radius: 6px;
     -o-border-radius: 6px;
     border-radius: 6px;
-     background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f4f4f4));
-      background: -moz-linear-gradient(top,#fff,#f4f4f4);
-	  background: -o-linear-gradient(top, #fff, #f4f4f4);
+    margin: 0;
 }
 #votes .submission .voting p {
     margin-bottom :0;
@@ -2640,7 +2656,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     color: #474747;
     text-shadow: none;
     height: auto;
-    width: auto;
+    width: 58px;;
     padding: 4px 4px 4px 20px;
     margin-top: 6px;
 }

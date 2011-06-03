@@ -39,14 +39,12 @@ batucada.challenges = function() {
         text_values : {
             up: {
                 url_suffix:"upvote",
-                message:"What do you think?",
-                input_txt:"This is a great idea",
+                input_txt:"Vote",
                 input_cls:"trigger vote"
             },
             clear:{
                 url_suffix:"clearvote",
-                message:"You liked this idea",
-                input_txt:"Cancel my vote",
+                input_txt:"Clear",
                 input_cls:"trigger clear"
             }
         },
@@ -73,7 +71,6 @@ batucada.challenges = function() {
                         'value' : obj.input_txt,
                         'class' : obj.input_cls
                     });
-                    form.find('p').text(obj.message);
                     form.attr('action',action.replace(/[a-z]{6,9}$/,obj.url_suffix));
                     voting_html.css('visibility','');
                 }

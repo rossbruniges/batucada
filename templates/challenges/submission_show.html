@@ -31,6 +31,12 @@
 <div id="main">
 <section class="submission">
   <article>
+<div id="votes">
+  <div class="submission">
+{% include "challenges/_submission_resource.html" %}  
+ </div>
+ </div>
+
     <h1 id="challenge-title">{{ submission.title }}</h1>
     <div class="post-details">
       Idea from <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
@@ -58,12 +64,7 @@
     </div>
     {% endif %}
   </article>
-  <div id="votes">
-  <div class="submission">
-{% include "challenges/_submission_resource.html" %}  
- </div>
- </div>
- <div id="comments">
+   <div id="comments">
     <h1>{{ _('Comments') }}</h1><br />
     
     {% get_comment_list for submission as comment_list %}
