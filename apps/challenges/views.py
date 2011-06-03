@@ -284,8 +284,6 @@ def contact_entrants(request, slug):
         'challenge': challenge,
     }, context_instance=RequestContext(request))
 
-
-@login_required
 def voting_get_more(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
     if not challenge.allow_voting:
@@ -296,13 +294,6 @@ def voting_get_more(request, slug):
     if exclude:
         exclude = exclude.split(',')
 
-    # also exclude items already voted on
-    ctype = ContentType.objects.get_for_model(Submission)
-    voted = Vote.objects.filter(
-        content_type=ctype.id).filter(
-        user=request.user).values_list('object_id', flat=True)
-
-    exclude.extend(voted)
     submissions = challenge.submission_set.exclude(
         pk__in=exclude).order_by('?')[:count]
 
