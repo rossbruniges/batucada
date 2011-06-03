@@ -308,6 +308,7 @@ def voting_get_more(request, slug):
             render_to_string('challenges/_submission_resource.html',
                              {'submission': submission,
                               'challenge': challenge,
+                              'full_data':'false',
                               'profile': profile},
                             context_instance=RequestContext(request)))
 

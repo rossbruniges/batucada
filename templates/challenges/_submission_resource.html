@@ -10,7 +10,7 @@
       {% if not full_data %}
         {{ submission.summary }}
       {% else %}
-        {{ submission.summary|truncatewords_html:40 }}
+        {{ submission.summary|truncatewords_html:35 }}
       {% endif %}
       <p><a class="more" href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk %}">Read the full idea</a>.</p>
     </div>
