@@ -81,6 +81,12 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
           </h3>
           <div class="rule2"></div>
           <ul class="feed">
+          {% for entry in feed_entries %}
+            <li>
+            <a href="{{ entry.link }}">{{ entry.title }}</a>
+            <p>{{ entry.body|truncatewords:50 }}</p>
+            </li>
+          {% endfor %}
           </ul>
         </div>
       </div>
