@@ -62,14 +62,17 @@ batucada.challenges = function() {
                 url:action,
                 data:"csrfmiddlewaretoken=" + csrf,
                 success:function(data) {
-                    if (data.score.score === 1) {
+                    if (target.is('.vote')) {
                         obj = vote_up.text_values.clear;
                     } else {
                         obj = vote_up.text_values.up;
                     }
                     voting_html.css('visibility','hidden');
                     voting_html.find('span.score').text(data.score.num_votes);
-                    voting_html.find('input.trigger').attr('value',obj.input_txt).attr('className',obj.input_cls);
+                    voting_html.find('input.trigger').attr({
+                        'value' : obj.input_txt,
+                        'class' : obj.input_cls
+                    });
                     form.find('p').text(obj.message);
                     form.attr('action',action.replace(/[a-z]{6,9}$/,obj.url_suffix));
                     voting_html.css('visibility','');
