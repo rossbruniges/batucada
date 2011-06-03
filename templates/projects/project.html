@@ -133,6 +133,13 @@
 
 <div id="main">
   {% if challenges %}
+  {% if project.slug == "mojo" %}
+  <div class="voting-info">
+  <p>Voting for our three challenges is now open so now is the time to let us know your favourites.</p>
+
+  <p>Let the judges know which of the ideas in each of the challenges you like and then maybe your favourite will get made!</p>
+  </div>
+  {% endif %}
   <div id="challenge_header" class="challenges">
     <h2>{{ _('Challenges') }}</h2>
     <ul>
