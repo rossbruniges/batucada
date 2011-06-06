@@ -14,10 +14,11 @@ class Command(BaseCommand):
                             quoting=csv.QUOTE_MINIMAL)
         submissions = Submission.objects.filter(is_published=True)
         encode = lambda s: s and s.encode('utf-8') or s
-        writer.writerow(('Title', 'Summary', 'Description', 'Keywords', 'Bio',
-                  'Challenge', 'Created on', 'Created by', 'Profile Bio'))
+        writer.writerow(('Id', 'Title', 'Summary', 'Description', 'Keywords',
+                         'Bio', 'Challenge', 'Created on', 'Created by',
+                         'Profile Bio'))
         for s in submissions:
-            writer.writerow((encode(s.title), encode(s.summary),
+            writer.writerow((s.id, encode(s.title), encode(s.summary),
                       encode(s.description), encode(s.keywords), encode(s.bio),
                       encode(s.get_challenge().title),
                       encode(s.created_on.isoformat()),
