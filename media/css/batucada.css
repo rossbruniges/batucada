@@ -2609,7 +2609,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     margin-top: 6px;
 }
 #challenge_landing .post-contents .details {
-    min-height: 220px;
+    min-height: 230px;
 }
 #submission_show #votes .details {
     display: none;
