@@ -2533,6 +2533,11 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     box-shadow: none;
     -webkit-box-shadow: none;
 }
+#challenge_landing section .challenge_sup {
+    float: left;
+    width: 650px;
+}
+}:
 #challenge_landing #main {
     margin-left: 0;
     width: auto;
@@ -2723,7 +2728,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     float: left;
 }
 /* expando areas */
-div.expando {
+.js div.expando {
     display: none;
 }
 a#expandr {

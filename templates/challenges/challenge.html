@@ -73,6 +73,7 @@
     </dl>
     {% endif %}
     </header>
+    <div class="challenge_sup">
    {% if challenge.above_fold %}
     {{ challenge.above_fold|safe }}
   {% endif %} 
@@ -83,6 +84,7 @@
     {{ challenge.brief|safe }}
   {% endif %} 
   <p><a  href="{% locale_url challenges_show_full slug=challenge.slug %}">Read the full challenge brief</a></p>
+  </div>
   </div>  
   </section>
 
