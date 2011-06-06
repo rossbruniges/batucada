@@ -2611,7 +2611,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #challenge_landing .post-contents .details {
     min-height: 220px;
 }
-#submission_show .submission .details {
+#submission_show #votes .details {
     display: none;
 }
 #votes .submission .voting {
@@ -2691,6 +2691,12 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 }
 .submission #ajax_space .meta p {
     margin-bottom: 1em;
+}
+.submission div.ajax_copy img {
+    width: 680px;
+}
+#submission_show div.ajax_copy img {
+    width: 620px;
 }
 #browse {
     margin: 1em 0;
