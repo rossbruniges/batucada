@@ -47,7 +47,7 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
                 <h4>
                     <img src="{{ MEDIA_URL }}images/mojo/challenge3-image.png" width="115" height="86" alt="" />
                     <em>People powered news</em>
-                    {var} submitted ideas
+                    {{ counts.openwebskillerapp }} submitted ideas
                 </h4>
                 </a>
                 <p>How would you involve the public in the newsmaking, editing or sharing process? The primary constraint; use HTML5 and native web technologies.</p>
@@ -56,7 +56,7 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
                 <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">
                    <h4> <img src="{{ MEDIA_URL }}images/mojo/challenge2-image.png" width="115" height="86" alt="" />
                     <em>Beyond comments</em>
-                    {var} submitted ideas
+                    {{ counts.beyondcommentthreads }} submitted ideas
                 </h4>
                 </a>
                 <p>The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
@@ -66,7 +66,7 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
                 <h4>
                     <img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="86" alt="" />
                     <em>Unlocking video</em>
-                    {var} submitted ideas
+                    {{ counts.unlockingvideo }} submitted ideas
                 </h4>
                 </a>
                 <p>Video is a central part of many people's daily news experience. But most online video is still stuck in a boring embedded box, like "TV on a web page." How do we make web video more like the web?</p>

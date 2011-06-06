@@ -51,17 +51,15 @@ def journalism(request):
     feed_url = getattr(settings, 'FEED_URLS', None)
     if feed_url and 'mojo' in feed_url:
         feed_url = feed_url['mojo']
-    # TODO - automatically determine the current challenge
-    try:
-        current_challenge = Challenge.objects.get(slug='beyond-comment-threads')
-        recent_submissions = Submission.objects.filter(
-            challenge=current_challenge).order_by('-created_on')[0:3]
-    except:
-        current_challenge = None
-        recent_submissions = None
+    slugs = ('open-webs-killer-app', 'beyond-comment-threads',
+             'unlocking-video')
+    counts = {}
+    for slug in slugs:
+        challenge = Challenge.objects.get(slug=slug)
+        key = slug.replace('-', '')
+        counts[key] = Submission.objects.filter(challenge=challenge).count()
     return render_to_response('drumbeat/journalism/index.html', {
         'feed_entries': feed_entries,
         'feed_url': feed_url,
-        'current_challenge': current_challenge,
-        'recent_submissions': recent_submissions,
+        'counts': counts,
     }, context_instance=RequestContext(request))
