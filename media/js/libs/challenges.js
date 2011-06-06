@@ -78,14 +78,27 @@ batucada.challenges = function() {
         }
     };
     randomizr = function() {
-        var moar, num_entries; 
+        var moar, num_entries, loader, messages; 
         moar =  $('<div id="browse"><button>Show me more ideas</button><p>Those are all the ideas for this challenge - <a href="'+ window.location.href +'">Start again</a></p></div>').insertAfter(votes);
+        messages = {
+            'loading':'Loading in more ideas',
+            'error':'Hmm, something has gone wrong. Give it another go...'
+        };
+        loader = $('<div id="loader"><p>' + messages.loading + '</p></div>').insertBefore(votes).css({
+            'height':votes.height() + 'px',
+            'position':'absolute'
+        });
         num_entries = votes.attr('data-total-votes');
         // add in the exclude list
         votes.attr('data-excludes','');
         // click event for the moar button
         moar.find('button').bind('click', function() {
+            var timer;
             votes.css('visibility','hidden');
+            // only show this if there is an actual wait
+            timer = setTimeout(function() {
+                loader.css('display','block');
+            }, 500);
             var excludes = votes.attr('data-excludes'),
             tmp;
             if (excludes !== "") {
@@ -110,6 +123,8 @@ batucada.challenges = function() {
                             if (data.submissions.length < 4) {
                                 moar.addClass('restart');
                             }
+                            window.clearTimeout(timer);
+                            loader.css('display','none');
                             votes.html(tmp).attr("style", "");
                         }
                     });
