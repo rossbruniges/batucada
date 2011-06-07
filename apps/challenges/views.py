@@ -505,9 +505,9 @@ def show_submission(request, slug, submission_id):
         raise Http404
 
     if not submission.is_published:
+        user = request.user.get_profile()
         if not user.is_authenticated():
             raise Http404
-        user = request.user.get_profile()
         if user != submission.created_by:
             raise Http404
 
