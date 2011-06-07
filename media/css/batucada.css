@@ -394,7 +394,7 @@ header {}
       
       .menu ul {
         position: absolute;
-        z-index: 0;
+        z-index: 5;
         display: none;
         margin: 0;
         padding: 0;
@@ -414,7 +414,7 @@ header {}
           border-bottom: 1px solid #20699d;
         }
         .menu.open ul {
-          z-index: 2;
+          z-index: 5;
           display: block;
           box-shadow: #777 2px 4px 6px;
           -webkit-box-shadow: #777 2px 4px 6px;
