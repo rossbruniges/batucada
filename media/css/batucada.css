@@ -2679,7 +2679,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #ajax_space {
     display: none;
 }
-.submission #ajax_space {
+.expanded #ajax_space {
     padding: 8px 8px 8px 14px;
     display: block;
     float: left;
@@ -2690,6 +2690,13 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     position:relative;
     z-index:1;
     margin-left: -1px;
+}
+#ajax_space .feedback {
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 30px;
+    background: transparent url(/media/images/ajax-loader.gif) no-repeat 0 2px;
+    margin-bottom: 0;
 }
 .submission #ajax_space .meta {
     margin-top: 1em;

@@ -4,15 +4,22 @@ batucada.challenges = function() {
     var votes = $('#votes'), body_id = $('body').attr('id'), init, randomizr, vote_up, load_ideas, expandr;
     load_ideas = {
         load_content : function(url, dest) {
-            var ajax_loader = $('#ajax_space');
+            var ajax_loader = $('#ajax_space'),
+                timer;
             if (!ajax_loader.length) {
                 ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
             }
+            timer = window.setTimeout(function() {
+                 ajax_loader.append('<p class="feedback">Loading content</p>');
+            },500);
+            ajax_loader.appendTo(dest);
+            dest.addClass('expanded');
             ajax_loader.load(url + ' div.ajax_copy', function() {
-                ajax_loader.appendTo(dest);
+                clearTimeout(timer);
+                // ajax_loader.appendTo(dest);
                 ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
                 ajax_loader.fadeIn('fast', function() {
-                    dest.addClass('expanded')
+                   // dest.addClass('expanded')
                 });
             });
         },
@@ -54,6 +61,7 @@ batucada.challenges = function() {
             action = form.attr('action');
             csrf = form.find('input[name="csrfmiddlewaretoken"]').attr('value');
             voting_html = form.parent();
+            voting_html.find('span.score').html('<img src="/media/images/ajax-loader.gif" height="16" width="16" />');
             $.ajax({
                 type:"POST",
                 dataType:"json",
@@ -66,7 +74,7 @@ batucada.challenges = function() {
                         obj = vote_up.text_values.up;
                     }
                     voting_html.css('visibility','hidden');
-                    voting_html.find('span.score').text(data.score.num_votes);
+                    voting_html.find('span.score').html(data.score.num_votes);
                     voting_html.find('input.trigger').attr({
                         'value' : obj.input_txt,
                         'class' : obj.input_cls
@@ -187,6 +195,7 @@ batucada.challenges = function() {
                     $('#ajax_space').fadeOut('normal', function() {
                         parent.removeClass('expanded');
                         parent.siblings().fadeIn('normal');
+                        $(this).attr('style','').html('');
                      });
                 }
             });
