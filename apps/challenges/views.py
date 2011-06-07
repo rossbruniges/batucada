@@ -310,7 +310,7 @@ def voting_get_more(request, slug):
     response = []
     for submission in submissions:
         response.append(
-            render_to_string('challenges/_submission_resource.html',
+            render_to_string('challenges/_voting_resource.html',
                              {'submission': submission,
                               'challenge': challenge,
                               'full_data':'false',
