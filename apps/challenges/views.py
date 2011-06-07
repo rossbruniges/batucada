@@ -170,7 +170,12 @@ def show_challenge(request, slug):
         },
         order_by=['-created_on']
     )
-    paginator = Paginator(submission_set, 4)
+    if challenge.allow_voting:
+        paginator = Paginator(submission_set, 4)
+        tmpl = 'challenges/challenge_voting.html'
+    else:
+        paginator = Paginator(submission_set, 10)
+        tmpl = 'challenges/challenge.html'
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -200,7 +205,7 @@ def show_challenge(request, slug):
         'full_data': 'false'
     }
 
-    return render_to_response('challenges/challenge.html', context,
+    return render_to_response(tmpl, context,
                               context_instance=RequestContext(request))
 
 
@@ -305,7 +310,7 @@ def voting_get_more(request, slug):
     response = []
     for submission in submissions:
         response.append(
-            render_to_string('challenges/_submission_resource.html',
+            render_to_string('challenges/_voting_resource.html',
                              {'submission': submission,
                               'challenge': challenge,
                               'full_data':'false',

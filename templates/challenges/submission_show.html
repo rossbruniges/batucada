@@ -31,11 +31,13 @@
 <div id="main">
 <section class="submission">
   <article>
+{% if challenge.allow_voting %}
 <div id="votes">
   <div class="submission">
-{% include "challenges/_submission_resource.html" %}  
+{% include "challenges/_voting_resource.html" %}  
  </div>
  </div>
+ {% endif %}
 
     <h1 id="challenge-title">{{ submission.title }}</h1>
     <div class="post-details">
