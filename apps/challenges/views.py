@@ -209,7 +209,8 @@ def show_all_submissions(request, slug):
     qn = connection.ops.quote_name
     ctype = ContentType.objects.get_for_model(Submission)
 
-    submission_set = challenge.submission_set.filter(is_published=True).extra(select={'score': """
+    submission_set = challenge.submission_set.filter(
+        is_published=True).extra(select={'score': """
         SELECT SUM(vote)
         FROM %s
         WHERE content_type_id = %s
@@ -283,6 +284,7 @@ def contact_entrants(request, slug):
         'challenge': challenge,
     }, context_instance=RequestContext(request))
 
+
 def voting_get_more(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
     if not challenge.allow_voting:
@@ -307,7 +309,7 @@ def voting_get_more(request, slug):
             render_to_string('challenges/_submission_resource.html',
                              {'submission': submission,
                               'challenge': challenge,
-                              'full_data':'false',
+                              'full_data': 'false',
                               'profile': profile},
                             context_instance=RequestContext(request)))
 
