@@ -388,7 +388,7 @@ header {}
           padding-right: 3px;
           border-right: 1px solid #666;
         }
-        #user-nav #logout {
+        #user-nav li:last-child {
             border-right: none;
         }
       
