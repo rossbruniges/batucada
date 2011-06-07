@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load l10n_tags %}
+
+{% block title %}{{ challenge.title }}{% endblock %}
+
+{% block links %}
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
+{% endblock %}
+
+{% block js %}
+  <script src="{{ MEDIA_URL }}js/libs/video.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    VideoJS.setupAllWhenReady();
+  </script>
+{% endblock %}
+
+{% block breadcrumbs %}
+
+<!--let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')" --!>
+
+<!--instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges --!>
+
+
+<div class="container">
+    
+  <nav>
+    <a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a>
+    <span class="arrow">&rsaquo;</span>
+    <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
+    <span class="arrow">&rsaquo;</span>
+    <a href="{% locale_url challenges_show slug=challenge.slug %}">{{ challenge.title }}</a>
+  </nav>
+  
+  <div id="project-actions">
+    {% if user.get_profile == challenge.created_by %}
+    <a class="button" href="{% locale_url challenges_edit slug=challenge.slug %}">{{ _('Edit Challenge') }}</a>
+    <a class="button" href="{% locale_url challenges_contact_entrants slug=challenge.slug %}">{{ _('Contact Entrants') }}</a>
+
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block bodyid %}challenge_landing{% endblock %}
+{% block body %}
+
+<div id="sidebar">
+<section id="challenge" class="panel">
+    <header>
+    <h1 id="challenge-title">{{ challenge.title }}</h1>    
+    {% if challenge.project.slug != 'mojo' %}
+    <h2 id="project-name">
+      <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
+    </h2>
+    {% endif %}
+    {% if challenge.project.slug == 'mojo' %}
+    <h2 id="project-name">
+      A challenge from  <a href="{% locale_url drumbeat_journalism %}">{{ challenge.project.name }}</a> 
+    </h2>
+    {% endif %}
+{% if challenge.image %}
+  <img src="{{ challenge.image.url }}" alt="{{ challenge }} image" width="300"/>  
+  {% endif %}
+
+    {% if challenge.is_active %}
+    <dl id="project-stats">
+      <dt>{{ _('Start date') }}:</dt>
+      <dd>{{ challenge.start_date|date:"F d, Y" }}</dd>
+
+      <dt>{{ _('End date') }}:</dt>
+      <dd>{{ challenge.end_date|date:"F d, Y" }}</dd>      
+    </dl>
+    {% endif %}
+    </header>
+    <div class="challenge_sup">
+   {% if challenge.above_fold %}
+    {{ challenge.above_fold|safe }}
+  {% endif %} 
+  <div class="challenge_brief{% if challenge.above_fold  %} expando{% endif %}">
+  {% if challenge.sidebar %}
+    {{ challenge.sidebar|safe }}
+  {% else %}
+    {{ challenge.brief|safe }}
+  {% endif %} 
+  <p><a  href="{% locale_url challenges_show_full slug=challenge.slug %}">Read the full challenge brief</a></p>
+  </div>
+  </div>  
+  </section>
+
+</div>
+<div id="main">
+   {% if challenge.is_active %}
+  <p>{{ remaining.days }} days to respond to this challenge</p>
+
+  {% if user.is_authenticated %}
+  <div id="create-post" class="expanded">
+    <div class="post-container">
+      <form action="{% locale_url submissions_create slug=challenge.slug %}" method="post" id="post-challenge-summary">
+	      {% csrf_token %}
+	      <input type="text" value="{{ _("What's your idea?") }}">
+	      <textarea name="summary" title=""></textarea>
+	      
+	      <div class="status-and-actions">
+	        <div class="post-char-count">750</div>
+	        
+	        <ul class="post-tags">
+	          <li><span>{{ challenge.title }}</span></li>
+	        </ul>
+          
+          <button class="button update submit" id="post-challenge">{{ _('Continue') }}</button>
+          
+	      </div> <!-- /.status-and-actions -->
+	    </form>
+    </div> <!-- /.post-container -->
+  </div> <!-- /.#create-post -->
+  {% else %}
+  <p>Want to participate? You should <a href="{% locale_url users_login %}">sign in</a>.</p>
+  {% endif %}
+  {% else %}
+    {% if challenge.allow_voting %}
+    <div class="voting-info">
+        <h2>Voting is now open</h2>
+        <p>Welcome to crowd evaluation. You can vote up ideas and leave comments for the authors. <strong>Voting ends June 16th</strong>.</p>
+
+      <p><a href="{% locale_url drumbeat_journalism %}">Learn more about MoJo</a><p>
+        </div>
+        {% else %}
+         This challenge is currently closed to new entries.
+     <h2>{{ _('Newest Ideas') }}</h2>
+    {% endif %} 
+  {% endif %}
+  
+  {% if submissions.object_list %}
+<h2>Ideas</h2>
+  <ul id="votes" data-total-votes="{{ nsubmissions }}">
+    {% for submission in submissions.object_list %}
+    <li class="submission">
+    {% include "challenges/_voting_resource.html" %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if submissions.paginator.num_pages > 1 %}
+  <div class="pagination">
+      {% if submissions.has_previous %}
+      <a href="?page={{ submissions.previous_page_number }}" class="btn">← prev</a>
+      {% else %}
+	  <span class="btn">← prev</span>
+	  {% endif %}
+      
+      <em>
+        Page {{ submissions.number }} of {{ submissions.paginator.num_pages }}
+      </em>
+      
+      {% if submissions.has_next %}
+      <a href="?page={{ submissions.next_page_number }}" class="btn">next →</a>
+	  {% else %}
+	  <span class="btn">next →</span>
+      {% endif %}
+  </div>
+  {% endif %}
+  <p><a href="{% locale_url all_submissions slug=challenge.slug %}">Browse all {{ nsubmissions }} submissions</a></p>
+</div>
+{% endblock %}
+
