@@ -164,7 +164,7 @@ batucada.challenges = function() {
     };
     init = function() {
         if (votes.length) {
-            if (body_id === "challenge_landing") {
+            if (body_id === "voting_landing") {
                 if (votes.find('li.submission').length <= votes.attr('data-total-votes')) {
                     randomizr();
                 }
@@ -178,7 +178,7 @@ batucada.challenges = function() {
                     vote_up.vote(elm);
                     return false;
                 }
-                if (elm.is('a.more') && $('body').is('#challenge_landing')) {
+                if (elm.is('a.more') && $('body').is('#voting_landing')) {
                     load_ideas.pull(elm);
                     return false;
                 }
