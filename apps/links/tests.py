@@ -189,25 +189,3 @@ class TestLinkParsing(TestCase):
         handler = tasks.HandleNotification()
         handler.run(parsed, sub)
         self.assertEqual(Activity.objects.count(), count + 1)
-
-    def test_broadcast_link_feed(self):
-        """Test subscription to link feed is created if user wants to broadcast that feed."""
-        urllib2.urlopen = mock_open_success
-        count = Subscription.objects.count()
-        Link.objects.create(
-            name='foo',
-            url='http://blah',
-            user=self.user,
-            broadcast=True)
-        self.assertEqual(Subscription.objects.count(), count + 1)
-
-    def test_do_not_broadcast_link_feed(self):
-        """Test subscription to link feed is not created if user does not want to broadcast that feed."""
-        urllib2.urlopen = mock_open_success
-        count = Subscription.objects.count()
-        Link.objects.create(
-            name='foo',
-            url='http://blah/',
-            user=self.user,
-            broadcast=False)
-        self.assertEqual(Subscription.objects.count(), count)
