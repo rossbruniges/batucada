@@ -69,27 +69,27 @@
           </ul>
         </nav>
         <nav id="user-nav">
-          {% if user.is_authenticated %}
-            <ul>
-              <li id="user" class="menu">
-                <a href="#" id="user-link" class="top-level">
-                  {% if user.get_profile %}
-                    <img id="user-picture" src="{{ MEDIA_URL }}{{ user.get_profile.image_or_default }}" height="19" width="19">
-                  {% else %}
-                    <img id="user-picture" src="{{ MEDIA_URL }}images/member-missing.png" height="19" width="19">
-                  {% endif %}
-                  <span id="user-name">{{ user.get_profile.username }}</span>
-                </a>
-                <ul id="user-actions">
-                  <li><a href="{% locale_url dashboard_index %}">{{ _('Your Dashboard') }}</a></li>
-                  <li><a href="{{ user.get_profile.get_absolute_url }}">{{ _('Your Profile') }}</a></li>
-                  <li><a href="{% locale_url preferences_settings %}">{{ _('Account Settings') }}</a></li>
-                  <li><a href="https://donate.mozilla.org/page/contribute/openwebfund">{{ _('Donate to Drumbeat') }}</a></li>
-                </ul>
-              </li> <!-- /#user -->
-	    <li class="separator ir"></li>
+	{% if user.is_authenticated %}
+	  <ul>
+	    <li id="user" class="menu">
+	      <a href="{{ user.get_profile.get_absolute_url }}" id="user-link" class="top-level trigger">
+		{# todo - come up with something better than image_or_default as profile isn't guaranteed to exist. #}
+		{% if user.get_profile %}
+		<img id="user-picture" src="{{ MEDIA_URL }}{{ user.get_profile.image_or_default }}" height="19" width="19">
+		{% else %}
+		<img id="user-picture" src="{{ MEDIA_URL }}images/member-missing.png" height="19" width="19">
+		{% endif %}
+		<span id="user-name">{{ user.get_profile.username }}</span>
+	      </a>
+	      <ul id="user-actions">
+		<li><a href="{% locale_url dashboard_index %}">{{ _('Your Dashboard') }}</a></li>
+		<li><a href="{{ user.get_profile.get_absolute_url }}">{{ _('Your Profile') }}</a></li>
+		<li><a href="{% locale_url preferences_settings %}">{{ _('Account Settings') }}</a></li>
+		<li><a href="https://donate.mozilla.org/page/contribute/openwebfund">{{ _('Donate to Drumbeat') }}</a></li>
+	      </ul>
+	    </li> <!-- /#user -->
 	    <li id="inbox" class="menu">
-	      <a href="#" id="inbox-link" class="top-level">
+	      <a href="{% locale_url drumbeatmail_inbox %}" id="inbox-link" class="top-level trigger">
 		{{ _('Inbox') }}
 		{% if messages_inbox_count > 0 %}
 		  <span id="inbox-count" class="new-messages">{{ messages_inbox_count }}</span>
@@ -109,7 +109,6 @@
 		</li>
 	      </ul> <!-- /#inbox-messages -->
 	    </li> <!-- /#inbox -->
-	    <li class="separator ir"></li>
 	    <li id="logout">
 	      <a class="top-level" href="{% locale_url users_logout %}">Sign Out</a>
 	    </li>
@@ -119,9 +118,9 @@
 	    <li><a class="top-level" href="{{ login_with_redirect_url }}">{{ _('Sign in') }}</a></li>
 	    <li><a class="top-level" href="{{ register_with_redirect_url }}">{{ _('Sign up') }}</a></li>
 	  </ul>
-          {% endif %}
-        </nav> <!-- /#user-nav -->
-      </div> <!-- /.container -->
+	  {% endif %}
+	</nav> <!-- /#user-nav -->
+              </div> <!-- /.container -->
     </div> <!-- /#masthead -->
   </header>
 {% block body %}{% endblock %}
