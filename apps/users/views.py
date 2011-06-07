@@ -433,10 +433,6 @@ def profile_edit_links(request):
             messages.success(request, _('Profile link added.'))
             link = form.save(commit=False)
             log.debug("User instance: %s" % (profile.user,))
-
-            if request.POST.get('broadcast', None):
-               link.broadcast = True
-
             link.user = profile
             link.save()
             return http.HttpResponseRedirect(

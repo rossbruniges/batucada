@@ -213,10 +213,6 @@ def edit_links(request, slug):
             link = form.save(commit=False)
             link.project = project
             link.user = project.created_by
-
-            if request.POST.get('broadcast', None):
-               link.broadcast = True
-
             link.save()
             messages.success(request, _('Project link added.'))
             return http.HttpResponseRedirect(
