@@ -5,7 +5,6 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection
-from django.db.models import Q
 from django.db.utils import IntegrityError
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseForbidden, Http404)
