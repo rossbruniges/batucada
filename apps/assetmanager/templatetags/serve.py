@@ -11,4 +11,8 @@ def serve(type, area):
     else:
         files = settings.ASSETS[type][area]['live']
 
-    return {'files':files, 'type':type}
+    return {
+        'files':files, 
+        'type':type,
+        'root':settings.MEDIA_URL
+    }

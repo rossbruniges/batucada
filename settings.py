@@ -140,6 +140,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
+    'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'drumbeat.context_processors.django_conf',
     'messages.context_processors.inbox',
@@ -216,31 +217,30 @@ SPLASH_PAGE_FEED = 'http://planet.drumbeat.org/atom.xml'
 ASSETS = {
     'css':{
         'site' : {
-            'dev':('/media/css/style.css','/media/css/batucada.css'),
-            'live':('/media/css/packs/site.min.css',)
+            'dev':(
+                'css/style.css',
+                'css/batucada.css'
+            ),
+            'live':('css/packs/site.min.css',)
         }
     },
     'js':{
         'styling' : {
             'dev':(
-                '/media/fonts/MuseoSans500/MuseoSans500.js',
-                '/media/js/libs/modernizr-1.6.min.js'
+                'fonts/MuseoSans500/MuseoSans500.js',
+                'js/libs/modernizr-1.6.min.js'
             ),
-            'live':(
-                '/media/js/packs/styling.js',
-            )
+            'live':('js/packs/styling.js',)
         },
         'code' : {
             'dev':(
-                '/media/js/libs/LAB.min.js',
-                '/media/js/libs/jquery-1.4.2.min.js',
-                '/media/js/libs/jquery.easing.1.3.js',
-                '/media/js/plugins.js',
-                '/media/js/script.js'
+                'js/libs/LAB.min.js',
+                'js/libs/jquery-1.4.2.min.js',
+                'js/libs/jquery.easing.1.3.js',
+                'js/plugins.js',
+                'js/script.js'
             ),
-            'live':(
-                '/media/js/packs/libs.js',
-            )
+            'live':('js/packs/libs.js',)
         }
     }
 }
