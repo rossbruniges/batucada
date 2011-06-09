@@ -24,7 +24,11 @@ class Command(BaseCommand):
                     if fn.endswith('.min.%s' % ftype):
                         files_all.append(fn)
                     else:
-                        comp_fn = '%s/tmp/%s' % (ftype, '%s.min' % fn.split('/')[-1])
+                        tmp_location = '%s/tmp' % ftype
+                        if not os.path.exists(path(tmp_location)):
+                            os.makedirs(path(tmp_location))
+                            print 'Creating %s to store compressed files' % path(tmp_location)
+                        comp_fn = '%s/%s' % (tmp_location, '%s.min' % fn.split('/')[-1])
                         call('java -jar %s %s -o %s' % (path_to_jar, path(fn), path(comp_fn)), shell=True, stdout=PIPE)
                         files_all.append(comp_fn)
                 
