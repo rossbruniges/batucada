@@ -168,7 +168,7 @@ def show_challenge(request, slug):
         """ % (qn(Vote._meta.db_table), ctype.id,
                qn(Submission._meta.db_table))
         },
-        order_by=['-created_on']
+        order_by=['?']
     )
     paginator = Paginator(submission_set, 4)
 
