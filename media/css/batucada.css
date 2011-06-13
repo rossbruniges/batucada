@@ -77,9 +77,10 @@ a.button,
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	background: #f6f6f6;
-	background: -moz-linear-gradient(top,#f6f6f6,#e8e8e8);
-	background: -webkit-gradient(linear,0 top,0 bottom,from(#f6f6f6),to(#e8e8e8));
-	-pie-background: linear-gradient(top,#f6f6f6,#e8e8e8);
+    background: -moz-linear-gradient(top,#f6f6f6,#e8e8e8);
+    background: -webkit-gradient(linear,0 top,0 bottom,from(#f6f6f6),to(#e8e8e8));
+	background: -o-linear-gradient(top,#f6f6f6,#e8e8e8);
+    -pie-background: linear-gradient(top,#f6f6f6,#e8e8e8);
 	box-shadow:
 		inset 1px 1px rgba(255,255,255,1), 
 		inset -1px -1px 1px rgba(0,0,0,0.1);
@@ -118,9 +119,10 @@ button[type=submit],
 button:hover,
 input[type=button]:hover,
 .button:hover{
-	background: -moz-linear-gradient(top,#fff,#f6f6f6);
-    -pie-background: linear-gradient(top,#fff,#f6f6f6);
-	background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f6f6f6));
+	 background: -moz-linear-gradient(top,#fff,#f6f6f6);
+   -pie-background: linear-gradient(top,#fff,#f6f6f6);
+	background: -o-linear-gradient(top,#fff,#f6f6f6);
+    background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f6f6f6));
 	}
 button:focus,
 input[type=button]:focus,
@@ -386,13 +388,13 @@ header {}
           padding-right: 3px;
           border-right: 1px solid #666;
         }
-        #user-nav #logout {
+        #user-nav li:last-child {
             border-right: none;
         }
       
       .menu ul {
         position: absolute;
-        z-index: 0;
+        z-index: 5;
         display: none;
         margin: 0;
         padding: 0;
@@ -412,7 +414,7 @@ header {}
           border-bottom: 1px solid #20699d;
         }
         .menu.open ul {
-          z-index: 2;
+          z-index: 5;
           display: block;
           box-shadow: #777 2px 4px 6px;
           -webkit-box-shadow: #777 2px 4px 6px;
@@ -1338,23 +1340,25 @@ header {}
 			vertical-align: middle;
 			}
 		.modal .link.url{
-			width: 246px;
+			width: 334px;
 			padding: 0;
 			}
 		.modal .links input[type=text] {
 			width: 154px;
 			}
 		.modal .links .url input[type=text] {
-			width: 221px;
+			width: 316px;
 		}
 		.modal .links .add-link {
 			display: inline-block;
-			margin-bottom: 13px;
-			vertical-align: middle;
+			margin-bottom: 18px;
+		}
+		.modal .links .add-link label {
+			display: inline-block;
+			width: 423px;
 		}
 		.modal .links .add-link button {
-			margin-top: 17px;
-			margin-bottom: 5px;
+			vertical-align: middle;
 		}
     #editing table, 
 		.modal .links table {
@@ -2506,10 +2510,10 @@ div.voting div.score {
 /*
 CHALLENGE TEMPLATE WITH OPEN VOTING
 */
-.js #challenge_landing .pagination {
+.js #voting_landing .pagination {
     display:none;
 }
-#challenge_landing #sidebar {
+#voting_landing #sidebar {
     width: 960px;
     margin-bottom: 1em;
 }
@@ -2522,22 +2526,22 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     font-size: 16px;
     margin-bottom: 0.8em;
 }
-#challenge_landing #sidebar header {
+#voting_landing #sidebar header {
     float: left;
     margin-right: 10px;
     width: 300px;
 }
-#challenge_landing #sidebar section {
+#voting_landing #sidebar section {
     float: right;
     border-bottom: none;
     box-shadow: none;
     -webkit-box-shadow: none;
 }
-#challenge_landing section .challenge_sup {
+#voting_landing section .challenge_sup {
     float: left;
     width: 650px;
 }
-#challenge_landing #main {
+#voting_landing #main {
     margin-left: 0;
     width: auto;
 }
@@ -2554,7 +2558,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     margin: 0;
     overflow: hidden;
 }
-#challenge_landing #votes {
+#voting_landing #votes {
     width: 960px;
 }
 #votes .submission {
@@ -2563,12 +2567,15 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #votes .expanded {
     margin-right: 0;
 }
-#challenge_landing h2 {
+#voting_landing h2 {
     font-size: 18px;
     margin-bottom: 0.6em;
 }
-#challenge_landing .submission {
+#voting_landing .submission {
     float: left;
+}
+#voting_landing .submission:first-child {
+    margin-left: 0;
 }
 #votes .submission h3 {
     font-size: 16px;
@@ -2593,10 +2600,10 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #submission_show .submission .post-contents {
     padding: 0;
 }
-#challenge_landing .expanded .post-contents {
+#voting_landing .expanded .post-contents {
     border-radius: 6px 0 0 6px;
 }
-#challenge_landing .submission .post-contents {
+#voting_landing .submission .post-contents {
     width: 210px;
     float: left;
 }
@@ -2607,8 +2614,8 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #votes .submission form {
     margin-top: 6px;
 }
-#challenge_landing .post-contents .details {
-    min-height: 230px;
+#voting_landing .post-contents .details {
+    min-height: 260px;
 }
 #submission_show #votes .details {
     display: none;
@@ -2642,14 +2649,16 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     float:right;
 }
 #submission_show .submission .voting {
-    -webkit: border-radius: 6px;
-    -moz-border-radius: 6px;
-    -o-border-radius: 6px;
-    border-radius: 6px;
+    border: none;
     margin: 0;
 }
 #votes .submission .voting p {
     margin-bottom :0;
+}
+#votes .submission .voting .meta {
+    text-align: left;
+    font-weight: normal;
+    font-size: 14px;
 }
 #votes .submission form p {
     font-weight: bold;
@@ -2671,7 +2680,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #ajax_space {
     display: none;
 }
-.submission #ajax_space {
+.expanded #ajax_space {
     padding: 8px 8px 8px 14px;
     display: block;
     float: left;
@@ -2682,6 +2691,13 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     position:relative;
     z-index:1;
     margin-left: -1px;
+}
+#ajax_space .feedback {
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 30px;
+    background: transparent url(/media/images/ajax-loader.gif) no-repeat 0 2px;
+    margin-bottom: 0;
 }
 .submission #ajax_space .meta {
     margin-top: 1em;
@@ -2743,3 +2759,16 @@ a#expandr {
  #expandr.open {
      background-image: url(/media/images/mini_arrow_up.png);
  }
+ /* content loaders */
+ #loader {
+    font-weight: bold;
+    width: 960px;
+    font-size: 18px;
+    display: none;   
+}
+#loader p {
+    padding-left: 40px;
+    width: 300px;
+    margin: 3em auto 0;
+    background: transparent url(/media/images/ajax-loader.gif) no-repeat 0 4px;
+}

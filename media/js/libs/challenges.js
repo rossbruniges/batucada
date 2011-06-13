@@ -4,15 +4,22 @@ batucada.challenges = function() {
     var votes = $('#votes'), body_id = $('body').attr('id'), init, randomizr, vote_up, load_ideas, expandr;
     load_ideas = {
         load_content : function(url, dest) {
-            var ajax_loader = $('#ajax_space');
+            var ajax_loader = $('#ajax_space'),
+                timer;
             if (!ajax_loader.length) {
                 ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
             }
+            timer = window.setTimeout(function() {
+                 ajax_loader.append('<p class="feedback">Loading content</p>');
+            },500);
+            ajax_loader.appendTo(dest);
+            dest.addClass('expanded');
             ajax_loader.load(url + ' div.ajax_copy', function() {
-                ajax_loader.appendTo(dest);
+                clearTimeout(timer);
+                // ajax_loader.appendTo(dest);
                 ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
                 ajax_loader.fadeIn('fast', function() {
-                    dest.addClass('expanded')
+                   // dest.addClass('expanded')
                 });
             });
         },
@@ -54,6 +61,7 @@ batucada.challenges = function() {
             action = form.attr('action');
             csrf = form.find('input[name="csrfmiddlewaretoken"]').attr('value');
             voting_html = form.parent();
+            voting_html.find('span.score').html('<img src="/media/images/ajax-loader.gif" height="16" width="16" />');
             $.ajax({
                 type:"POST",
                 dataType:"json",
@@ -66,7 +74,7 @@ batucada.challenges = function() {
                         obj = vote_up.text_values.up;
                     }
                     voting_html.css('visibility','hidden');
-                    voting_html.find('span.score').text(data.score.num_votes);
+                    voting_html.find('span.score').html(data.score.num_votes);
                     voting_html.find('input.trigger').attr({
                         'value' : obj.input_txt,
                         'class' : obj.input_cls
@@ -78,14 +86,27 @@ batucada.challenges = function() {
         }
     };
     randomizr = function() {
-        var moar, num_entries; 
+        var moar, num_entries, loader, messages; 
         moar =  $('<div id="browse"><button>Show me more ideas</button><p>Those are all the ideas for this challenge - <a href="'+ window.location.href +'">Start again</a></p></div>').insertAfter(votes);
+        messages = {
+            'loading':'Loading in more ideas',
+            'error':'Hmm, something has gone wrong. Give it another go...'
+        };
+        loader = $('<div id="loader"><p>' + messages.loading + '</p></div>').insertBefore(votes).css({
+            'height':votes.height() + 'px',
+            'position':'absolute'
+        });
         num_entries = votes.attr('data-total-votes');
         // add in the exclude list
         votes.attr('data-excludes','');
         // click event for the moar button
         moar.find('button').bind('click', function() {
+            var timer;
             votes.css('visibility','hidden');
+            // only show this if there is an actual wait
+            timer = setTimeout(function() {
+                loader.css('display','block');
+            }, 500);
             var excludes = votes.attr('data-excludes'),
             tmp;
             if (excludes !== "") {
@@ -110,6 +131,8 @@ batucada.challenges = function() {
                             if (data.submissions.length < 4) {
                                 moar.addClass('restart');
                             }
+                            window.clearTimeout(timer);
+                            loader.css('display','none');
                             votes.html(tmp).attr("style", "");
                         }
                     });
@@ -149,7 +172,7 @@ batucada.challenges = function() {
     };
     init = function() {
         if (votes.length) {
-            if (body_id === "challenge_landing") {
+            if (body_id === "voting_landing") {
                 if (votes.find('li.submission').length <= votes.attr('data-total-votes')) {
                     randomizr();
                 }
@@ -163,7 +186,7 @@ batucada.challenges = function() {
                     vote_up.vote(elm);
                     return false;
                 }
-                if (elm.is('a.more') && $('body').is('#challenge_landing')) {
+                if (elm.is('a.more') && $('body').is('#voting_landing')) {
                     load_ideas.pull(elm);
                     return false;
                 }
@@ -172,6 +195,7 @@ batucada.challenges = function() {
                     $('#ajax_space').fadeOut('normal', function() {
                         parent.removeClass('expanded');
                         parent.siblings().fadeIn('normal');
+                        $(this).attr('style','').html('');
                      });
                 }
             });

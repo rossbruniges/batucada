@@ -13,10 +13,28 @@ from activity.models import Activity
 from users.models import UserProfile
 
 
-def mock_open(r):
+class MockFileObject(object):
+    def read(self):
+        return """
+        <html>
+        <head>
+          <title>Test HTML</title>
+          <link rel="alternate" type="application/rss+xml"
+             href="http://example.com/rss">
+        </head>
+        <body>
+           <h1>Test</h1>
+        </body>
+        </html>
+        """
+
+def mock_open_success(url):
+    return MockFileObject()
+
+def mock_open_failure(r):
     return urllib2.HTTPError('request', 204, 'no-op', {}, StringIO(''))
 
-urllib2.urlopen = mock_open
+urllib2.urlopen = mock_open_failure
 urllib2.Request = lambda x, y, z: 'request'
 
 

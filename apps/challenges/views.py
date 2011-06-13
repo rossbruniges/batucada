@@ -5,7 +5,6 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection
-from django.db.models import Q
 from django.db.utils import IntegrityError
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseForbidden, Http404)
@@ -170,7 +169,12 @@ def show_challenge(request, slug):
         },
         order_by=['?']
     )
-    paginator = Paginator(submission_set, 4)
+    if challenge.allow_voting:
+        paginator = Paginator(submission_set, 4)
+        tmpl = 'challenges/challenge_voting.html'
+    else:
+        paginator = Paginator(submission_set, 10)
+        tmpl = 'challenges/challenge.html'
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -200,7 +204,7 @@ def show_challenge(request, slug):
         'full_data': 'false'
     }
 
-    return render_to_response('challenges/challenge.html', context,
+    return render_to_response(tmpl, context,
                               context_instance=RequestContext(request))
 
 
@@ -210,7 +214,8 @@ def show_all_submissions(request, slug):
     qn = connection.ops.quote_name
     ctype = ContentType.objects.get_for_model(Submission)
 
-    submission_set = challenge.submission_set.filter(is_published=True).extra(select={'score': """
+    submission_set = challenge.submission_set.filter(
+        is_published=True).extra(select={'score': """
         SELECT SUM(vote)
         FROM %s
         WHERE content_type_id = %s
@@ -284,6 +289,7 @@ def contact_entrants(request, slug):
         'challenge': challenge,
     }, context_instance=RequestContext(request))
 
+
 def voting_get_more(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
     if not challenge.allow_voting:
@@ -305,10 +311,10 @@ def voting_get_more(request, slug):
     response = []
     for submission in submissions:
         response.append(
-            render_to_string('challenges/_submission_resource.html',
+            render_to_string('challenges/_voting_resource.html',
                              {'submission': submission,
                               'challenge': challenge,
-                              'full_data':'false',
+                              'full_data': 'false',
                               'profile': profile},
                             context_instance=RequestContext(request)))
 
@@ -500,7 +506,7 @@ def show_submission(request, slug, submission_id):
         raise Http404
 
     if not submission.is_published:
-        if not user.is_authenticated():
+        if not request.user.is_authenticated():
             raise Http404
         user = request.user.get_profile()
         if user != submission.created_by:

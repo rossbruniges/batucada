@@ -21,12 +21,16 @@ class Link(models.Model):
     project = models.ForeignKey('projects.Project', null=True)
     user = models.ForeignKey('users.UserProfile', null=True)
     subscription = models.ForeignKey(Subscription, null=True)
+    broadcast = False
 
 
 def link_create_handler(sender, **kwargs):
     """Check for a feed and subscribe to it if it exists."""
     link = kwargs.get('instance', None)
     created = kwargs.get('created', False)
+
+    if not link.broadcast:
+        return
 
     if not created or not isinstance(link, Link):
         return
