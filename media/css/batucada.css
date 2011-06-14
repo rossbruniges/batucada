@@ -2633,6 +2633,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     width: 60px;
     border-radius: 6px;
     border: 1px solid #cfcfcf;
+    behavior: url("/media/css/PIE.htc");
     overflow: hidden;
 }
 #votes .submission .voting h4 {

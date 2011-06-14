@@ -31,11 +31,13 @@ batucada.challenges = function() {
             num_sibs = sibs.length;
             tmp = 0;
             if (num_sibs !== 0) {
-                sibs.fadeOut('normal', function() {
-                    tmp++;
-                    if (tmp === num_sibs) {
-                        load_ideas.load_content(url,parent);
-                    }
+                sibs.each(function() {
+                    $(this).fadeOut('normal', function() {
+                        tmp++;
+                        if (tmp === num_sibs) {
+                            load_ideas.load_content(url,parent);
+                        }
+                    });
                 });
             } else {
                 load_ideas.load_content(url,parent);
