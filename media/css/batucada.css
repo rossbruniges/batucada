@@ -2671,6 +2671,10 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     width: 58px;;
     padding: 4px 4px 4px 20px;
     margin-top: 6px;
+    behavior: none;
+}
+.ie8 #votes .submission .trigger {
+    background-position: 4px 4px;
 }
 #votes .submission .clear {
     background-image : url(/media/images/cancel.png)
