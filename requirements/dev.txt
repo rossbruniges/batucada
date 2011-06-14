@@ -5,5 +5,5 @@ nose==0.11.1
 jinja2==2.5.5  # only required for test-utils
 
 -e git://github.com/jbalogh/django-nose#egg=django-nose
--e git://github.com/jbalogh/test-utils#egg=test-utils
+-e git://github.com/jbalogh/test-utils@c48ce0c5f7d40d8d30baeeb83c4af2091a224c99#egg=test-utils
 -e git://github.com/robhudson/django-debug-toolbar.git#egg=django-debug-toolbar

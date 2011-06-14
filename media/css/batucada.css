@@ -1340,23 +1340,25 @@ header {}
 			vertical-align: middle;
 			}
 		.modal .link.url{
-			width: 246px;
+			width: 334px;
 			padding: 0;
 			}
 		.modal .links input[type=text] {
 			width: 154px;
 			}
 		.modal .links .url input[type=text] {
-			width: 221px;
+			width: 316px;
 		}
 		.modal .links .add-link {
 			display: inline-block;
-			margin-bottom: 13px;
-			vertical-align: middle;
+			margin-bottom: 18px;
+		}
+		.modal .links .add-link label {
+			display: inline-block;
+			width: 423px;
 		}
 		.modal .links .add-link button {
-			margin-top: 17px;
-			margin-bottom: 5px;
+			vertical-align: middle;
 		}
     #editing table, 
 		.modal .links table {

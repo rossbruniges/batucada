@@ -8,19 +8,22 @@
 <p class="hint">{{ _('Add links to websites associated with this project such as a blog, homepage, twitter profile, github repository etc. These links will appear on the project page.') }}</p>
 <form action="{% locale_url projects_edit_links slug=project.slug %}" method="post">
   {% csrf_token %}
-  <p>
-    <div class="field link name{% if form.name.errors %} error{% endif %}">
-      <label for="id_name">{{ _('Name') }}</label>
-      {{ form.name }}
-      {{ form.name.errors }}
-    </div>
-    <div class="field link url{% if form.url.errors %} error{% endif %}">
-      <label for="id_url">{{ _('Url') }}</label>
-      {{ form.url }}
-      {{ form.url.errors }}
-    </div>
-  </p>
-  <p class="buttons add-link">
+  <div class="field link name{% if form.name.errors %} error{% endif %}">
+    <label for="id_name">{{ _('Name') }}</label>
+    {{ form.name }}
+    {{ form.name.errors }}
+  </div>
+  <div class="field link url{% if form.url.errors %} error{% endif %}">
+    <label for="id_url">{{ _('Url') }}</label>
+    {{ form.url }}
+    {{ form.url.errors }}
+  </div>
+  <p class="add-link">
+    <label for="id_broadcast">
+    {{ form.broadcast }}
+    {{ form.broadcast.errors }}
+    {{ _('I want to broadcast activity from this link on Drumbeat.org') }}
+    </label>
     <button type="submit">{{ _('Add') }}</button>
   </p>
 </form>
