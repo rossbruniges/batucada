@@ -17,7 +17,7 @@ batucada.challenges = function() {
             ajax_loader.load(url + ' div.ajax_copy', function() {
                 clearTimeout(timer);
                 // ajax_loader.appendTo(dest);
-                ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button>Close</button></div>');
+                ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button type="button">Close</button></div>');
                 ajax_loader.fadeIn('fast', function() {
                    // dest.addClass('expanded')
                 });
@@ -89,7 +89,7 @@ batucada.challenges = function() {
     };
     randomizr = function() {
         var moar, num_entries, loader, messages; 
-        moar =  $('<div id="browse"><button>Show me more ideas</button><p>Those are all the ideas for this challenge - <a href="'+ window.location.href +'">Start again</a></p></div>').insertAfter(votes);
+        moar =  $('<div id="browse"><button type="button">Show me more ideas</button><p>Those are all the ideas for this challenge - <a href="'+ window.location.href +'">Start again</a></p></div>').insertAfter(votes);
         messages = {
             'loading':'Loading in more ideas',
             'error':'Hmm, something has gone wrong. Give it another go...'
