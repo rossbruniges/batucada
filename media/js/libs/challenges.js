@@ -101,14 +101,13 @@ batucada.challenges = function() {
         votes.attr('data-excludes','');
         // click event for the moar button
         moar.find('button').bind('click', function() {
-            var timer;
+            var timer, excludes, tmp;
             votes.css('visibility','hidden');
             // only show this if there is an actual wait
             timer = setTimeout(function() {
                 loader.css('display','block');
             }, 500);
-            var excludes = votes.attr('data-excludes'),
-            tmp;
+            excludes = votes.attr('data-excludes');
             if (excludes !== "") {
                 tmp = excludes.split(",");
             } else {
@@ -133,7 +132,7 @@ batucada.challenges = function() {
                             }
                             window.clearTimeout(timer);
                             loader.css('display','none');
-                            votes.html(tmp).attr("style", "");
+                            votes.css("visibility", "visible").html(tmp);
                         }
                     });
                 }
