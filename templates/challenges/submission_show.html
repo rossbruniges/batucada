@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load l10n_tags %}
 {% load comments %}
+{% load voting_tags %}
 
 {% block title %}{{ submission.title }}{% endblock %}
 
@@ -35,6 +36,17 @@
 <div id="votes">
   <div class="submission">
 {% include "challenges/_voting_resource.html" %}  
+ </div>
+ </div>
+ {% else %}
+ {% score_for_object submission as score %}
+ <div id="votes">
+ <div class="submission">
+ <div class="post-contents">
+ <div class="voting">
+ <p><span class="score">{{ score.score }}</span> votes received</p>
+ </div>
+ </div>
  </div>
  </div>
  {% endif %}

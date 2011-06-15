@@ -2620,7 +2620,7 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #submission_show #votes .details {
     display: none;
 }
-#votes .submission .voting {
+.submission .voting {
     margin: 0 0 8px 8px;
     padding: 8px;
  background: #FFF9DE;
@@ -2637,14 +2637,18 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     behavior: url("/media/css/PIE.htc");
     overflow: hidden;
 }
-#votes .submission .voting h4 {
+.submission .voting h4 {
     position: absolute;
     left: -9999em;
 }
 .submission .voting p {
-    font-weight: bold;
-    font-size: 24px;
     text-align: center;
+    margin-bottom :0;
+}
+.submission .voting p span {
+    font-weight: bold;
+    display: block;
+    font-size: 24px;
 }
 #submission_show #votes {
     float:right;
