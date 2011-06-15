@@ -158,6 +158,11 @@ def show_challenge(request, slug):
 
     nsubmissions = challenge.submission_set.count()
 
+    if challenge.allow_voting:
+        order = '?'
+    else:
+        order = '-created_on'
+    
     submission_set = challenge.submission_set.filter(is_published=True).extra(
         select={'score': """
         SELECT SUM(vote)
@@ -167,7 +172,7 @@ def show_challenge(request, slug):
         """ % (qn(Vote._meta.db_table), ctype.id,
                qn(Submission._meta.db_table))
         },
-        order_by=['?']
+        order_by=[order]
     )
     if challenge.allow_voting:
         paginator = Paginator(submission_set, 4)
