@@ -277,11 +277,14 @@ header {}
     height: 24px;
     border-bottom: 1px solid #fff;
     background: url("/media/images/masthead.bg.png") repeat-x;
+    min-width: 920px;
   }
     #masthead a:hover {
       text-decoration: none;
     }
-     
+    #masthead .container {
+        width:920px;
+    }
     #logo {
       background-image: url("/media/images/logo.png");
       height: 24px;
