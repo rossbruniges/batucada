@@ -915,6 +915,8 @@ header {}
 		zoom:1;
 		*display:inline;
 		width: 31%;
+        position:relative;
+        height:2em;
 	}
 	.card-list .card dd,
 	.card-list .card dt{
@@ -923,12 +925,16 @@ header {}
 		text-shadow: 1px 1px #fff;
 		-moz-text-shadow: 1px 1px #fff;
 		-webkit-text-shadow: 1px 1px #fff;
+        position:absolute;
+        left: 0;
 	}
 	.card-list .card dd{
 		font-weight:bold;
-	}
+	    top: 0;
+    }
 	.card-list .card dt{
 		color: #919191;
+        top:1.1em;
 	}
 
   

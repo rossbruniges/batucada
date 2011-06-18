@@ -18,13 +18,13 @@
     <div class="description">{{project.short_description}}</div>
   </div>
   <div class="meta">
-    <dl class="followers">
-      <dd>{{project.followers_count}}</dd>
+    <dl class="followers">      
       <dt>{{ _('Followers') }}</dt>
+      <dd>{{project.followers_count}}</dd>
     </dl>
     <dl class="updates">
-      <dd>{{ project.status_set.all|length }}</dd>
-      <dt>{{ _('Updates') }}</dt>
+         <dt>{{ _('Updates') }}</dt>
+        <dd>{{ project.status_set.all|length }}</dd>
     </dl>
   </div>
 </article>
