@@ -32,7 +32,7 @@
 
 {% block body %}
 <div id="sidebar">
-  <section id="project"class="panel">
+  <section id="project" class="panel">
     <h1 id="project-name">{{ project.name }}</h1>
     {% if user.is_authenticated and user.get_profile != project.created_by %}
     <div id="project-follow">
@@ -66,7 +66,7 @@
         {% for file in files %}
           <li id="file_{{ file.id}}">
             <a href="{{ MEDIA_URL }}{{ file.project_file }}">
-              <img src="{{ MEDIA_URL }}{{ file.thumbnail_or_default }}" class="project media" />
+              <img alt="" src="{{ MEDIA_URL }}{{ file.thumbnail_or_default }}" class="project media" />
             </a>
           </li>
         {% endfor %}
@@ -95,7 +95,7 @@
 
   <section id="project-lead" class="panel">
     <a href="{{ project.created_by.get_absolute_url }}">
-      <img class="member-picture" src="{{ MEDIA_URL }}{{ project.created_by.image_or_default }}" height="54" width="54">
+      <img alt="" class="member-picture" src="{{ MEDIA_URL }}{{ project.created_by.image_or_default }}" height="54" width="54">
     </a>
 
     <div class="member-details">

@@ -4,22 +4,23 @@
 {% block title %}{{ challenge.title }}{% endblock %}
 
 {% block links %}
-  <link rel="stylesheet" href="{{ MEDIA_URL }}css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/video-js.css" type="text/css" media="screen" title="Video JS">
 {% endblock %}
 
 {% block js %}
-  <script src="{{ MEDIA_URL }}js/libs/video.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript" charset="utf-8">
+  <script src="{{ MEDIA_URL }}js/libs/video.js" type="text/javascript"></script>
+  <script type="text/javascript">
     VideoJS.setupAllWhenReady();
   </script>
 {% endblock %}
 
 {% block breadcrumbs %}
 
-<!--let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')"--!>
+{% comment %}
+let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')"
 
-<!--instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges--!>
-
+instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges
+{% endcomment %}
 
 <div class="container">
     
