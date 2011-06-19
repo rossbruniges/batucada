@@ -2788,3 +2788,7 @@ a#expandr {
     margin: 3em auto 0;
     background: transparent url(/media/images/ajax-loader.gif) no-repeat 0 4px;
 }
+/* random additions */
+#comments dt {
+    font-weight: bold;
+}

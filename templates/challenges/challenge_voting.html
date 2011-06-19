@@ -16,10 +16,11 @@
 
 {% block breadcrumbs %}
 
-<!--let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')"-->
+{% comment %}
+let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')"
 
-<!--instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges-->
-
+instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges
+{% endcomment %}
 
 <div class="container">
     
