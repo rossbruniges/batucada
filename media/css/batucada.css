@@ -489,8 +489,10 @@ header {}
     background: rgba(255,255,255,0.4);
     font-size: 11px;
     line-height: 31px;
+    min-width: 960px;
   }
     #breadcrumbs nav{
+        margin-left: 20px;
     }
       #breadcrumbs nav .arrow {
         color: #7f7f7f;
