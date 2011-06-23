@@ -13,3 +13,4 @@ celery-schedule
 *.DS_Store
 media/js/tmp
 media/css/tmp
+build.py

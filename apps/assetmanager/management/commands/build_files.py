@@ -7,16 +7,31 @@ from subprocess import call, PIPE
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
+import git
+
 path = lambda *a: os.path.join(settings.MEDIA_ROOT, *a)
 
 class Command(BaseCommand):
     help = ("Compress and concatinate css and js assets held in settings.ASSETS to live file names held in each settings.ASSETS dictionary")
 
+    def update_hashes(self):
+        def gitid(path):
+            id = (git.repo.Repo(os.path.join(settings.ROOT, path)).log('-1')[0].id_abbrev)
+            return id
+
+        build_id_file = os.path.realpath(os.path.join(settings.ROOT, 'build.py'))
+
+        with open(build_id_file, 'w') as f:
+            f.write('BUILD_ID_CSS = "%s"' % gitid('media/css'))
+            f.write("\n")
+            f.write('BUILD_ID_JS = "%s"' % gitid('media/js'))
+            f.write("\n")
+
     def handle(self, **options):
         # point to yui compressor
         jar_path = (os.path.dirname(__file__), '..', '..', 'bin', 'yuicompressor-2.4.6.jar')
         path_to_jar = os.path.realpath(os.path.join(*jar_path))
-
+        
         for ftype, bundle in settings.ASSETS.iteritems():
             for name, files in bundle.iteritems():
                 files_all = []
@@ -40,3 +55,5 @@ class Command(BaseCommand):
                 print '### build_file for %s/%s ###' % (ftype, name)
                 print real_files
                 print 'merged down into %s' % end_file
+
+        self.update_hashes()

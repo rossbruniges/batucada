@@ -1,9 +1,11 @@
 from django import template
 from django.conf import settings
 
+from build import BUILD_ID_CSS, BUILD_ID_JS
+
 register = template.Library()
 
-@register.inclusion_tag('assetmanager/files.html', takes_context = True)
+@register.inclusion_tag('assetmanager/files.html', takes_context=True)
 def serve(context, type, area):
     request = context['request'].GET.get('files')
     if request == "original":
@@ -19,5 +21,9 @@ def serve(context, type, area):
     return {
         'files':files, 
         'type':type,
-        'root':settings.MEDIA_URL
+        'root':settings.MEDIA_URL,
+        'build':{
+            'JS':BUILD_ID_JS,
+            'CSS':BUILD_ID_CSS
+        }
     }
