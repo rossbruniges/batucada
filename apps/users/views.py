@@ -23,6 +23,7 @@ from users.models import UserProfile
 from users.fields import UsernameField
 from users.decorators import anonymous_only, login_required
 from links.models import Link
+from links import forms as link_forms
 from projects.models import Project
 from drumbeat import messages
 from activity.models import Activity
@@ -153,7 +154,21 @@ def login_openid_complete(request):
     r = openid_views.login_complete(
         request, render_failure=render_openid_login_failure)
     if isinstance(r, http.HttpResponseRedirect):
-        user = request.user.get_profile()
+        try:
+            user = request.user.get_profile()
+        except UserProfile.DoesNotExist:
+            user = request.user
+            username = ''
+            if user.username[:10] != 'openiduser':
+                username = user.username
+            form = forms.CreateProfileForm(initial={
+                'display_name': ' '.join((user.first_name, user.last_name)),
+                'email': user.email,
+                'username': username,
+            })
+            return render_to_response('dashboard/setup_profile.html', {
+                'form': form,
+            }, context_instance=RequestContext(request))
         if user.confirmation_code:
             logout(request)
             unconfirmed_account_notice(request, user)
@@ -178,6 +193,11 @@ def logout(request):
 @anonymous_only
 def register(request):
     """Present user registration form and handle registrations."""
+
+    if REDIRECT_FIELD_NAME in request.GET:
+        request = _clean_redirect_url(request)
+        request.session[REDIRECT_FIELD_NAME] = request.GET[REDIRECT_FIELD_NAME]
+
     if request.method == 'POST':
         form = forms.RegisterForm(data=request.POST)
 
@@ -408,7 +428,7 @@ def profile_edit_image(request):
 def profile_edit_links(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':
-        form = forms.ProfileLinksForm(request.POST)
+        form = link_forms.LinksForm(request.POST)
         if form.is_valid():
             messages.success(request, _('Profile link added.'))
             link = form.save(commit=False)
@@ -422,7 +442,7 @@ def profile_edit_links(request):
             messages.error(request, _('There was an error saving '
                                       'your link.'))
     else:
-        form = forms.ProfileLinksForm()
+        form = link_forms.LinksForm()
     links = Link.objects.select_related('subscription').filter(user=profile)
 
     return render_to_response('users/profile_edit_links.html', {

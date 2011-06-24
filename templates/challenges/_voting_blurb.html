@@ -1,0 +1,11 @@
+{% load l10n_tags %}
+
+<div class="voting-info">
+    <h2>Voting is now open</h2>
+    <p>Welcome to crowd evaluation - let us know which of the submissions you like, read the full ideas and leave us any comments.</p>
+    {% if user.is_authenticated %}
+        <p>You have until <strong>19th June</strong> to vote so let us know your favourites.</p>
+    {% else %}
+        <p>You have to be logged into your drumbeat account to vote so please <a href="{{ login_with_redirect_url }}">login</a> or <a href="{% locale_url users_register %}">sign up for an account</a>.</p>
+    {% endif %}
+</div>

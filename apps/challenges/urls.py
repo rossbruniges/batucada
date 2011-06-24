@@ -32,6 +32,8 @@ urlpatterns = patterns('',
 
   url(r'^(?P<slug>[\w-]+)/$', 'challenges.views.show_challenge',
       name='challenges_show'),
+  url(r'^(?P<slug>[\w-]+)/voting/$', 'challenges.views.show_all_submissions',
+  name='all_submissions'),
   url(r'^(?P<slug>[\w-]+)/full$', 'challenges.views.show_challenge_full',
       name='challenges_show_full'),
   url(r'^(?P<slug>[\w-]+)/contact$', 'challenges.views.contact_entrants',
@@ -53,9 +55,12 @@ urlpatterns = patterns('',
   url(r'^(?P<slug>[\w-]+)/submission/(?P<submission_id>\d+)/edit/share/$',
       'challenges.views.edit_submission_share',
       name='submission_edit_share'),
-
+  url(r'^(?P<slug>[\w-]+)/submission/(?P<submission_id>\d+)/delete/$',
+      'challenges.views.delete_submission', name='submission_delete'),
 
   # Voting
+  url(r'^(?P<slug>[\w-]+)/voting/get_more/$',
+      'challenges.views.voting_get_more', name='challenge_voting_get_more'),
   url(r'^submission/(?P<object_id>\d+)/(?P<direction>up|clear)vote/?$',
       vote_on_object, vote_dict, name='submission_vote'),
   url(r'^submission/(?P<submission_id>\d+)/voter_details/',

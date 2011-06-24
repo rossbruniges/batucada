@@ -16,9 +16,9 @@
 
 {% block breadcrumbs %}
 
-<!--let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')" --!>
+<!--let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')"--!>
 
-<!--instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges --!>
+<!--instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges--!>
 
 
 <div class="container">
@@ -84,9 +84,7 @@
   <p>Want to participate? You should <a href="{% locale_url users_login %}">sign in</a>.</p>
   {% endif %}
   {% else %}
-
-  This challenge is currently closed to new entries.
-
+ <p>Crowd evaluation is closed, and the review board has rated the submissions. Stay tuned as we announce challenge winners.</p>
   {% endif %}
   
   {% if submissions.object_list %}
@@ -103,7 +101,7 @@
   <div class="pagination">
       {% if submissions.has_previous %}
       <a href="?page={{ submissions.previous_page_number }}" class="btn">← prev</a>
-      {% else % }
+      {% else %}
 	  <span class="btn">← prev</span>
 	  {% endif %}
       

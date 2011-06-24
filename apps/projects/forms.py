@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 
 from users import tasks
-from links.models import Link
 from projects.models import Project, ProjectMedia
 
 log = logging.getLogger(__name__)
@@ -29,13 +28,6 @@ class ProjectDescriptionForm(forms.ModelForm):
         }
 
 
-class ProjectLinksForm(forms.ModelForm):
-
-    class Meta:
-        model = Link
-        fields = ('name', 'url',)
-
-
 class ProjectImageForm(forms.ModelForm):
 
     class Meta:
@@ -46,7 +38,7 @@ class ProjectImageForm(forms.ModelForm):
         if self.cleaned_data['image'].size > settings.MAX_IMAGE_SIZE:
             max_size = settings.MAX_IMAGE_SIZE / 1024
             raise forms.ValidationError(
-                _("Image exceeds max image size: %(max)dk",
+                _("Image exceeds max image size: %(max)dk" %
                   dict(max=max_size)))
         return self.cleaned_data['image']
 

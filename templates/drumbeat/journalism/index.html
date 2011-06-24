@@ -34,38 +34,58 @@ Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sk
     </div>
     
     <div class="homepage">
-      <div class="container">
+      <div class="container clearfix">
         <div class="column-left">
           <div class="challengebox">
-            <p class="first">
-              Challenge 2:<br />
-              <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}"> <strong>How can we create more dynamic spaces for online news discussion? </strong></a>
-            </p>
-            <br />
-            <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}"> <img style="float: right; margin-top: -10px;" src="{{ MEDIA_URL }}images/mojo/challenge2-image.png" width="190" height="126" alt=""></a>
-            <p class="inner">
-The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
-            <a class="button-white" href="{% locale_url challenges_show slug="beyond-comment-threads" %}"><span>Submit Your Idea</span></a>
-          </div>
-          
-         
+          <h3>Voting is now closed</h3>
+          <p>Crowd evaluation is closed, and the review board has rated the submissions. Stay tuned as we announce challenge winners.</p>
+            <ul class="challenge_list">
+                <li>
+                <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">
+                <h4>
+                    <img src="{{ MEDIA_URL }}images/mojo/challenge3-image.png" width="115" height="86" alt="" />
+                    <em>People powered news</em>
+                    {{ counts.openwebskillerapp }} submitted ideas
+                </h4>
+                </a>
+                <p>How would you involve the public in the newsmaking, editing or sharing process? The primary constraint; use HTML5 and native web technologies.</p>
+                </li>
+                <li>
+                <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">
+                   <h4> <img src="{{ MEDIA_URL }}images/mojo/challenge2-image.png" width="115" height="86" alt="" />
+                    <em>Beyond comments</em>
+                    {{ counts.beyondcommentthreads }} submitted ideas
+                </h4>
+                </a>
+                <p>The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
+                </li>
+                <li>
+                <a href="{% locale_url challenges_show slug="unlocking-video" %}">
+                <h4>
+                    <img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="86" alt="" />
+                    <em>Unlocking video</em>
+                    {{ counts.unlockingvideo }} submitted ideas
+                </h4>
+                </a>
+                <p>Video is a central part of many people's daily news experience. But most online video is still stuck in a boring embedded box, like "TV on a web page." How do we make web video more like the web?</p>
+                </li>
+            </ul>
+        </div>
         </div>
         <div class="column-right">
-          <div class="challengebox">
-            <a href="{% locale_url challenges_show slug="unlocking-video" %}"><img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="83" alt="Challenge 2" style="float:left;"></a>
-            <p class="first">
-              <a href="{% locale_url challenges_show slug="unlocking-video" %}">Challenge 1: Unlock Video</a><br />
-              <p class="inner">Entries closed.</p>
-            </p>
-          </div>
-          <div class="challengebox">
-                       <a href="https://drumbeat.org/en-US/challenges/open-webs-killer-app/"><img src="{{ MEDIA_URL }}images/mojo/smallchallenge3.png" width="115" height="83" alt="Challenge 3" style="float:left;"></a>
-            <p class="first">
-              <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">Challenge 3: Open Web Apps</a><br />
-              <p class="inner">Kicks off May 23rd</a>
-            </p>
-          </div>
-
+          <h3>
+            <a style="float: right;" href="{{ feed_url }}"><img src="{{ MEDIA_URL }}images/feed-icon-16x16.png" width="16" height="16" alt="Feed Icon 16x16"></a>
+            <a href="http://planet.drumbeat.org/mojo/">Community Feed</a>
+          </h3>
+          <div class="rule2"></div>
+          <ul class="feed">
+          {% for entry in feed_entries %}
+            <li>
+            <a href="{{ entry.link }}">{{ entry.title }}</a>
+            <p>{{ entry.body|truncatewords:50 }}</p>
+            </li>
+          {% endfor %}
+          </ul>
         </div>
       </div>
     </div>

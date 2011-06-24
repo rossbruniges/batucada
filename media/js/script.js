@@ -153,10 +153,7 @@ var batucada = {
         } else {
             conext = document.getElementById(context);
             var obj = batucada.areas[context];
-            console.log(context, 'called with context');
-            console.log(typeof context);
         }
-        console.log(obj);
         // check object exists
         if (obj) {
             if (obj.requires && obj.requires.length) {
@@ -426,7 +423,6 @@ jQuery.fn.tabLinks = function(element) {
 };
 
 var initWMD = function(){
-    console.log('init WMD called');
     $('textarea.wmd').not(function(){
         // we need to make sure this textarea hasn't been initialized already
         return ($(this).siblings('.wmd-button-bar').length != 0);
@@ -437,17 +433,30 @@ $(document).ready(function() {
     // dispatch per-page onload handlers using batucada.furnish
     batucada.furnish();
     // attach handlers for elements that appear on most pages
-    $('#user-nav').find('li.menu').bind('click', function(event) {
-		var current = $(this);
+    $('#user-nav').find('a.trigger').bind('click', function(event) {
+		var target = $(this).parent();
 		// close any previously open tab
-		current.parent().find('li.open').removeClass('open');
-        current.toggleClass('open');
+		target.parent().find('li.open').removeClass('open');
+        target.toggleClass('open');
 		// return false to ensure that we don't get '#' appear in the URL
 		return false;
+    }).end().find('li.menu')
+    .bind('mouseenter', function() {
+        if ($(this).is('.open')) {
+            window.clearTimeout(batucada.fader);
+        }
+    })
+    .bind('mouseleave', function() {
+        if ($(this).is('.open')) {
+            var current = $(this);
+            batucada.fader = window.setTimeout(function() {
+                current.removeClass('open');
+                current.find('ul').fadeOut('fast', function() {
+                    $(this).attr('style', '');
+                });
+            }, 1000);
+        }        
     });
-	/*
-	TODO - would be nice to add in a timer to rollout to hide the menu automagically
-    */
 	/* wire up any RTEs with wmd
        not anymore we don't -  initWMD();
     */
