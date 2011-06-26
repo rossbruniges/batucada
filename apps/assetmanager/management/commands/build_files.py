@@ -50,7 +50,12 @@ class Command(BaseCommand):
                 end_file = path(bundle[name]['live'][0].lstrip('/'))
                 real_files = [path(f.lstrip('/')) for f in files_all]
 
-                call('cat %s > %s' % (' '.join(real_files), end_file), shell=True)
+                if os.path.exists(end_file):
+                    call('cat %s > %s' % (' '.join(real_files), end_file), shell=True)
+                else:
+                    print '### creating %s ###' % end_file
+                    open(end_file, 'w+')
+                    call('cat %s > %s' % (' '.join(real_files), end_file), shell=True)
 
                 print '### build_file for %s/%s ###' % (ftype, name)
                 print real_files
