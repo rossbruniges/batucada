@@ -14,3 +14,5 @@ celery-schedule
 media/js/tmp
 media/css/tmp
 build.py
+media/js/packs
+media/css/packs
