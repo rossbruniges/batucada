@@ -237,7 +237,7 @@ var batucada = {
             }
         },
         project_edit_description : {
-            requires: ['/media/js/libs/jquery.wmd.js'],
+            requires: ['/media/js/include/jquery.wmd.js'],
             onload: function() {
                 initWMD();
             }
@@ -262,13 +262,13 @@ var batucada = {
             onload: function() {}
         },
         profile_edit_image: {
-            requires: ['/media/js/libs/jquery.ajaxupload.js'],
+            requires: ['/media/js/include/jquery.ajaxupload.js'],
             onload: function() {
                 attachFileUploadHandler($('input[type=file]'));
             }
         },
         inbox: {
-            requires: ['/media/js/libs/jquery.tmpl.min.js'],
+            requires: ['/media/js/include/jquery.tmpl.min.js'],
             onload: function() {
                 loadMoreMessages();
             }

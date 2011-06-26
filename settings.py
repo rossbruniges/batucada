@@ -228,17 +228,17 @@ ASSETS = {
         'styling' : {
             'dev':(
                 'fonts/MuseoSans500/MuseoSans500.js',
-                'js/libs/modernizr-1.6.min.js'
+                'js/common/ext/modernizr-1.6.min.js'
             ),
             'live':('js/packs/styling.js',)
         },
         'libraries' : {
             'dev':(
-                'js/libs/LAB.min.js',
-                'js/libs/jquery-1.4.2.min.js',
-                'js/libs/jquery.easing.1.3.js',
-                'js/plugins.js',
-                'js/script.js'
+                'js/common/ext/LAB.min.js',
+                'js/common/ext/jquery-1.4.2.min.js',
+                'js/common/ext/jquery.easing.1.3.js',
+                'js/common/plugins.js',
+                'js/common/script.js'
             ),
             'live':('js/packs/libs.js',)
         }
