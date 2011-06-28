@@ -1,5 +1,3 @@
-var batucada = window.batucada || {};
-
 batucada.challenges = function() {
     var votes = $('#votes'), body_id = $('body').attr('id'), init, randomizr, vote_up, load_ideas, expandr;
     load_ideas = {
@@ -207,7 +205,3 @@ batucada.challenges = function() {
         init:init
     };
 }();
-
-$(function() {
-    batucada.challenges.init();
-});
