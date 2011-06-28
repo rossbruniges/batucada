@@ -222,6 +222,13 @@ ASSETS = {
                 'css/batucada.css'
             ),
             'live':('css/packs/site.css',)
+        },
+        'mojo':{
+            'dev':(
+                'css/style.css',
+                'css/mojo.css'
+            ),
+            'live':('css/packs/mojo.css',)
         }
     },
     'js':{
