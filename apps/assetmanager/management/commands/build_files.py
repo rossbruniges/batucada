@@ -25,7 +25,8 @@ class Command(BaseCommand):
             f.write('BUILD_ID_CSS = "%s"' % gitid('media/css'))
             f.write("\n")
             f.write('BUILD_ID_JS = "%s"' % gitid('media/js'))
-            f.write("\n")
+            f.write("\n"),
+            f.write('BUILD_ID_JS_INCLUDES = %s' % gitid('media/js/include'))
 
     def handle(self, **options):
         # point to yui compressor
