@@ -1,6 +1,6 @@
 {% for file in files %}
   {% if type == 'css' %}
-        <link href='{{ root }}{{ file }}?build={{ build.CSS }}' rel='stylesheet'></link>
+        <link href='{{ root }}{{ file }}?build={{ build.CSS }}' rel='stylesheet' />
     {% else %}
         <script src='{{ root }}{{ file }}?build={{ build.JS }}'></script>
     {% endif %}
