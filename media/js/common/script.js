@@ -144,138 +144,193 @@ var attachFileUploadHandler = function($inputs) {
     });
 };
 
-var batucada = {
-    furnish : function(context) {
-        // if no contect is defined we know we're looking at the <body>
-        if (!context) { 
-            context = document.getElementsByTagName('body')[0];
-            var obj = batucada.areas[context.id];
+batucada.furnish = function(context) {
+    // if no context is defined we know we're looking at the <body>
+    if (!context) { 
+        context = document.getElementsByTagName('body')[0];
+        var obj = batucada.areas[context.id];
+    } else {
+        conext = document.getElementById(context);
+        var obj = batucada.areas[context];
+    }
+    // check object exists
+    if (obj) {
+        if (obj.requires && obj.requires.length) {
+            $LAB
+            .script(obj.requires[0])
+            .wait(function() {
+                obj.onload();
+            });
         } else {
-            conext = document.getElementById(context);
-            var obj = batucada.areas[context];
-        }
-        // check object exists
-        if (obj) {
-            if (obj.requires && obj.requires.length) {
-                $LAB
-                .script(obj.requires[0])
-                .wait(function() {
-                    obj.onload();
-                });
-            } else {
-                if (typeof obj.onload === 'function') {
-                    obj.onload();
-                }
+            if (typeof obj.onload === 'function') {
+                obj.onload();
             }
+        }
+    }
+};
+batucada.areas =  {
+    compose_message: {
+        onload: function() {
+            $('#id_recipient').autocomplete({
+                source: '/ajax/following/',
+                minLength: 2
+            });
         }
     },
-    areas : {
-        splash: {
-            onload: function() {}
-        },
-        compose_message: {
-            onload: function() {
-                $('#id_recipient').autocomplete({
-                    source: '/ajax/following/',
-                    minLength: 2
+    create_profile: {
+        onload: function() {
+            usernameHint();
+            usernameAvailability();
+        }
+    },
+    signup: {
+        onload: function(){
+            usernameHint();
+            usernameAvailability();
+        }
+    },
+    signup_openid: {
+        onload: function() {
+            openidHandlers();
+        }
+    },
+    signin_openid: {
+        onload: function() {
+            openidHandlers();
+        }
+    },
+    dashboard: {
+        onload: function() {
+            createPostTextArea();
+            $('#post-update').bind('click', function() {
+                $('#post-status-update').submit();
+            });
+            $('a.activity-delete').bind('click', function(e) {
+                $(e.target).parent().submit();
+                return false;
+            });
+            $('.close_button').bind('click', function(e) {
+                e.preventDefault();
+                $('.welcome').animate({
+                    opacity: 'hide',
+                    height: 'hide',
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                    marginTop: 0,
+                    marginBottom: 0
+                }, 600, 'jswing', function() {
+                    $.post('/broadcasts/hide_welcome/');
                 });
-            }
-        },
-        create_profile: {
-            onload: function() {
-                usernameHint();
-                usernameAvailability();
-            }
-        },
-        signup: {
-            onload: function(){
-                usernameHint();
-                usernameAvailability();
-            }
-        },
-        signup_openid: {
-            onload: function() {
-                openidHandlers();
-            }
-        },
-        signin_openid: {
-            onload: function() {
-                openidHandlers();
-            }
-        },
-        dashboard: {
-            onload: function() {
-                createPostTextArea();
-                $('#post-update').bind('click', function() {
-                    $('#post-status-update').submit();
+            });
+        }
+    },
+    project_landing: {
+        onload: function() {
+            createPostTextArea();
+            $('#post-project-update').bind('click', function() {
+                $('#post-project-status-update').submit();
+            });
+        }
+    },
+    project_edit_description : {
+        requires: ['/media/js/include/jquery.wmd.js'],
+        onload: function() {
+            initWMD();
+        }
+    },
+    challenge_landing: {
+        onload: function() {
+            createPostTextArea();
+            $('#post-challenge').bind('click', function() {
+                $('#post-challenge-summary').submit();
+            });
+        }
+    },
+    user_profile: {
+        onload: function() {
+            createPostTextArea();
+            $('#post-user-update').bind('click', function() {
+                $('#post-user-status-update').submit();
+            });
+        }
+    },
+    profile_edit_image: {
+        requires: ['/media/js/include/jquery.ajaxupload.js'],
+        onload: function() {
+            attachFileUploadHandler($('input[type=file]'));
+        }
+    },
+    inbox: {
+        requires: ['/media/js/include/jquery.tmpl.min.js'],
+        onload: function() {
+            loadMoreMessages();
+        }
+    },
+    journalism: {
+        onload: function() {
+            VideoJS.setupAllWhenReady();
+        }
+    },
+    all_submissions : {
+        requires: ['/media/js/include/challenges.js'],
+        onload: function() {
+            batucada.challenges.init(); 
+        }
+    },
+    submission_show : {
+        requires: ['/media/js/include/challenges.js'],
+        onload: function() {
+            batucada.challenges.init();
+        }
+    },
+    voting_landing : {
+        requires:['/media/js/include/challenges.js'],
+        onload: function() {
+            batucada.challenges.init();
+        }
+    },
+    mojo_process: {
+        requires: ['/media/js/include/jquery.bt.min.js'],
+        onload: function() {
+            var run_bt = function() {
+                $('.js-tooltip').bt({
+                    hideTip: function(box, callback){
+                        $(box).animate({
+                            marginTop: "-10px",
+                            opacity: 0
+                        }, 250, callback );
+                    },
+                    closeWhenOthersOpen : true,
+                    contentSelector: "$(this).next()",
+                    trigger: 'click',
+                    fill: '#fff7df',
+                    strokeStyle: '#ffe69a',
+                    padding: '10px 10px 0 10px',
+                    width: 400,
+                    cornerRadius: 5,
+                    strokeWidth: 1,
+                    spikeGirth: 15,
+                    spikeLength: 9,
+                    shadow: true,
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2,
+                    shadowBlur: 5,
+                    shadowColor: 'rgba(0,0,0,.15)',
+                    shadowOverlap: false,
+                    noShadowOpts: {
+                        strokeStyle: '#ffe69a', 
+                        strokeWidth: 1
+                    },
+                    positions: ['top', 'bottom']
                 });
-                $('a.activity-delete').bind('click', function(e) {
-                    $(e.target).parent().submit();
-                    return false;
+            };
+            if ($('html.canvas').length) {
+                run_bt();
+            } else {
+                $LAB.script('/media/js/include/excanvas.compiled.js').
+                wait(function() {
+                    run_bt();
                 });
-                $('.close_button').bind('click', function(e) {
-                    e.preventDefault();
-                    $('.welcome').animate({
-                        opacity: 'hide',
-                        height: 'hide',
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        marginTop: 0,
-                        marginBottom: 0
-                    }, 600, 'jswing', function() {
-                        $.post('/broadcasts/hide_welcome/');
-                    });
-                });
-            }
-        },
-        project_landing: {
-            onload: function() {
-                createPostTextArea();
-                $('#post-project-update').bind('click', function() {
-                    $('#post-project-status-update').submit();
-                });
-            }
-        },
-        project_edit_description : {
-            requires: ['/media/js/include/jquery.wmd.js'],
-            onload: function() {
-                initWMD();
-            }
-        },
-        challenge_landing: {
-            onload: function() {
-                createPostTextArea();
-                $('#post-challenge').bind('click', function() {
-                    $('#post-challenge-summary').submit();
-                });
-            }
-        },
-        user_profile: {
-            onload: function() {
-                createPostTextArea();
-                $('#post-user-update').bind('click', function() {
-                    $('#post-user-status-update').submit();
-                });
-            }
-        },
-        profile_edit: {
-            onload: function() {}
-        },
-        profile_edit_image: {
-            requires: ['/media/js/include/jquery.ajaxupload.js'],
-            onload: function() {
-                attachFileUploadHandler($('input[type=file]'));
-            }
-        },
-        inbox: {
-            requires: ['/media/js/include/jquery.tmpl.min.js'],
-            onload: function() {
-                loadMoreMessages();
-            }
-        },
-        journalism: {
-            onload: function() {
-                VideoJS.setupAllWhenReady();
             }
         }
     }
@@ -457,6 +512,25 @@ $(document).ready(function() {
             }, 1000);
         }        
     });
+    /* check for the existance of a video player and upload assets if needed */
+    if ($('div.video-js-box').length) {
+        // load in the CSS 
+        var videoCSS = $('<link />').appendTo($('head'));
+        videoCSS.attr({
+            rel:'stylesheet',
+            type:'text/css',
+            href:'/media/css/video-js.css'
+        });
+        // load in the JS file
+        $.ajax({
+            type:'GET',
+            url:'/media/js/include/video.js',
+            dataType:'script',
+            success:function() {
+                VideoJS.setupAllWhenReady();
+            }
+        });
+    }
 	/* wire up any RTEs with wmd
        not anymore we don't -  initWMD();
     */
