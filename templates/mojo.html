@@ -16,19 +16,19 @@
     <link rel="shortcut icon" href="{{ MEDIA_URL }}images/favicon.ico"> 
     <link rel="apple-touch-icon" href="{{ MEDIA_URL }}images/apple-touch-icon.png"> 
     {% serve 'css' 'mojo' %}
-    {% serve 'js' 'styling' %}
-    <noscript><!-- load the fonts for those without js -->
-      <link rel="stylesheet" href="{{ MEDIA_URL }}fonts/MuseoSans500/MuseoSans500.css">
-    </noscript>
     {% block links %}{% endblock %}
-    <script type="text/javascript">
+        <script type="text/javascript">
         var batucada = window.batucada || {};
         batucada.data = {
             MEDIA_URL: "{{ MEDIA_URL }}",
             JS_BUILD_ID : "{% build_id %}"
         };
     </script>
-</head>
+    {% serve 'js' 'styling' %}
+    <noscript><!-- load the fonts for those without js -->
+      <link rel="stylesheet" href="{{ MEDIA_URL }}fonts/MuseoSans500/MuseoSans500.css">
+    </noscript>
+    </head>
 <body id="{%block bodyid %}splash{% endblock %}" class=".body">
   <header>
     <div id="masthead">

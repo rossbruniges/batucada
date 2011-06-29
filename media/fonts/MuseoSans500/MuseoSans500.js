@@ -33,8 +33,7 @@
 // change this to false if you're having trouble with WOFFs
 var woffEnabled = true;
 // uncomment this and set it to the path of your webfont directory
-var customPath = "/media/fonts/MuseoSans500/"; 
-
+var customPath = batucada.data.MEDIA_URL + "fonts/MuseoSans500/"; 
 /*
 from what I can tell all this code is total garbage and causes the code to be entirely non-portable
 REVERT-REVERT!!

@@ -119,14 +119,15 @@ var attachFileUploadHandler = function($inputs) {
         $img.attr('src', path);
         $('p.picture-preview img').remove();
         $img.appendTo('p.picture-preview');
-    };
+    },
+    bd = batucada.data;
     $(this).closest('form').removeAttr('enctype');
     $inputs.closest('fieldset').addClass('ajax-upload');
     $inputs.each(function() {
         $(this).ajaxSubmitInput({
             url: $(this).closest('form').attr('data-url'),
             beforeSubmit: function($input) {
-                updatePicturePreview("/media/images/ajax-loader.gif");
+                updatePicturePreview(bd.MEDIA_URL + "images/ajax-loader.gif");
                 $options = {};
                 $options.filename = $input.val().split(/[\/\\]/).pop();
                 return $options;
@@ -138,26 +139,27 @@ var attachFileUploadHandler = function($inputs) {
                     return;
                 }
                 content = jQuery.parseJSON(iframeContent);
-                updatePicturePreview("/media/" + content.filename);
+                updatePicturePreview(bd.MEDIA_URL + content.filename);
             }
         });
     });
 };
 
 batucada.furnish = function(context) {
+    var obj, bd = batucada.data;
     // if no context is defined we know we're looking at the <body>
     if (!context) { 
         context = document.getElementsByTagName('body')[0];
-        var obj = batucada.areas[context.id];
+        obj = batucada.areas[context.id];
     } else {
         conext = document.getElementById(context);
-        var obj = batucada.areas[context];
+        obj = batucada.areas[context];
     }
     // check object exists
     if (obj) {
         if (obj.requires && obj.requires.length) {
             $LAB
-            .script(obj.requires[0])
+            .script(bd.MEDIA_URL + obj.requires[0] + '?build=' + bd.JS_BUILD_ID)
             .wait(function() {
                 obj.onload();
             });
@@ -233,7 +235,7 @@ batucada.areas =  {
         }
     },
     project_edit_description : {
-        requires: ['/media/js/include/jquery.wmd.js'],
+        requires: ['js/include/jquery.wmd.js'],
         onload: function() {
             initWMD();
         }
@@ -255,42 +257,37 @@ batucada.areas =  {
         }
     },
     profile_edit_image: {
-        requires: ['/media/js/include/jquery.ajaxupload.js'],
+        requires: ['js/include/jquery.ajaxupload.js'],
         onload: function() {
             attachFileUploadHandler($('input[type=file]'));
         }
     },
     inbox: {
-        requires: ['/media/js/include/jquery.tmpl.min.js'],
+        requires: ['js/include/jquery.tmpl.min.js'],
         onload: function() {
             loadMoreMessages();
         }
     },
-    journalism: {
-        onload: function() {
-            VideoJS.setupAllWhenReady();
-        }
-    },
     all_submissions : {
-        requires: ['/media/js/include/challenges.js'],
+        requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init(); 
         }
     },
     submission_show : {
-        requires: ['/media/js/include/challenges.js'],
+        requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init();
         }
     },
     voting_landing : {
-        requires:['/media/js/include/challenges.js'],
+        requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init();
         }
     },
     mojo_process: {
-        requires: ['/media/js/include/jquery.bt.min.js'],
+        requires: ['js/include/jquery.bt.min.js'],
         onload: function() {
             var run_bt = function() {
                 $('.js-tooltip').bt({
@@ -327,7 +324,7 @@ batucada.areas =  {
             if ($('html.canvas').length) {
                 run_bt();
             } else {
-                $LAB.script('/media/js/include/excanvas.compiled.js').
+                $LAB.script('js/include/excanvas.compiled.js').
                 wait(function() {
                     run_bt();
                 });
@@ -519,12 +516,12 @@ $(document).ready(function() {
         videoCSS.attr({
             rel:'stylesheet',
             type:'text/css',
-            href:'/media/css/video-js.css'
+            href: batucada.data.MEDIA_URL + 'css/video-js.css?build=' + batucada.data.JS_BUILD_ID
         });
         // load in the JS file
         $.ajax({
             type:'GET',
-            url:'/media/js/include/video.js',
+            url: batucada.data.MEDIA_URL + 'js/include/video.js?build=' + batucada.data.JS_BUILD_ID,
             dataType:'script',
             success:function() {
                 VideoJS.setupAllWhenReady();

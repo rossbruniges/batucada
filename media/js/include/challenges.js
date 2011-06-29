@@ -56,12 +56,13 @@ batucada.challenges = function() {
             }
         },
         vote : function(target) {
-            var form, action, csrf, voting_html, obj;
+            var form, action, csrf, voting_html, obj, bd;
+            bd = batucada.data;
             form = target.parents('form');
             action = form.attr('action');
             csrf = form.find('input[name="csrfmiddlewaretoken"]').attr('value');
             voting_html = form.parent();
-            voting_html.find('span.score').html('<img src="/media/images/ajax-loader.gif" height="16" width="16" />');
+            voting_html.find('span.score').html('<img src="' + bd.MEDIA_URL  + 'images/ajax-loader.gif" height="16" width="16" />');
             $.ajax({
                 type:"POST",
                 dataType:"json",
