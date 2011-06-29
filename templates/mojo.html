@@ -1,4 +1,4 @@
-{% load l10n_tags serve %}
+{% load l10n_tags serve build_id %}
 <!doctype html>
   <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]--> 
   <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]--> 
@@ -23,6 +23,10 @@
     {% block links %}{% endblock %}
     <script type="text/javascript">
         var batucada = window.batucada || {};
+        batucada.data = {
+            MEDIA_URL: "{{ MEDIA_URL }}",
+            JS_BUILD_ID : "{% build_id %}"
+        };
     </script>
 </head>
 <body id="{%block bodyid %}splash{% endblock %}" class=".body">
