@@ -475,10 +475,14 @@ jQuery.fn.tabLinks = function(element) {
 };
 
 var initWMD = function(){
-    $('textarea.wmd').not(function(){
-        // we need to make sure this textarea hasn't been initialized already
-        return ($(this).siblings('.wmd-button-bar').length != 0);
-    }).wmd({'preview': false, 'helpLink' : '/editing-help/'});
+    var area = $('textarea.wmd');
+    if (area.siblings('.wmd-button-bar').length === 0) {
+        alert('win');
+        area.wmd({
+            'preview': false,
+            'helpLink': '/editing-help/'
+        });
+    }
 };
 
 $(document).ready(function() {
