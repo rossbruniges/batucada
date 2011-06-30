@@ -324,7 +324,7 @@ batucada.areas =  {
             if ($('html.canvas').length) {
                 run_bt();
             } else {
-                $LAB.script('js/include/excanvas.compiled.js').
+                $LAB.script(batucada.data.MEDIA_URL + 'js/include/excanvas.compiled.js').
                 wait(function() {
                     run_bt();
                 });
