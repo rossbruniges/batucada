@@ -138,7 +138,7 @@ var attachFileUploadHandler = function($inputs) {
                 if (!iframeContent) {
                     return;
                 }
-                content = jQuery.parseJSON(iframeContent);
+                var content = jQuery.parseJSON(iframeContent);
                 updatePicturePreview(bd.MEDIA_URL + content.filename);
             }
         });
