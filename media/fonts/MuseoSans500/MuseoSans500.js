@@ -44,7 +44,7 @@ if (!script.match("://") && script.charAt(0) != '/')
 	script = "./"+script;
 
 var path = script.replace(/\\/g,'/').replace(/\/[^\/]*\/?$/, '');
-console.log('hello');
+
 */
 // safari 3.1: data-css
 // firefox 3.6+: woff
