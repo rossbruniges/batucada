@@ -846,11 +846,12 @@ header {}
 		background: #fff;		
 	}
 	.card-list .card img{
-		margin-bottom: 0.5em;		
-		box-shadow: white 1px 1px 1px;
-		-moz-box-shadow: white 1px 1px 1px;
-		-webkit-box-shadow: white 1px 1px 1px;
-		border: 1px solid #999;
+	    border: 1px solid #999;
+        /* these images weren't appearing in IE8  */
+        position: relative;
+		box-shadow: #fff 1px 1px 1px;
+		-moz-box-shadow: #fff 1px 1px 1px;
+		-webkit-box-shadow: #fff 1px 1px 1px;	
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-o-border-radius: 5px;
@@ -1460,6 +1461,8 @@ header {}
 			background: #fff;
 			border-color: #C6C6C6;
 			margin-bottom: 0;
+            /* images were not displaying after CSSpie had run  */
+            position: relative;
 		}
 		.modal .image form {
 			width: 249px;

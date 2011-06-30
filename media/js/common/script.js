@@ -1,3 +1,6 @@
+/*!
+    Set of misc scripts inherited from initial drumbeat.org site
+*/
 var createPostTextArea = function() {
     $('#create-post').find('textarea').bind('keyup', function() {
         var max = 750;
@@ -116,14 +119,15 @@ var attachFileUploadHandler = function($inputs) {
         $img.attr('src', path);
         $('p.picture-preview img').remove();
         $img.appendTo('p.picture-preview');
-    };
+    },
+    bd = batucada.data;
     $(this).closest('form').removeAttr('enctype');
     $inputs.closest('fieldset').addClass('ajax-upload');
     $inputs.each(function() {
         $(this).ajaxSubmitInput({
             url: $(this).closest('form').attr('data-url'),
             beforeSubmit: function($input) {
-                updatePicturePreview("/media/images/ajax-loader.gif");
+                updatePicturePreview(bd.MEDIA_URL + "images/ajax-loader.gif");
                 $options = {};
                 $options.filename = $input.val().split(/[\/\\]/).pop();
                 return $options;
@@ -134,18 +138,39 @@ var attachFileUploadHandler = function($inputs) {
                 if (!iframeContent) {
                     return;
                 }
-                content = jQuery.parseJSON(iframeContent);
-                updatePicturePreview("/media/" + content.filename);
+                var content = jQuery.parseJSON(iframeContent);
+                updatePicturePreview(bd.MEDIA_URL + content.filename);
             }
         });
     });
 };
 
-var batucada = {
-    splash: {
-        onload: function() {
+batucada.furnish = function(context) {
+    var obj, bd = batucada.data;
+    // if no context is defined we know we're looking at the <body>
+    if (!context) { 
+        context = document.getElementsByTagName('body')[0];
+        obj = batucada.areas[context.id];
+    } else {
+        conext = document.getElementById(context);
+        obj = batucada.areas[context];
+    }
+    // check object exists
+    if (obj) {
+        if (obj.requires && obj.requires.length) {
+            $LAB
+            .script(bd.MEDIA_URL + obj.requires[0] + '?build=' + bd.JS_BUILD_ID)
+            .wait(function() {
+                obj.onload();
+            });
+        } else {
+            if (typeof obj.onload === 'function') {
+                obj.onload();
+            }
         }
-    },
+    }
+};
+batucada.areas =  {
     compose_message: {
         onload: function() {
             $('#id_recipient').autocomplete({
@@ -209,6 +234,12 @@ var batucada = {
             });
         }
     },
+    project_edit_description : {
+        requires: ['js/include/jquery.wmd.js'],
+        onload: function() {
+            initWMD();
+        }
+    },
     challenge_landing: {
         onload: function() {
             createPostTextArea();
@@ -225,26 +256,82 @@ var batucada = {
             });
         }
     },
-    profile_edit: {
+    profile_edit_image: {
+        requires: ['js/include/jquery.ajaxupload.js'],
         onload: function() {
-            var $inputs = $('input[type=file]');
-            if ($inputs) {
-                attachFileUploadHandler($inputs);
-            }
+            attachFileUploadHandler($('input[type=file]'));
         }
     },
     inbox: {
+        requires: ['js/include/jquery.tmpl.min.js'],
         onload: function() {
             loadMoreMessages();
         }
     },
-    journalism: {
+    all_submissions : {
+        requires: ['js/include/challenges.js'],
         onload: function() {
-            VideoJS.setupAllWhenReady();
+            batucada.challenges.init(); 
+        }
+    },
+    submission_show : {
+        requires: ['js/include/challenges.js'],
+        onload: function() {
+            batucada.challenges.init();
+        }
+    },
+    voting_landing : {
+        requires: ['js/include/challenges.js'],
+        onload: function() {
+            batucada.challenges.init();
+        }
+    },
+    mojo_process: {
+        requires: ['js/include/jquery.bt.min.js'],
+        onload: function() {
+            var run_bt = function() {
+                $('.js-tooltip').bt({
+                    hideTip: function(box, callback){
+                        $(box).animate({
+                            marginTop: "-10px",
+                            opacity: 0
+                        }, 250, callback );
+                    },
+                    closeWhenOthersOpen : true,
+                    contentSelector: "$(this).next()",
+                    trigger: 'click',
+                    fill: '#fff7df',
+                    strokeStyle: '#ffe69a',
+                    padding: '10px 10px 0 10px',
+                    width: 400,
+                    cornerRadius: 5,
+                    strokeWidth: 1,
+                    spikeGirth: 15,
+                    spikeLength: 9,
+                    shadow: true,
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2,
+                    shadowBlur: 5,
+                    shadowColor: 'rgba(0,0,0,.15)',
+                    shadowOverlap: false,
+                    noShadowOpts: {
+                        strokeStyle: '#ffe69a', 
+                        strokeWidth: 1
+                    },
+                    positions: ['top', 'bottom']
+                });
+            };
+            if ($('html.canvas').length) {
+                run_bt();
+            } else {
+                $LAB.script(batucada.data.MEDIA_URL + 'js/include/excanvas.js').
+                wait(function() {
+                    run_bt();
+                });
+            }
         }
     }
 };
-
 jQuery.fn.tabLinks = function(element) {
     var $modal = $(this).parents('.modal');
     $modal.addClass('tab-links');
@@ -269,9 +356,8 @@ jQuery.fn.tabLinks = function(element) {
         $(this).parent('li').setActive();
     };
     $.fn.initForm = function() {
-        attachFileUploadHandler($(this).find('input[type=file]'));
         $(this).attachDirtyOnChangeHandler();
-        initWMD();
+        batucada.furnish($(this).attr('id'));
         return this;
     };
     var saveModal = function(e) {
@@ -388,20 +474,20 @@ jQuery.fn.tabLinks = function(element) {
     }).activateOnLoad();
 };
 
-var initWMD = function(){    
-    $('textarea.wmd').not(function(){
-        // we need to make sure this textarea hasn't been initialized already
-        return ($(this).siblings('.wmd-button-bar').length != 0);
-    }).wmd({'preview': false, 'helpLink' : '/editing-help/'});
+var initWMD = function(){
+    var area = $('textarea.wmd');
+    if (area.siblings('.wmd-button-bar').length === 0) {
+        alert('win');
+        area.wmd({
+            'preview': false,
+            'helpLink': '/editing-help/'
+        });
+    }
 };
 
 $(document).ready(function() {
-    // dispatch per-page onload handlers 
-    var ns = window.batucada;
-    var bodyId = document.body.id;
-    if (ns && ns[bodyId] && (typeof ns[bodyId].onload == 'function')) {
-        ns[bodyId].onload();
-    }
+    // dispatch per-page onload handlers using batucada.furnish
+    batucada.furnish();
     // attach handlers for elements that appear on most pages
     $('#user-nav').find('a.trigger').bind('click', function(event) {
 		var target = $(this).parent();
@@ -427,8 +513,28 @@ $(document).ready(function() {
             }, 1000);
         }        
     });
-	// wire up any RTEs with wmd
-    initWMD();
+    /* check for the existance of a video player and upload assets if needed */
+    if ($('div.video-js-box').length) {
+        // load in the CSS 
+        var videoCSS = $('<link />').appendTo($('head'));
+        videoCSS.attr({
+            rel:'stylesheet',
+            type:'text/css',
+            href: batucada.data.MEDIA_URL + 'css/video-js.css?build=' + batucada.data.JS_BUILD_ID
+        });
+        // load in the JS file
+        $.ajax({
+            type:'GET',
+            url: batucada.data.MEDIA_URL + 'js/include/video.js?build=' + batucada.data.JS_BUILD_ID,
+            dataType:'script',
+            success:function() {
+                VideoJS.setupAllWhenReady();
+            }
+        });
+    }
+	/* wire up any RTEs with wmd
+       not anymore we don't -  initWMD();
+    */
 
     // modals using jQueryUI dialog
     $('.button.openmodal').live('click', function(){
@@ -469,3 +575,4 @@ $('#recaptcha_help').click(function(e) {
     e.preventDefault();
     Recaptcha.showhelp();
 });
+
