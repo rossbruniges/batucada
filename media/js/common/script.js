@@ -477,7 +477,6 @@ jQuery.fn.tabLinks = function(element) {
 var initWMD = function(){
     var area = $('textarea.wmd');
     if (area.siblings('.wmd-button-bar').length === 0) {
-        alert('win');
         area.wmd({
             'preview': false,
             'helpLink': '/editing-help/'
