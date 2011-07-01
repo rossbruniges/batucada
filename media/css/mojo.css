@@ -106,7 +106,7 @@ h5 {
 }
 
 .container {
-  width: 960px;
+  width: 920px;
   margin: 0 auto;
 }
 
@@ -127,9 +127,6 @@ header {}
     background: url("../images/masthead.bg.png") repeat-x;
     min-width: 920px;
   }
-#masthead .container {
-  width: 920px;
-}
     #masthead a:hover {
       text-decoration: none;
     }
@@ -582,7 +579,7 @@ text-align: center;
 /* CONTENT */
 .content {
   background: #fcfcfc;
-  width: 960px;
+  width: 940px;
   margin: 0 auto;
   -moz-transform:rotate(1.3deg);
   -webkit-transform:rotate(1.3deg);
@@ -598,8 +595,8 @@ text-align: center;
     background: #ffffff;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    padding: 40px 30px 20px 30px;
-    width: 900px;
+    padding: 40px 20px 20px 20px;
+    width: 880px;
     overflow: auto;
     margin-bottom: 27px;
   }
@@ -813,8 +810,8 @@ text-align: center;
 
 /* COLUMN */
 .column-33 {
-  width: 300px;
-  padding-right: 30px;
+  width: 290px;
+  padding-right: 25px;
   float: left;
   margin-bottom: 27px;
   overflow: auto;
@@ -837,9 +834,9 @@ text-align: center;
 
 .column-50 {
   width: 420px;
-  padding-right: 60px;
+  padding-right: 40px;
   float: left;
-  margin-bottom: 27px;
+  margin: 27px 0;
   overflow: auto;
 }
   .column-50.last {
@@ -890,8 +887,8 @@ text-align: center;
   font-size: 11px;
   text-align: center;
   color: #b9b9b9;
-  width: 960px;
-  max-width: 960px;
+  width: 920px;
+  max-width: 920px;
   margin-bottom: 18px;
 }
 
