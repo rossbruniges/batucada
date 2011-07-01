@@ -1,4 +1,6 @@
-
+/*!
+    Weird little collection of 'plugins' inhertited from initial drumbeat.org build
+*/
 // remap jQuery to $
 (function($){
 

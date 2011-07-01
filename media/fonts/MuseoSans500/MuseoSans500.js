@@ -1,4 +1,4 @@
-/*
+/*!
  * MyFonts Webfont Build ID 235749, 2011-01-03T09:54:22-0500
  * 
  * The fonts listed in this notice are subject to the End User License
@@ -33,8 +33,10 @@
 // change this to false if you're having trouble with WOFFs
 var woffEnabled = true;
 // uncomment this and set it to the path of your webfont directory
-var customPath = "/media/fonts/MuseoSans500/"; 
-
+var customPath = batucada.data.MEDIA_URL + "fonts/MuseoSans500/"; 
+/*
+from what I can tell all this code is total garbage and causes the code to be entirely non-portable
+REVERT-REVERT!!
 var scripts = document.getElementsByTagName("SCRIPT");
 var script = scripts[scripts.length-1].src;
 
@@ -43,6 +45,7 @@ if (!script.match("://") && script.charAt(0) != '/')
 
 var path = script.replace(/\\/g,'/').replace(/\/[^\/]*\/?$/, '');
 
+*/
 // safari 3.1: data-css
 // firefox 3.6+: woff
 // firefox 3.5+: data-css
@@ -139,26 +142,26 @@ switch (webfontType)
 {
 		case 'eot':
 		document.write("<style>\n");
-				document.write("@font-face {font-family:\"MuseoSans-500\";src:url(\"" + path + "/webfonts/eot/style_159303.eot\");}\n");
-				document.write("@font-face {font-family:\"MuseoSans-500Italic\";src:url(\"" + path + "/webfonts/eot/style_159309.eot\");}\n");
+				document.write("@font-face {font-family:\"MuseoSans-500\";src:url(\"" + customPath + "/webfonts/eot/style_159303.eot\");}\n");
+				document.write("@font-face {font-family:\"MuseoSans-500Italic\";src:url(\"" + customPath + "/webfonts/eot/style_159309.eot\");}\n");
 				document.write("</style>");
 		break;
 		
 		case 'woff':
 		document.write("<style>\n");
-				document.write("@font-face {font-family:\"MuseoSans-500\";src:url(\"" + path + "/webfonts/woff/style_159303.woff\") format(\"woff\");}\n");
-				document.write("@font-face {font-family:\"MuseoSans-500Italic\";src:url(\"" + path + "/webfonts/woff/style_159309.woff\") format(\"woff\");}\n");
+				document.write("@font-face {font-family:\"MuseoSans-500\";src:url(\"" + customPath + "/webfonts/woff/style_159303.woff\") format(\"woff\");}\n");
+				document.write("@font-face {font-family:\"MuseoSans-500Italic\";src:url(\"" + customPath + "/webfonts/woff/style_159309.woff\") format(\"woff\");}\n");
 				document.write("</style>");
 		break;
 	
 		case 'data-css':
-		document.write("<link rel='stylesheet' type='text/css' href='" + path + "/webfonts/datacss/MyFonts Webfonts Order M2633858.css'>");
+		document.write("<link rel='stylesheet' type='text/css' href='" + customPath + "/webfonts/datacss/MyFonts Webfonts Order M2633858.css'>");
 		break;
 	
 		case 'svg':
 		document.write("<style>\n");
-				document.write("@font-face {font-family:\"MuseoSans-500\";src:url(\"" + path + "/webfonts/svg/style_159303.svg#MuseoSans-500\") format(\"svg\");}\n");
-				document.write("@font-face {font-family:\"MuseoSans-500Italic\";src:url(\"" + path + "/webfonts/svg/style_159309.svg#MuseoSans-500Italic\") format(\"svg\");}\n");
+				document.write("@font-face {font-family:\"MuseoSans-500\";src:url(\"" + customPath + "/webfonts/svg/style_159303.svg#MuseoSans-500\") format(\"svg\");}\n");
+				document.write("@font-face {font-family:\"MuseoSans-500Italic\";src:url(\"" + customPath + "/webfonts/svg/style_159309.svg#MuseoSans-500Italic\") format(\"svg\");}\n");
 				document.write("</style>");
 		break;
 		
@@ -168,3 +171,4 @@ switch (webfontType)
 }
 
 //document.write(browserName + ' ' + browserVersion + ': ' + webfontType + ' [' + navigator.userAgent + ']');
+

@@ -349,6 +349,10 @@ header {}
     text-shadow: none;
     padding-top: 30px;
   }
+  .banner h1 a {
+      color: white;
+      text-shadow: none;
+  }
   .banner h2 {
     color: #e2e2e2;
     text-shadow: none;

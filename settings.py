@@ -131,8 +131,9 @@ INSTALLED_APPS = (
     'djcelery',
     'events',
     'django_openid_auth',
-    'voting',
+    'voting', 
     'feeds',
+    'assetmanager',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -140,6 +141,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
+    'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'drumbeat.context_processors.django_conf',
     'messages.context_processors.inbox',
@@ -209,4 +211,43 @@ SOUTH_TESTS_MIGRATE = False
 FEED_URLS = {
     'splash': 'http://planet.drumbeat.org/atom.xml',
     'mojo': 'http://planet.drumbeat.org/mojo/atom.xml',
+}
+
+# Would be awesome if this could somehow be dynamic - no idea how though...
+ASSETS = {
+    'css':{
+        'site' : {
+            'dev':(
+                'css/style.css',
+                'css/batucada.css'
+            ),
+            'live':('css/packs/site.css',)
+        },
+        'mojo':{
+            'dev':(
+                'css/style.css',
+                'css/mojo.css'
+            ),
+            'live':('css/packs/mojo.css',)
+        }
+    },
+    'js':{
+        'styling' : {
+            'dev':(
+                'fonts/MuseoSans500/MuseoSans500.js',
+                'js/common/ext/modernizr-1.6.min.js'
+            ),
+            'live':('js/packs/styling.js',)
+        },
+        'libraries' : {
+            'dev':(
+                'js/common/ext/LAB.min.js',
+                'js/common/ext/jquery-1.4.2.min.js',
+                'js/common/ext/jquery.easing.1.3.js',
+                'js/common/plugins.js',
+                'js/common/script.js'
+            ),
+            'live':('js/packs/libs.js',)
+        }
+    }
 }
