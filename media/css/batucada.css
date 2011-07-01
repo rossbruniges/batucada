@@ -504,6 +504,7 @@ header {}
       float: right;
       position: relative;
       top: -28px;
+      margin-right: 20px;
     }
     
     #project-actions .button {
@@ -511,12 +512,12 @@ header {}
       margin-left: 15px;
     }
 #content {
-	padding-top: 25px;
+	padding: 25px 20px 0 20px;
+    width: 920px;
 }  
   #sidebar {
     float: left;
     width: 280px;
-    margin-left: 20px;
   }
   	#sidebar h2{
 		font-size: 18px;
@@ -944,7 +945,7 @@ header {}
 
   
   #main {
-    margin-left: 40px;
+    margin-left: 20px;
     width: 620px;
     float: left;
   }
@@ -1988,6 +1989,7 @@ footer{
 footer .container {
 	border-top: 1px solid #d5d6d8;
 	padding: 9px 0 7px;
+    width: 920px;
 	}
 footer #newsletter {
 	float: left;

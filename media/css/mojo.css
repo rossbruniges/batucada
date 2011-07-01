@@ -125,7 +125,11 @@ header {}
     padding: 17px 20px 18px 20px;
     height: 24px;
     background: url("../images/masthead.bg.png") repeat-x;
+    min-width: 920px;
   }
+#masthead .container {
+  width: 920px;
+}
     #masthead a:hover {
       text-decoration: none;
     }
