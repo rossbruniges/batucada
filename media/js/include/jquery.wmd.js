@@ -493,7 +493,7 @@ var position = { // {{{
 
 // The input textarea state/contents.
 // This is used to implement undo/redo by the undo manager.
-var TextareaState = function(textarea){ // {{{
+var TextareaState = function(textarea, obj){ // {{{
     // Aliases
     var stateObj = this;
     var inputArea = textarea;
@@ -542,7 +542,6 @@ var TextareaState = function(textarea){ // {{{
             range.select();
         }
     };
-    
     this.setInputAreaSelectionStartEnd = function(){
     
         if (inputArea.selectionStart || inputArea.selectionStart === 0) {
@@ -558,14 +557,13 @@ var TextareaState = function(textarea){ // {{{
             // clicked.  On IE we cache the selection and set a flag
             // which we check for here.
             var range;
-            if(wmd.ieRetardedClick && wmd.ieCachedRange) {
-                range = wmd.ieCachedRange;
-                wmd.ieRetardedClick = false;
+            if(obj.ieRetardedClick && obj.ieCachedRange) {
+                range = obj.ieCachedRange;
+                obj.ieRetardedClick = false;
             }
             else {
                 range = doc.selection.createRange();
             }
-
             var fixedRange = util.fixEolChars(range.text);
             var marker = "\x07";
             var markedRange = marker + fixedRange + marker;
@@ -1048,8 +1046,7 @@ var PreviewManager = function(wmd){ // {{{
 
 // Handles pushing and popping TextareaStates for undo/redo commands.
 // I should rename the stack variables to list.
-var UndoManager = function(textarea, pastePollInterval, callback){ // {{{
-
+var UndoManager = function(textarea, pastePollInterval, callback, wmdObj){ // {{{
     var undoObj = this;
     var undoStack = []; // A stack of undo states
     var stackPtr = 0; // The index of the current state
@@ -1078,11 +1075,11 @@ var UndoManager = function(textarea, pastePollInterval, callback){ // {{{
     };
     
     var refreshState = function(){
-        inputStateObj = new TextareaState(textarea);
+        inputStateObj = new TextareaState(textarea, wmdObj);
         poller.tick();
         timer = undefined;
     };
-    
+
     this.setCommandMode = function(){
         mode = "command";
         saveState();
@@ -1110,7 +1107,7 @@ var UndoManager = function(textarea, pastePollInterval, callback){ // {{{
                 lastState = null;
             }
             else {
-                undoStack[stackPtr] = new TextareaState(textarea);
+                undoStack[stackPtr] = new TextareaState(textarea, wmdObj);
                 undoStack[--stackPtr].restore();
                 
                 if (callback) {
@@ -1143,8 +1140,7 @@ var UndoManager = function(textarea, pastePollInterval, callback){ // {{{
     
     // Push the input area state to the stack.
     var saveState = function(){
-    
-        var currState = inputStateObj || new TextareaState(textarea);
+        var currState = inputStateObj || new TextareaState(textarea, wmdObj);
         
         if (!currState) {
             return false;
@@ -1275,7 +1271,7 @@ var UndoManager = function(textarea, pastePollInterval, callback){ // {{{
         textarea.onpaste = handlePaste;
         textarea.ondrop = handlePaste;
     };
-    
+
     var init = function(){
         setEventHandlers();
         refreshState();
@@ -1380,8 +1376,7 @@ var wmdBase = function(wmd, wmd_options){ // {{{
                 if (undoMgr) {
                     undoMgr.setCommandMode();
                 }
-                
-                var state = new TextareaState(wmd.panels.input);
+                var state = new TextareaState(wmd.panels.input, wmd);
                 
                 if (!state) {
                     return;
@@ -1482,8 +1477,7 @@ var wmdBase = function(wmd, wmd_options){ // {{{
             }
         }
     
-        var makeSpritedButtonRow = function(){
-             
+        var makeSpritedButtonRow = function(){ 
             var buttonBar = document.getElementById(wmd_options.button_bar || "wmd-button-bar");
      
             var normalYShift = "0px";
@@ -1595,9 +1589,8 @@ var wmdBase = function(wmd, wmd_options){ // {{{
                 undoMgr = new UndoManager(wmd.panels.input, wmd.options.pastePollInterval, function(){
                     previewRefreshCallback();
                     setUndoRedoButtonStates();
-                });
+                }, wmd);
             }
-            
             makeSpritedButtonRow();
             
             
