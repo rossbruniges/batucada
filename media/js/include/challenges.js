@@ -1,21 +1,24 @@
 batucada.challenges = function() {
-    var votes = $('#votes'), body_id = $('body').attr('id'), init, randomizr, vote_up, load_ideas, expandr;
+    var votes = $('#votes'),
+        body_id = $('body').attr('id'),
+        init, randomizr, vote_up, load_ideas, expandr;
     load_ideas = {
         load_content : function(url, dest) {
             var ajax_loader = $('#ajax_space'),
+                text = batucada.strings.challenges.load_ideas,
                 timer;
             if (!ajax_loader.length) {
                 ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
             }
             timer = window.setTimeout(function() {
-                 ajax_loader.append('<p class="feedback">Loading content</p>');
+                 ajax_loader.append('<p class="feedback">' + text.feedback  + '</p>');
             },500);
             ajax_loader.appendTo(dest);
             dest.addClass('expanded');
             ajax_loader.load(url + ' div.ajax_copy', function() {
                 clearTimeout(timer);
                 // ajax_loader.appendTo(dest);
-                ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">Add your comments to this idea and read about who submitted it</a></p><button type="button">Close</button></div>');
+                ajax_loader.append('<div class="meta"><p><a href="' + dest.find('a.more').attr('href')  + '">' + text.meta + '</a></p><button type="button">' + text.btn_close + '</button></div>');
                 ajax_loader.fadeIn('fast', function() {
                    // dest.addClass('expanded')
                 });
@@ -46,12 +49,12 @@ batucada.challenges = function() {
         text_values : {
             up: {
                 url_suffix:"upvote",
-                input_txt:"Vote",
+                input_txt:batucada.strings.challenges.vote_up.btn_vote,
                 input_cls:"trigger vote"
             },
             clear:{
                 url_suffix:"clearvote",
-                input_txt:"Clear",
+                input_txt:batucada.strings.challenges.vote_up.btn_clear,
                 input_cls:"trigger clear"
             }
         },
@@ -87,11 +90,12 @@ batucada.challenges = function() {
         }
     };
     randomizr = function() {
-        var moar, num_entries, loader, messages; 
-        moar =  $('<div id="browse"><button type="button">Show me more ideas</button><p>Those are all the ideas for this challenge - <a href="'+ window.location.href +'">Start again</a></p></div>').insertAfter(votes);
+        var moar, num_entries, loader, messages,
+            text = batucada.strings.challenges.randomizr; 
+        moar =  $('<div id="browse"><button type="button">' + text.btn_more  + '</button><p>' + text.finish  + ' - <a href="'+ window.location.href +'">' + text.btn_reset  + '</a></p></div>').insertAfter(votes);
         messages = {
-            'loading':'Loading in more ideas',
-            'error':'Hmm, something has gone wrong. Give it another go...'
+            loading:text.ajax_load,
+            error:text.ajax_error
         };
         loader = $('<div id="loader"><p>' + messages.loading + '</p></div>').insertBefore(votes).css({
             'height':votes.height() + 'px',
@@ -142,10 +146,7 @@ batucada.challenges = function() {
     };
     expandr = function () {
         var elm = $('div.expando'),
-            txt = {
-                open:"Close summary",
-                closed:"Read challenge summary"
-            },
+            txt = batucada.strings.challenges.expandr,
             trigger = $('<a id="expandr" href="#">' + txt.closed + '</a>').insertAfter(elm);
         trigger.bind('click', function() {
             var el = $(this);

@@ -146,28 +146,55 @@ var attachFileUploadHandler = function($inputs) {
 };
 
 batucada.furnish = function(context) {
-    var obj, bd = batucada.data;
+    var obj, context,  bd = batucada.data;
     // if no context is defined we know we're looking at the <body>
     if (!context) { 
         context = document.getElementsByTagName('body')[0];
-        obj = batucada.areas[context.id];
     } else {
-        conext = document.getElementById(context);
-        obj = batucada.areas[context];
+        context = document.getElementById(context);
     }
-    // check object exists
+    obj = batucada.areas[context.id];
     if (obj) {
-        if (obj.requires && obj.requires.length) {
-            $LAB
-            .script(bd.MEDIA_URL + obj.requires[0] + '?build=' + bd.JS_BUILD_ID)
-            .wait(function() {
-                obj.onload();
+        // cache these objects for later re-use
+        var req = obj.requires,
+            txt = obj.text;
+        // set up a custom event that can be called once the locale has been loaded and avoid race-condition
+        $(context).bind('locale_loaded', function() {
+            // load in the required file and once done call the onload to init it
+            if (req && req.length) {
+                $LAB
+                .script(bd.MEDIA_URL + req[0] + '?build=' + bd.JS_BUILD_ID)
+                .wait(function() {
+                    obj.onload();
+                });
+            } else {
+                if (typeof obj.onload === 'function') {
+                    obj.onload();
+                }
+            }
+        });
+        // load the require localised string file
+        if (txt && txt.length) {
+            // cascade from a potential local to the default if we get an error
+            $.ajax({
+                dataType:'script',
+                url: bd.MEDIA_URL + 'js/l10n/en-US/' + txt[0],
+                success:function() {
+                    $(context).trigger('locale_loaded');
+                },
+                error:function(data) {
+                    $.ajax({
+                        url: bd.MEDIA_URL + 'js/l10n/' + txt[0],
+                        dataType: 'script',
+                        success:function() {
+                             $(context).trigger('locale_loaded');
+                       }
+                    });
+                }
             });
         } else {
-            if (typeof obj.onload === 'function') {
-                obj.onload();
-            }
-        }
+          $(context).trigger('locale_loaded'); 
+        } 
     }
 };
 batucada.areas =  {
@@ -269,18 +296,21 @@ batucada.areas =  {
         }
     },
     all_submissions : {
+        text:['challenges.js'],
         requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init(); 
         }
     },
     submission_show : {
+        text:['challenges.js'],
         requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init();
         }
     },
     voting_landing : {
+        text:['challenges.js'],
         requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init();
