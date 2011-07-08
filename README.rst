@@ -75,6 +75,8 @@ There's a problem with real databases (read: not sqlite) where south migrations 
    python manage.py migrate links
    python manage.py migrate dashboard
    python manage.py migrate relationships
+   python manage.py migrate feeds
+   python manage.py migrate challenges
 
 What a pain! 
 
