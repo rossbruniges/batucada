@@ -144,6 +144,7 @@ var attachFileUploadHandler = function($inputs) {
         });
     });
 };
+
 batucada.prepare = function() {
     $.each(batucada.areas.common, function(i,v) {
         var e = v.elm;
@@ -152,6 +153,7 @@ batucada.prepare = function() {
         }
     });
 }
+
 batucada.furnish = function(context,o) {
     var obj, context,  bd = batucada.data;
     // if no context is defined we know we're looking at the <body>
@@ -206,6 +208,7 @@ batucada.furnish = function(context,o) {
         } 
     }
 };
+
 batucada.areas =  {
     common:[
         {
@@ -226,6 +229,35 @@ batucada.areas =  {
                     href: batucada.data.MEDIA_URL + 'css/video-js.css?build=' + batucada.data.JS_BUILD_ID
                 });
                 VideoJS.setupAllWhenReady();
+            }
+        },
+        {
+            elm : '#user-nav',
+            onload: function() {
+                $('#user-nav').find('a.trigger').bind('click', function(event) {
+		            var target = $(this).parent();
+		            // close any previously open tab
+		            target.parent().find('li.open').removeClass('open');
+                    target.toggleClass('open');
+		            // return false to ensure that we don't get '#' appear in the URL
+		            return false;
+                }).end().find('li.menu')
+                .bind('mouseenter', function() {
+                    if ($(this).is('.open')) {
+                        window.clearTimeout(batucada.fader);
+                    }
+                })
+                .bind('mouseleave', function() {
+                    if ($(this).is('.open')) {
+                        var current = $(this);
+                        batucada.fader = window.setTimeout(function() {
+                            current.removeClass('open');
+                            current.find('ul').fadeOut('fast', function() {
+                                $(this).attr('style', '');
+                            });
+                        }, 1000);
+                    }        
+                });
             }
         }
     ], 
@@ -405,34 +437,10 @@ var initWMD = function(){
 };
 
 $(document).ready(function() {
-    // dispatch per-page onload handlers using batucada.furnish
+    // site wide script loading and checks
     batucada.prepare();
+    // any page specific inits - data held in batucada.areas
     batucada.furnish();
-    // attach handlers for elements that appear on most pages
-    $('#user-nav').find('a.trigger').bind('click', function(event) {
-		var target = $(this).parent();
-		// close any previously open tab
-		target.parent().find('li.open').removeClass('open');
-        target.toggleClass('open');
-		// return false to ensure that we don't get '#' appear in the URL
-		return false;
-    }).end().find('li.menu')
-    .bind('mouseenter', function() {
-        if ($(this).is('.open')) {
-            window.clearTimeout(batucada.fader);
-        }
-    })
-    .bind('mouseleave', function() {
-        if ($(this).is('.open')) {
-            var current = $(this);
-            batucada.fader = window.setTimeout(function() {
-                current.removeClass('open');
-                current.find('ul').fadeOut('fast', function() {
-                    $(this).attr('style', '');
-                });
-            }, 1000);
-        }        
-    });
 });
 
 // Recaptcha
@@ -452,4 +460,3 @@ $('#recaptcha_help').click(function(e) {
     e.preventDefault();
     Recaptcha.showhelp();
 });
-
