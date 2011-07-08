@@ -433,29 +433,6 @@ $(document).ready(function() {
             }, 1000);
         }        
     });
-
-	/* wire up any RTEs with wmd
-       not anymore we don't -  initWMD();
-    */
-
-    // modals using jQueryUI dialog
-    $('.button.openmodal').live('click', function(){
-        var url = this.href;
-        var selector = '.modal';
-        var urlFragment =  url + ' ' + selector;
-        var dialog = $('<div></div>').appendTo('body');
-        // load remote content
-        dialog.load(
-            urlFragment,
-            function (responseText, textStatus, XMLHttpRequest) {
-                dialog.dialog({
-                    draggable: true
-                });
-            }
-        );
-        //prevent the browser to follow the link
-        return false;
-    }); 
 });
 
 // Recaptcha
