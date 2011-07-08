@@ -215,7 +215,20 @@ batucada.areas =  {
                 $('.modal nav.tabs a').tabLinks('.tabpane');
             }
         },
-    ],
+        {
+            elm : 'div.video-js-box',
+            requires : ['js/include/video.js'],
+            onload: function() {
+                var videoCSS = $('<link />').appendTo($('head'));
+                videoCSS.attr({
+                    rel:'stylesheet',
+                    type:'text/css',
+                    href: batucada.data.MEDIA_URL + 'css/video-js.css?build=' + batucada.data.JS_BUILD_ID
+                });
+                VideoJS.setupAllWhenReady();
+            }
+        }
+    ], 
     compose_message: {
         onload: function() {
             $('#id_recipient').autocomplete({
@@ -420,25 +433,7 @@ $(document).ready(function() {
             }, 1000);
         }        
     });
-    /* check for the existance of a video player and upload assets if needed */
-    if ($('div.video-js-box').length) {
-        // load in the CSS 
-        var videoCSS = $('<link />').appendTo($('head'));
-        videoCSS.attr({
-            rel:'stylesheet',
-            type:'text/css',
-            href: batucada.data.MEDIA_URL + 'css/video-js.css?build=' + batucada.data.JS_BUILD_ID
-        });
-        // load in the JS file
-        $.ajax({
-            type:'GET',
-            url: batucada.data.MEDIA_URL + 'js/include/video.js?build=' + batucada.data.JS_BUILD_ID,
-            dataType:'script',
-            success:function() {
-                VideoJS.setupAllWhenReady();
-            }
-        });
-    }
+
 	/* wire up any RTEs with wmd
        not anymore we don't -  initWMD();
     */
