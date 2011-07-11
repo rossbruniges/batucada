@@ -1,11 +1,12 @@
 batucada.challenges = function() {
     var votes = $('#votes'),
         body_id = $('body').attr('id'),
+        js_text = batucada.strings.challenges,
         init, randomizr, vote_up, load_ideas, expandr;
     load_ideas = {
         load_content : function(url, dest) {
             var ajax_loader = $('#ajax_space'),
-                text = batucada.strings.challenges.load_ideas,
+                text = js_text.load_ideas,
                 timer;
             if (!ajax_loader.length) {
                 ajax_loader = $('<div id="ajax_space" />').appendTo($('body'));
@@ -49,12 +50,12 @@ batucada.challenges = function() {
         text_values : {
             up: {
                 url_suffix:"upvote",
-                input_txt:batucada.strings.challenges.vote_up.btn_vote,
+                input_txt:js_text.vote_up.btn_vote,
                 input_cls:"trigger vote"
             },
             clear:{
                 url_suffix:"clearvote",
-                input_txt:batucada.strings.challenges.vote_up.btn_clear,
+                input_txt:js_text.vote_up.btn_clear,
                 input_cls:"trigger clear"
             }
         },
@@ -91,7 +92,7 @@ batucada.challenges = function() {
     };
     randomizr = function() {
         var moar, num_entries, loader, messages,
-            text = batucada.strings.challenges.randomizr; 
+            text = js_text.randomizr; 
         moar =  $('<div id="browse"><button type="button">' + text.btn_more  + '</button><p>' + text.finish  + ' - <a href="'+ window.location.href +'">' + text.btn_reset  + '</a></p></div>').insertAfter(votes);
         messages = {
             loading:text.ajax_load,
@@ -146,7 +147,7 @@ batucada.challenges = function() {
     };
     expandr = function () {
         var elm = $('div.expando'),
-            txt = batucada.strings.challenges.expandr,
+            txt = js_text.expandr,
             trigger = $('<a id="expandr" href="#">' + txt.closed + '</a>').insertAfter(elm);
         trigger.bind('click', function() {
             var el = $(this);
