@@ -822,7 +822,7 @@ header {}
 		display: inline-block;
 		zoom:1;
 		*display:inline;
-		width: 215px;
+		width: 205px;
 		vertical-align: top;
 		margin: 0 18px 18px 0;
 		padding: 3px;
@@ -885,9 +885,9 @@ header {}
 		line-height: 1;
 		font-weight: bold;
 		height: 2em;
-		width: 132px;
+		width: 122px;
 		overflow: hidden;
-
+        word-wrap:break-word;
 	}
 	/* TODO: set a charachter maximum for project.description that works
 	 * with this layout at /project/list/ */
