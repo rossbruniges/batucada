@@ -23,7 +23,7 @@ jQuery.fn.tabLinks = function(element) {
     };
     $.fn.initForm = function() {
         $(this).attachDirtyOnChangeHandler();
-        batucada.furnish($(this).attr('id'));
+        batucada.page.furnish($(this).attr('id'));
         return this;
     };
     var saveModal = function(e) {

@@ -144,73 +144,101 @@ var attachFileUploadHandler = function($inputs) {
         });
     });
 };
-
-batucada.prepare = function() {
-    $.each(batucada.areas.common, function(i,v) {
-        var e = v.elm;
-        if ($(e).length) {
-            batucada.furnish(e,v);
+/**
+ * @namespace Functions used to set up an app page
+ * @requires jQuery, LAB.js, batucada.areas, batucada.data (set in template)
+ * @returns {Object} two helper methods - prepare() and furnish()
+ */
+batucada.page = function() {
+    var prepare, furnish;
+    /**
+     * Public function to load dependacies and run fucntions for a specific page
+     *
+     * @param context {String} either an ID to search for or a CSS selector for jQuery to find
+     * @param o {Object} batucada.page.furnish compatible object
+     * @example
+     * batucada.page.furnish()
+     * @example
+     * batucada.page.furnish ('myID', {
+     *   elm : 'mySelector',
+     *   requires : ['js/files/to/load'] (optional),
+     *   text : 'location of a JS file containing a localised JS text object (optional)
+     *   onload : function() {
+     *     console.log('called once the contents of required is loaded');
+     *    }
+     * });
+     */
+    furnish = function(context,o) {
+        var obj, context,  bd = batucada.data;
+        // if no context is defined we know we're looking at the <body>
+        if (!context) { 
+            context = document.getElementsByTagName('body')[0];
+        } else {
+            // checks for a matching ID and falls back to jQuery for non-matches
+            context = document.getElementById(context) || $(context);
         }
-    });
-}
-
-batucada.furnish = function(context,o) {
-    var obj, context,  bd = batucada.data;
-    // if no context is defined we know we're looking at the <body>
-    if (!context) { 
-        context = document.getElementsByTagName('body')[0];
-    } else {
-        // needs to work with both a string and a css selector, which would require jQuery
-        context = document.getElementById(context) || $(context);
-    }
-    // if we sent an object use that otherwise use the one in areas
-    obj = o || batucada.areas[context.id];
-    if (obj) {
-        // cache these objects for later re-use
-        var req = obj.requires,
-            txt = obj.text;
-        // set up a custom event that can be called once the locale has been loaded and avoid race-condition
-        $(context).bind('locale_loaded', function() {
-            // load in the required file and once done call the onload to init it
-            if (req && req.length) {
-                $LAB
-                .script(bd.MEDIA_URL + req[0] + '?build=' + bd.JS_BUILD_ID)
-                .wait(function() {
-                    obj.onload();
-                });
-            } else {
-                if (typeof obj.onload === 'function') {
-                    obj.onload();
-                }
-            }
-        });
-        // load the require localised string file
-        if (txt && txt.length) {
-            // cascade from a potential local to the default if we get an error
-            $.ajax({
-                dataType:'script',
-                url: bd.MEDIA_URL + 'js/l10n/en-US/' + txt[0],
-                success:function() {
-                    $(context).trigger('locale_loaded');
-                },
-                error:function(data) {
-                    $.ajax({
-                        url: bd.MEDIA_URL + 'js/l10n/' + txt[0],
-                        dataType: 'script',
-                        success:function() {
-                             $(context).trigger('locale_loaded');
-                       }
+        // if we sent an object use that otherwise use the one in batucada.areas
+        obj = o || batucada.areas[context.id];
+        if (obj) {
+            // cache these objects for later re-use
+            var req = obj.requires,
+                txt = obj.text;
+            // set up a custom event that can be called once the locale has been loaded and avoid race-condition
+            $(context).bind('locale_loaded', function() {
+                // load in the required file and once done call the onload to init it
+                if (req && req.length) {
+                    $LAB
+                    .script(bd.MEDIA_URL + req[0] + '?build=' + bd.JS_BUILD_ID)
+                    .wait(function() {
+                        obj.onload();
                     });
+                } else {
+                    if (typeof obj.onload === 'function') {
+                        obj.onload();
+                    }
                 }
             });
-        } else {
-          $(context).trigger('locale_loaded'); 
-        } 
-    }
-};
-
-batucada.areas =  {
-    common:[
+            // load the require localised string file
+            if (txt && txt.length) {
+                // cascade from a potential local to the default if we get an error
+                $.ajax({
+                    dataType:'script',
+                    url: bd.MEDIA_URL + 'js/l10n/en-US/' + txt[0],
+                    success:function() {
+                        $(context).trigger('locale_loaded');
+                    },
+                    error:function(data) {
+                        $.ajax({
+                            url: bd.MEDIA_URL + 'js/l10n/' + txt[0],
+                            dataType: 'script',
+                            success:function() {
+                                 $(context).trigger('locale_loaded');
+                            }
+                        });
+                    }
+                });
+            } else {
+                $(context).trigger('locale_loaded'); 
+            } 
+        }
+    };
+    /**
+     * Public function used to load dependancies and call init functions
+     * for common site or UGC code
+     *
+     * If you want a site wide piece of code to run include it in here
+     *
+     * @memberOf batucada.page
+     */
+    prepare = function() {
+        var common, len;
+        /**
+         * Array containing batucada.page.furnish objects
+         * - elm: DOM element: if this exists the code is run
+         * - requires: link to a JS file dependancy
+         * - onload: function called once dependancy is loaded
+         */
+        common= [
         {
             elm :'.modal nav.tabs',
             requires : ['js/include/admin_tabs.js'],
@@ -219,6 +247,7 @@ batucada.areas =  {
             }
         },
         {
+            // video player - loads the CSS and JS
             elm : 'div.video-js-box',
             requires : ['js/include/video.js'],
             onload: function() {
@@ -232,6 +261,7 @@ batucada.areas =  {
             }
         },
         {
+            // user-navigation dropdowns
             elm : '#user-nav',
             onload: function() {
                 $('#user-nav').find('a.trigger').bind('click', function(event) {
@@ -260,7 +290,33 @@ batucada.areas =  {
                 });
             }
         }
-    ], 
+        ];
+        // i will be 0 indexed
+        len = common.length - 1;
+        /**
+         * i: the current iteration
+         * v: each object in common (above)
+         */
+        $.each(common, function(i, v) {
+            var e = v.elm;
+            if ($(e).length) {
+                // call furnish with the current DOM reference and object
+                furnish(e,v);
+            }
+            // once we've made it through all common objects call furnish on the page
+            if (i === len) {
+                furnish();
+            }
+        });
+    }
+    return {
+        prepare : prepare,
+        furnish : furnish
+    }
+
+}();
+
+batucada.areas =  { 
     compose_message: {
         onload: function() {
             $('#id_recipient').autocomplete({
@@ -437,10 +493,7 @@ var initWMD = function(){
 };
 
 $(document).ready(function() {
-    // site wide script loading and checks
-    batucada.prepare();
-    // any page specific inits - data held in batucada.areas
-    batucada.furnish();
+    batucada.page.prepare();
 });
 
 // Recaptcha
