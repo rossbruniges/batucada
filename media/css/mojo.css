@@ -65,7 +65,7 @@ html, body {
   color: #474747;
   font-size: 14px;
   line-height: 22px;
-  background: #f3f4f6 url("../images/background.jpg") repeat-x center 50px;
+  background: #f3f4f6 url("/media/images/background.jpg") repeat-x center 50px;
 }
 a {
   text-decoration: none;
@@ -124,7 +124,7 @@ header {}
   #masthead {
     padding: 17px 20px 18px 20px;
     height: 24px;
-    background: url("../images/masthead.bg.png") repeat-x;
+    background: url("/media/images/masthead.bg.png") repeat-x;
     min-width: 920px;
   }
     #masthead a:hover {
@@ -132,7 +132,7 @@ header {}
     }
      
     #logo {
-      background-image: url("../images/logo.png");
+      background-image: url("/media/images/logo.png");
       height: 24px;
       width: 213px;
       float: left;
@@ -211,7 +211,7 @@ header {}
         background: rgba(255, 255, 255, 0.3);
       }
       .no-rgba a:hover {
-        background: url("../images/user-nav.bg.png");
+        background: url("/media/images/user-nav.bg.png");
       }
 
       #user-link {}
@@ -222,7 +222,7 @@ header {}
           box-shadow: #000 -1px -1px 1px;
           -moz-box-shadow: #000 -1px -1px 1px;
           -webkit-box-shadow: #000 -1px -1px 1px;
-          behavior: url("../css/PIE.htc");
+          behavior: url("/media/css/PIE.htc");
         }
 
         #user-name {
@@ -239,7 +239,7 @@ header {}
       #user-nav .separator {
         width: 2px;
         margin: 0 5px 0 3px;
-        background: url("../images/separator.bg.png") no-repeat left center;
+        background: url("/media/images/separator.bg.png") no-repeat left center;
         height: 37px;
       }
       
@@ -278,7 +278,7 @@ header {}
           -moz-border-radius-bottomleft: 7px;
           border-bottom-right-radius: 7px;
           border-bottom-left-radius: 7px;          
-          behavior: url("../css/PIE.htc");
+          behavior: url("/media/css/PIE.htc");
         }
           .menu.open a {
             border-top: 1px solid #76bae9;
@@ -332,7 +332,7 @@ header {}
       
 /* banner */
 .banner {
-  background: #111 url(../images/splash-header-bg.png) repeat-x 0 -59px;
+  background: #111 url(/media/images/splash-header-bg.png) repeat-x 0 -59px;
   min-height: 210px;
   text-align: center;
   margin-bottom: -20px;
@@ -396,7 +396,7 @@ header {}
   display: inline-block;
   padding-left: 15px;
   text-align: center;
-  background: url('../images/mojo/buttons.png') left 0px no-repeat;
+  background: url('/media/images/mojo/buttons.png') left 0px no-repeat;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -408,23 +408,23 @@ header {}
     height: 31px;
     padding-bottom: 1px;
     padding-right: 15px;
-    background: url('../images/mojo/buttons.png') right 0px no-repeat;
+    background: url('/media/images/mojo/buttons.png') right 0px no-repeat;
   }
   /* hover */
   .button:hover {
     color: #ffffff;
     text-decoration: none;
-    background: url('../images/mojo/buttons.png') left -33px no-repeat;
+    background: url('/media/images/mojo/buttons.png') left -33px no-repeat;
   }
   .button:hover span {
-    background: url('../images/mojo/buttons.png') right -33px no-repeat;
+    background: url('/media/images/mojo/buttons.png') right -33px no-repeat;
   }
   /* active */
   .button:active {
-    background: url('../images/mojo/buttons.png') left -66px no-repeat;
+    background: url('/media/images/mojo/buttons.png') left -66px no-repeat;
   }
   .button:active span {
-    background: url('../images/mojo/buttons.png') right -66px no-repeat;
+    background: url('/media/images/mojo/buttons.png') right -66px no-repeat;
     padding-bottom: 0px;
     padding-top: 1px;
     text-shadow: none;
@@ -433,24 +433,24 @@ header {}
   
   /* selected */
   .button.selected {
-    background: url('../images/mojo/buttons.png') left -99px no-repeat;
+    background: url('/media/images/mojo/buttons.png') left -99px no-repeat;
   }
     .button.selected span {
-      background: url('../images/mojo/buttons.png') right -99px no-repeat;
+      background: url('/media/images/mojo/buttons.png') right -99px no-repeat;
     }
     /* selected */
     .button.selected:hover {
-      background: url('../images/mojo/buttons.png') left -132px no-repeat;
+      background: url('/media/images/mojo/buttons.png') left -132px no-repeat;
     }
       .button.selected:hover span {
-        background: url('../images/mojo/buttons.png') right -132px no-repeat;
+        background: url('/media/images/mojo/buttons.png') right -132px no-repeat;
       }
     /* selected */
     .button.selected:active {
-      background: url('../images/mojo/buttons.png') left -165px no-repeat;
+      background: url('/media/images/mojo/buttons.png') left -165px no-repeat;
     }
       .button.selected:active span {
-        background: url('../images/mojo/buttons.png') right -165px no-repeat;
+        background: url('/media/images/mojo/buttons.png') right -165px no-repeat;
       }
 
   /* button on white background */
@@ -460,7 +460,7 @@ header {}
     display: inline-block;
     padding-left: 15px;
     text-align: center;
-    background: url('../images/mojo/buttons.png') left -199px no-repeat;
+    background: url('/media/images/mojo/buttons.png') left -199px no-repeat;
     font-size: 14px;
     color: #ffffff;
     font-weight: bold;
@@ -472,23 +472,23 @@ header {}
       height: 31px;
       padding-bottom: 1px;
       padding-right: 15px;
-      background: url('../images/mojo/buttons.png') right -199px no-repeat;
+      background: url('/media/images/mojo/buttons.png') right -199px no-repeat;
     }
     /* hover */
     .button-white:hover {
       color: #ffffff;
       text-decoration: none;
-      background: url('../images/mojo/buttons.png') left -232px no-repeat;
+      background: url('/media/images/mojo/buttons.png') left -232px no-repeat;
     }
     .button-white:hover span {
-      background: url('../images/mojo/buttons.png') right -232px no-repeat;
+      background: url('/media/images/mojo/buttons.png') right -232px no-repeat;
     }
     /* active */
     .button-white:active {
-      background: url('../images/mojo/buttons.png') left -265px no-repeat;
+      background: url('/media/images/mojo/buttons.png') left -265px no-repeat;
     }
     .button-white:active span {
-      background: url('../images/mojo/buttons.png') right -265px no-repeat;
+      background: url('/media/images/mojo/buttons.png') right -265px no-repeat;
       padding-bottom: 0px;
       padding-top: 1px;
       text-shadow: none;
@@ -531,17 +531,17 @@ text-align: center;
     .homepagelogos span {
       display: none;
     }
-  .logo-aljazeera { background: url('../images/mojo/logos.png') 0px 0px no-repeat; }
-  .logo-bbc { background: url('../images/mojo/logos.png') 0px -128px no-repeat; }
-  .logo-boston { background: url('../images/mojo/logos.png') 0px -256px no-repeat; }
-  .logo-guardian { background: url('../images/mojo/logos.png') 0px -384px no-repeat; }
-  .logo-zeit { background: url('../images/mojo/logos.png') 0px -512px no-repeat; }
+  .logo-aljazeera { background: url('/media/images/mojo/logos.png') 0px 0px no-repeat; }
+  .logo-bbc { background: url('/media/images/mojo/logos.png') 0px -128px no-repeat; }
+  .logo-boston { background: url('/media/images/mojo/logos.png') 0px -256px no-repeat; }
+  .logo-guardian { background: url('/media/images/mojo/logos.png') 0px -384px no-repeat; }
+  .logo-zeit { background: url('/media/images/mojo/logos.png') 0px -512px no-repeat; }
   
-  .logo-aljazeera:hover { background: url('../images/mojo/logos-hover.png') 0px 0px no-repeat; }
-  .logo-bbc:hover { background: url('../images/mojo/logos-hover.png') 0px -128px no-repeat; }
-  .logo-boston:hover { background: url('../images/mojo/logos-hover.png') 0px -256px no-repeat; }
-  .logo-guardian:hover { background: url('../images/mojo/logos-hover.png') 0px -384px no-repeat; }
-  .logo-zeit:hover { background: url('../images/mojo/logos-hover.png') 0px -512px no-repeat; }
+  .logo-aljazeera:hover { background: url('/media/images/mojo/logos-hover.png') 0px 0px no-repeat; }
+  .logo-bbc:hover { background: url('/media/images/mojo/logos-hover.png') 0px -128px no-repeat; }
+  .logo-boston:hover { background: url('/media/images/mojo/logos-hover.png') 0px -256px no-repeat; }
+  .logo-guardian:hover { background: url('/media/images/mojo/logos-hover.png') 0px -384px no-repeat; }
+  .logo-zeit:hover { background: url('/media/images/mojo/logos-hover.png') 0px -512px no-repeat; }
 
 /* HOMEPAGE STEPS */
 .homepagestep {
@@ -607,7 +607,7 @@ text-align: center;
   }
     .content li {
       padding-left: 20px;
-      background: url('../images/mojo/bullet.png') 4px 7px no-repeat;
+      background: url('/media/images/mojo/bullet.png') 4px 7px no-repeat;
     }
     
 /* HOMEPAGE */
@@ -646,7 +646,7 @@ text-align: center;
 /* CHALLENGE BOX */
 .challengebox {
   padding: 20px;
-  background: #ffffff url('../images/mojo/box-bg.png') bottom repeat-x;
+  background: #ffffff url('/media/images/mojo/box-bg.png') bottom repeat-x;
   border: solid 1px #c6c6c6;
   box-shadow: 0px 1px 0px #b5b7b8;
   -moz-box-shadow: 0px 1px 0px #b5b7b8;
@@ -733,7 +733,7 @@ text-align: center;
       float: left;
       width: 65px;
       margin-right: 10px;
-      background: url('../images/mojo/score-box.png') no-repeat;
+      background: url('/media/images/mojo/score-box.png') no-repeat;
       height: 66px;
       text-align: center;
     }
@@ -872,7 +872,7 @@ text-align: center;
     display: inline-block;
     width: 30px;
     height: 32px;
-    background: url('../images/mojo/icon-twitter.png') no-repeat;
+    background: url('/media/images/mojo/icon-twitter.png') no-repeat;
     margin-left: 5px;
   }  
   .footer .facebook {
@@ -880,7 +880,7 @@ text-align: center;
     display: inline-block;
     width: 30px;
     height: 32px;
-    background: url('../images/mojo/icon-facebook.png') no-repeat;
+    background: url('/media/images/mojo/icon-facebook.png') no-repeat;
     margin-left: 5px;
   }  
 .footer-subtext {
@@ -904,7 +904,7 @@ text-align: center;
 }
   .bt-wrapper li {
     padding-left: 20px;
-    background: url('../images/mojo/bullet.png') 4px 7px no-repeat;
+    background: url('/media/images/mojo/bullet.png') 4px 7px no-repeat;
   }
 
     
