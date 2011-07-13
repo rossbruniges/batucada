@@ -978,5 +978,49 @@ color: white;
 text-decoration: none;
 }
 /* [BUG-668107 - winner gallery */
-#mojo_challenges {
+#mojo_challenges .content h2 {
+    font-size: 18px;
+    line-height: 26px;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1em;
+}
+#mojo_challenges .content h3,
+#mojo_challenges .content h4 {
+    font-weight: bold;
+}
+#mojo_challenges .content p {
+    max-width: none;
+}
+#mojo_challenges .homepagestep {
+    text-align: left;
+}
+#mojo_challenges .homepagestep h4 {
+    margin: 0;
+    margin-right: 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+#mojo_challenges .homepagestep h5 {
+    margin: 0;
+}
+#mojo_challenges .homepagestep p {
+    margin-left: 0;
+}
+#mojo_challenges .homepagestep li {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 10px;
+    background-image: none;
+}
+#mojo_challenges .photos ul {
+    overflow: hidden;
+    zoom: 1;
+}
+#mojo_challenges .photos li {
+    float: left;
+    width: 130px;
+    padding-right: 10px;
+}
+#mojo_challenges .photos img {
+    width: 130px;
 }

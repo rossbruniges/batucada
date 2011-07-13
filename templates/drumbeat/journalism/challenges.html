@@ -30,17 +30,13 @@
         <h3>2011 challenges and winners</h3>
         {% for challenge in challenges %}
         <div class="homepagestep">
-            <header>
-                <h4>{{ challenge.title }}</h4>
-                <img src="{{ challenge.image.url }}" width="115" alt="" />
-            </header>
+            <h4>{{ challenge.title }}</h4>    
             <ul>
             {% for winner in challenge.get_winners.winners %}
                 <li><h5><a href="{% locale_url submission_show slug=challenge.slug submission_id=winner.pk %}">{{ winner.title }}</a></h5>
                 <p>An idea by <a href="{{ winner.created_by.get_absolute_url }}">{{ winner.created_by.name }}</a></p>
                 {% if winner.description_html %}
                 <div class="photos">
-                    <h6>Visual ideas</h6>
                     {% challenge_images winner.description_html %}
                 </div>
                 {% endif %}
