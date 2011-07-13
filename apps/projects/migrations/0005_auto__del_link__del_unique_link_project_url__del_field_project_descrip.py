@@ -9,7 +9,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Removing unique constraint on 'Link', fields ['project', 'url']
-        db.delete_unique('projects_link', ['project_id', 'url'])
+        #db.delete_unique('projects_link', ['project_id', 'url'])
 
         # Deleting model 'Link'
         db.delete_table('projects_link')

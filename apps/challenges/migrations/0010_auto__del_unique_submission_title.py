@@ -7,9 +7,7 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
-        # Removing unique constraint on 'Submission', fields ['title']
-        db.delete_unique('challenges_submission', ['title'])
+        pass
 
 
     def backwards(self, orm):
