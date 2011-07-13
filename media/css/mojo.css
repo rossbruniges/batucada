@@ -111,7 +111,7 @@ h5 {
 }
 
 .container_bottom {
-  width: 960px;
+  width: 920px;
   margin: 0 auto;
       border-top: solid 1px #ffffff;
     border-bottom: solid 1px #c2c3c5;
@@ -360,12 +360,12 @@ header {}
   
 /* homepage banner */
 .banner ul {
-  margin-left: -30px;
+  margin-left: -10px;
 }
   .banner li {
     float: left;
     width: 300px;
-    margin-left: 30px;
+    margin-left: 10px;
     text-align: left;
     margin-bottom: 20px;
   } 
@@ -623,12 +623,12 @@ text-align: center;
   .homepage .column-left {
     float: left;
     margin-right: 30px;
-    width: 630px;
+    width: 620px;
     
   }
   .homepage .column-right {
     float: left;
-    width: 299px;
+    width: 270px;
   }
   .homepage .column-right h2 {
       font-size: 16px;
