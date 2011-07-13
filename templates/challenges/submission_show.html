@@ -7,20 +7,20 @@
 
 {% block breadcrumbs %}
 <div class="container">
-  <nav>
-    <a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a>
-    <span class="arrow">&rsaquo;</span>
-    <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
-    <span class="arrow">&rsaquo;</span>
-    <a href="{% locale_url challenges_show slug=challenge.slug %}">{{ challenge.title }}</a>
-  </nav>
+    <nav>
+        <a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a>
+        <span class="arrow">&rsaquo;</span>
+        <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
+        <span class="arrow">&rsaquo;</span>
+        <a href="{% locale_url challenges_show slug=challenge.slug %}">{{ challenge.title }}</a>
+    </nav>
 
-  <div id="project-actions">
+    <div id="project-actions">
     {% if user.get_profile == submission.created_by and challenge.entrants_can_edit %}
-    <a class="button" href="{% locale_url submission_edit slug=challenge.slug submission_id=submission.id%}">{{ _('Edit Submission') }}</a>
-    <a class="button" href="{% locale_url submission_delete slug=challenge.slug submission_id=submission.id%}">{{ _('Delete Submission') }}</a>
+        <a class="button" href="{% locale_url submission_edit slug=challenge.slug submission_id=submission.id%}">{{ _('Edit Submission') }}</a>
+        <a class="button" href="{% locale_url submission_delete slug=challenge.slug submission_id=submission.id%}">{{ _('Delete Submission') }}</a>
     {% endif %}
-  </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -28,91 +28,83 @@
 
 {% block body %}
 {% include "challenges/_challenge_sidebar.html" %}
-
 <div id="main">
-<section class="submission">
-  <article>
-{% if challenge.allow_voting %}
-<div id="votes">
-  <div class="submission">
-{% include "challenges/_voting_resource.html" %}  
- </div>
- </div>
- {% else %}
- {% score_for_object submission as score %}
- <div id="votes">
- <div class="submission">
- <div class="post-contents">
- <div class="voting">
- <p><span class="score">{{ score.score }}</span> votes received</p>
- </div>
- </div>
- </div>
- </div>
- {% endif %}
-
-    <h1 id="challenge-title">{{ submission.title }}</h1>
-    <div class="post-details">
-      Idea from <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
-      <span>{{ submission.created_on|timesince }} {{ _(' ago') }}</span>
-    </div>
-<div class="ajax_copy">
-<h2>{{ _('Summary') }}</h2>
-    <div class="summary">
-      {{ submission.summary }}
-    </div>
-    {% if submission.description_html %}
-    <h2>{{ _('Description') }}</h2>
-    <div class="details">
-      {{ submission.description_html|safe }}
-    </div>
-   {% endif %}
-   </div>
-    {% if submission.bio %}
-    <div class="author_bio">
-    <h2>{{ _('About this entrant') }}</h2>
-    <img width="54" height="54" src="{{ MEDIA_URL }}{{ submission.created_by.image_or_default }}" class="member-picture" />
-    <div class="bio">
-      {{ submission.bio }}
-    </div>
-    </div>
-    {% endif %}
-  </article>
-   <div id="comments">
-    <h1>{{ _('Comments') }}</h1><br />
+    <section class="submission">
+        <article>
+        {% if challenge.allow_voting %}
+        <div id="votes">
+            <div class="submission">
+            {% include "challenges/_voting_resource.html" %}  
+            </div>
+        </div>
+        {% else %}
+            {% score_for_object submission as score %}
+            {% if submission.is_winner %}
+            <div id="votes">
+                <div class="submission">
+                    <div class="winner">
+                        <img src="{{ MEDIA_URL }}images/winner.png" width="60" height="58" alt="" />
+                        <p>Winner</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+        <h1 id="challenge-title">{{ submission.title }}</h1>
+        <div class="post-details">
+            Idea from <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
+            <span>{{ submission.created_on|timesince }} {{ _(' ago') }}</span>
+        </div>
+        <div class="ajax_copy">
+            <h2>{{ _('Summary') }}</h2>
+            <div class="summary">
+            {{ submission.summary }}
+            </div>
+            {% if submission.description_html %}
+            <h2>{{ _('Description') }}</h2>
+            <div class="details">
+            {{ submission.description_html|safe }}
+            </div>
+            {% endif %}
+        </div>
+        {% if submission.bio %}
+        <div class="author_bio">
+            <h2>{{ _('About this entrant') }}</h2>
+            <img width="54" height="54" src="{{ MEDIA_URL }}{{ submission.created_by.image_or_default }}" class="member-picture" />
+            <div class="bio">{{ submission.bio }}</div>
+        </div>
+        {% endif %}
+        </article>
+    <div id="comments">
+        <h1>{{ _('Comments') }}</h1><br />
     
-    {% get_comment_list for submission as comment_list %}
-    <dl>
-    {% for comment in comment_list %}
-      <dt id="c{{ comment.pk }}">{{ comment.submit_date }} - {{ comment.user }}</dt>
-      <dd>{{ comment.comment|linebreaks }}</dd>
-    {% endfor %}
-    </dl>
-
-
-    {% if user.is_authenticated %}
-    {% get_comment_form for submission as form %}
-    <form action="{% comment_form_target %}" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{% locale_url submission_show slug=challenge.slug submission_id=submission.pk %}" />
-      {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-      {% endfor %}
-      <div class="field{% if form.comment.errors %} error{% endif %}">
-        <label for="id_comment">{{ _('Leave a comment.') }}</label>
-        <span class="hint block"></span>
-        {{ form.comment }}
-        {{ form.comment.errors }}
-      </div>
-      <p class="buttons">
-        <button type="submit">{{ _('Post') }}</button>
-      </p>
-    </form>  
+        {% get_comment_list for submission as comment_list %}
+        <dl>
+        {% for comment in comment_list %}
+            <dt id="c{{ comment.pk }}">{{ comment.submit_date }} - {{ comment.user }}</dt>
+            <dd>{{ comment.comment|linebreaks }}</dd>
+        {% endfor %}
+        </dl>
+        {% if user.is_authenticated %}
+        {% get_comment_form for submission as form %}
+        <form action="{% comment_form_target %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% locale_url submission_show slug=challenge.slug submission_id=submission.pk %}" />
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        <div class="field{% if form.comment.errors %} error{% endif %}">
+            <label for="id_comment">{{ _('Leave a comment.') }}</label>
+            <span class="hint block"></span>
+            {{ form.comment }}
+            {{ form.comment.errors }}
+        </div>
+        <p class="buttons"><button type="submit">{{ _('Post') }}</button></p>
+        </form>  
     {% else %}
     You must <a href="{% locale_url users_login %}">login</a> to leave comments.
     {% endif %}
-  </div>
-</section>
+        </div>
+    </section>
 </div>
 {% endblock %}
-

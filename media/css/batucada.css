@@ -2640,17 +2640,23 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 }
 #main .post-container {
     -moz-transition: background 0.5s;
+    -webkit-transition: background 0.5s;
+    -o-transition: background 0.5s;
+    -ms-transition: background 0.5s;
+    transition: background 0.5s;
 }
-#main .post-container:hover {
+#all_submissions .winner:hover {
      background: #FFFAE4; /* firefox */
 }
 #main .post-container:hover .winner {
-    -moz-transform: rotate(375deg)
+    -moz-transform: rotate(375deg);
+    -o-transform: rotate(375deg);
+    -webkit-transform: rotate(375deg);
+    -ms-transform: rotate(375deg);
+    transform: rotate(375deg);
 }
 .submission .winner {
-    position: absolute;
-    top: -30px;
-    right: -15px;
+    display: none;
     background: #FFFAE4;
     text-align: center;
     padding: 0.5em;
@@ -2659,7 +2665,23 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     border: 1px solid #CFCFCF;
     border-radius: 47px;
     -moz-transition: -moz-transform 0.5s;
+     -webkit-transition: -webkit-transform 0.5s;
+    -o-transition: -o-transform 0.5s;
+ -ms-transition: -ms-transform 0.5s;
+ transition: transform 0.5s;
     -moz-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+}
+li.submission .winner {
+    position: absolute;
+    top: -30px;
+    right: -15px;
+}
+#all_submissions .winner {
+    display: block;
 }
 .submission .winner p {
     margin-bottom: 0;

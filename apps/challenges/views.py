@@ -150,6 +150,30 @@ def edit_challenge_image(request, slug):
                               context_instance=RequestContext(request))
 
 
+def show_challenge_winners(request, slug):
+    challenge = get_object_or_404(Challenge, slug=slug)
+
+    order = '?'
+    
+    submission_set = challenge.submission_set.filter(is_winner=True).extra(
+        order_by=[order]
+    )
+
+    try:
+        profile = request.user.get_profile()
+    except:
+        profile = None
+
+    context = {
+        'challenge': challenge,
+        'submissions': submission_set,
+        'profile': profile,
+        'full_data': 'false'
+    }
+
+    return render_to_response('challenges/challenge_winners.html', context,
+                              context_instance=RequestContext(request))
+
 def show_challenge(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
 
@@ -174,6 +198,7 @@ def show_challenge(request, slug):
         },
         order_by=[order]
     )
+
     if challenge.allow_voting:
         paginator = Paginator(submission_set, 4)
         tmpl = 'challenges/challenge_voting.html'

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load l10n_tags %}
+
+{% block title %}{{ challenge.title }}{% endblock %}
+
+{% block breadcrumbs %}
+
+{% comment %}
+let's exclude the Nav for "if (user.get_profile == challenge.created_by and challenge.project.name == 'MoJo') or (challenge.project.name != 'MoJo')"
+
+instead, we should include "challenges/_challenge_sidebar.html" or whatever we need to do to make the /journalism header appear for MoJo-created challenges
+{% endcomment %}
+
+<div class="container">
+    
+  <nav>
+    <a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a>
+    <span class="arrow">&rsaquo;</span>
+    <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
+    <span class="arrow">&rsaquo;</span>
+    <a href="{% locale_url challenges_show slug=challenge.slug %}">{{ challenge.title }}</a>
+  </nav>
+  
+  <div id="project-actions">
+    {% if user.get_profile == challenge.created_by %}
+    <a class="button" href="{% locale_url challenges_edit slug=challenge.slug %}">{{ _('Edit Challenge') }}</a>
+    <a class="button" href="{% locale_url challenges_contact_entrants slug=challenge.slug %}">{{ _('Contact Entrants') }}</a>
+
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block bodyid %}challenge_landing{% endblock %}
+
+{% block body %}
+
+   
+
+{% include "challenges/_challenge_sidebar.html" %}
+<div id="main">
+  <h1>{{ challenge.title }}</h1><br />
+
+  {% if challenge.above_fold %}
+    {{ challenge.above_fold|safe }}
+  {% endif %}
+  
+  {% if submissions %}
+   <p>The judges have come together and decided on which ideas are being brought through to the hacking stage. All the latest details can be found on the <a href="{% locale_url drumbeat_journalism %}">MOJO website</a></p>
+  
+  <h2>{{ _('Our winning ideas') }}</h2>
+ 
+  <ul id="posts">
+    {% for submission in submissions %}
+    {% include "challenges/_submission_resource.html" %}
+    {% endfor %}
+  </ul>
+  <p>If you're interested in seeing all our ideas you can still <a href="{% locale_url all_submissions slug=challenge.slug %}">browse all ideas</a>.</p>
+  {% endif %}
+</div>
+{% endblock %}
