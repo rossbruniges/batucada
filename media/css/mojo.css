@@ -977,9 +977,6 @@ text-align: right;
 color: white;
 text-decoration: none;
 }
-
-
-
-
-
-
+/* [BUG-668107 - winner gallery */
+#mojo_challenges {
+}
