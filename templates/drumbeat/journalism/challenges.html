@@ -1,0 +1,109 @@
+{% extends "mojo.html" %}
+
+{% load l10n_tags challenge_images %}
+
+{% block bodyid %}mojo_challenges{% endblock %}
+
+{% block body %}    
+    <div class="banner">   
+      <div class="container">
+        <h1><a href="{% locale_url drumbeat_journalism %}">Knight-Mozilla News Technology Partnership (MoJo)</a></h1>
+        <h2>Web developers and designers around the world collaborating to invent the future of news.</h2>
+        <a class="button" href="{% locale_url drumbeat_journalism %}"><span>Home</span></a>
+       <a class="button" href="{% locale_url drumbeat_journalism_about %}"><span>About MoJo</span></a>
+              <a class="button" href="{% locale_url drumbeat_journalism_process %}"><span>The Process</span></a>
+        <a class="button" href="{% locale_url drumbeat_journalism_participate %}"><span>Get Involved</span></a>
+        <a class="button selected" href="{% locale_url mojo_design_challenges %}"><span>Design Challenges</span></a>
+        <a class="button" href="https://wiki.mozilla.org/Drumbeat/MoJo"><span>MoJo Wiki</span></a>
+      </div>
+    </div>
+        <div class="content">
+      <div class="container">
+
+ 
+    <h2>Design challenges</h2>
+        
+        <p>In 2011 and 2012, Knight and Mozilla will pose a series of news technology
+        challenges for designers, developers and news hackers. The winners qualify to
+        participate in a 4-week intensive course and to become Knight-Mozilla news
+        fellows.</p>
+        <h3>2011 challenges and winners</h3>
+        {% for challenge in challenges %}
+        <div class="homepagestep">
+            <header>
+                <h4>{{ challenge.title }}</h4>
+                <img src="{{ challenge.image.url }}" width="115" alt="" />
+            </header>
+            <ul>
+            {% for winner in challenge.get_winners.winners %}
+                <li><h5><a href="{% locale_url submission_show slug=challenge.slug submission_id=winner.pk %}">{{ winner.title }}</a></h5>
+                <p>An idea by <a href="{{ winner.created_by.get_absolute_url }}">{{ winner.created_by.name }}</a></p>
+                {% if winner.description_html %}
+                <div class="photos">
+                    <h6>Visual ideas</h6>
+                    {% challenge_images winner.description_html %}
+                </div>
+                {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+               
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="column-33">
+        <h5>About Knight</h5>
+        <p>
+          The John S. and James L. Knight Foundation advances journalism in the digital age and invests in the vitality of communities where the Knight  brothers owned newspapers. 
+        </p>
+        <p>
+          Knight Foundation focuses on projects that  promote informed and engaged communities and lead to transformational change.
+        </p>
+        <p>
+          For more, visit <a href="http://www.knightfoundation.org">www.knightfoundation.org</a>
+        </p>
+      </div>
+      
+      <div class="column-33">
+        <h5>About Mozilla</h5>
+        <p>
+          Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. 
+        </p>
+        <p>
+          We do this by creating great software, like the Firefox browser, and building communities, like Mozilla Drumbeat, that build and grow the open web.
+        </p>
+        <p>
+          For more visit <a href="http://www.mozilla.org">www.mozilla.org</a>
+        </p>
+      </div>
+      
+      <div class="column-33 last">
+        <h5>FAQs</h5>
+        <ul>
+          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Why_is_Mozilla_interested_in_media_and_journalism.3F.E2.80.A8">Why is Mozilla interested in media and journalism?</a></li>
+          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Who_is_eligible_for_a_Knight-Mozilla_fellowship.3F_How_do_I_apply_for_a_Knight-Mozilla_fellowship.3F.E2.80.A8.E2.80.A8">Who is eligible for a Knight-Mozilla fellowship? How do I apply for a Knight-Mozilla fellowship?</a></li>
+          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#What_do_you_mean_by_.22the_open_web.22_and_.22open_technology.3F.E2.80.A8">What do you mean by "the open web" and "open technology?"</a></li>
+        </ul>
+        <a class="viewmore" href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ">View More</a>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="footer">
+        <ul>
+          <li><a href="mailto:journalism@mozilla.org">Contact Us</a></li>
+          <li><a href="http://www.mozilla.org">Mozilla.org</a></li>
+          <li><a href="http://www.mozilla.org/about/policies/privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+        <a class="facebook" href="http://www.facebook.com/pages/Knight-Mozilla-News-Technology-Partnership/166232896765641"></a>
+        <a class="twitter" href="http://twitter.com/knightmozilla"></a>
+        <span style="float: right">Follow Mojo</span>
+      </div>
+      <p class="footer-subtext">
+        The contents of this website are licensed CC-BY. (c) Mozilla 2011
+      </p>  
+    </div>
+{% endblock %}

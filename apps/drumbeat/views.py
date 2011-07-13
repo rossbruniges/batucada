@@ -63,3 +63,13 @@ def journalism(request):
         'feed_url': feed_url,
         'counts': counts,
     }, context_instance=RequestContext(request))
+
+def design_challenges(request):
+    challenges = []
+    slugs = ('open-webs-killer-app', 'beyond-comment-threads', 'unlocking-video')
+    for slug in slugs:
+        challenge = Challenge.objects.get(slug=slug)
+        challenges.append(challenge)
+    return render_to_response('drumbeat/journalism/challenges.html', {
+       'challenges': challenges, 
+    }, context_instance=RequestContext(request))
