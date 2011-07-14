@@ -18,7 +18,13 @@ def challenge_images(haystack):
         }
         
         images.append(data)
-
-    return {
-        'images':images
-    }
+    
+    if len(images) != 0:
+        return {
+            'images':images
+        }
+    else:
+        print 'false'
+        return {
+            'images': False
+        }

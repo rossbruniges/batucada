@@ -10,7 +10,6 @@ batucada.mojo_winners=function() {
         $LAB.script(batucada.data.MEDIA_URL + 'js/include/jquery.fancybox-1.3.4.pack.js?build=' + batucada.data.JS_BUILD_ID)
         .wait(function() {
             context.find('a').fancybox({
-                'width' : '75%',
                 'height': '75%',
                 'transitionIn' : 'none',
                 'transitionOut' : 'none',

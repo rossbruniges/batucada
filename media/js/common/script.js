@@ -164,7 +164,7 @@ batucada.page = function() {
      *   requires : ['js/files/to/load'] (optional),
      *   text : 'location of a JS file containing a localised JS text object (optional)
      *   onload : function() {
-     *     console.log('called once the contents of required is loaded');
+     *     alert('called once the contents of required is loaded');
      *    }
      * });
      */
@@ -432,6 +432,12 @@ batucada.areas =  {
         requires: ['js/include/challenges.js'],
         onload: function() {
             batucada.challenges.init();
+        }
+    },
+    submission_edit : {
+        requires: ['js/include/jquery.wmd.js'],
+        onload: function() {
+            initWMD();
         }
     },
     voting_landing : {
