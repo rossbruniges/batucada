@@ -2656,7 +2656,6 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
     transform: rotate(375deg);
 }
 .submission .winner {
-    display: none;
     background: #FFFAE4;
     text-align: center;
     padding: 0.5em;
@@ -2680,8 +2679,8 @@ li.submission .winner {
     top: -30px;
     right: -15px;
 }
-#all_submissions .winner {
-    display: block;
+#challenge_landing li .winner {
+    display: none;
 }
 .submission .winner p {
     margin-bottom: 0;

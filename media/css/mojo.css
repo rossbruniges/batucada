@@ -1012,15 +1012,50 @@ text-decoration: none;
     padding-right: 10px;
     background-image: none;
 }
+#mojo_challenges .photos {
+    display: none;
+}
+.no-js #mojo_challenges .photos {
+    display: block;
+}
 #mojo_challenges .photos ul {
     overflow: hidden;
     zoom: 1;
 }
 #mojo_challenges .photos li {
     float: left;
-    width: 130px;
-    padding-right: 10px;
+    width: 138px;
+    margin-right: 2px;
+    padding-right: 0;
+}
+#mojo_challenges .homepagestep .gal {
+    position: relative;
+}
+#mojo_challenges .homepagestep .gal h5 {
+    padding-right: 40px;
+}
+#mojo_challenges .homepagestep button {
+    position: absolute;
+    top: -6px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    text-indent: -9999em;
+    background: transparent url(/media/images/camera.png) no-repeat top left;
+    padding: 0;
+    border: 0;
+    opacity: 0.6;
+}
+#mojo_challenges .homepagestep button:hover {
+    opacity: 1;
+}
+#mojo_challenges .photos a { 
+    display: block;
 }
 #mojo_challenges .photos img {
     width: 130px;
+    border: 1px solid #e5e5e5;
+    padding: 4px 4px 16px;
+    display: block;
+    margin-bottom: 0;
 }
