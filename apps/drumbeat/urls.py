@@ -29,4 +29,7 @@ urlpatterns += patterns('',
    url(r'^journalism/$',
        'drumbeat.views.journalism',
        name='drumbeat_journalism'),
+   url(r'^journalism/challenges/$',
+        'drumbeat.views.design_challenges',
+        name='mojo_design_challenges'),
 )

@@ -316,7 +316,13 @@ batucada.page = function() {
 
 }();
 
-batucada.areas =  { 
+batucada.areas =  {
+    mojo_challenges: {
+        requires:['js/include/mojo_gallery.js'],
+        onload:function() {
+            batucada.mojo_winners.init()
+        }
+    },
     compose_message: {
         onload: function() {
             $('#id_recipient').autocomplete({

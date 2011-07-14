@@ -91,6 +91,12 @@ class Challenge(ModelBase):
 
     objects = ChallengeManager()
 
+    def get_winners(self):
+        winners = self.submission_set.filter(is_winner=True)
+        return {
+            'winners':winners
+        }
+    
     def is_active(self):
         return (self.start_date < datetime.now() and
                 self.end_date > datetime.now())
