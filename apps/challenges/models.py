@@ -141,6 +141,8 @@ class Submission(ModelBase):
 
     is_published = models.BooleanField(default=1)
 
+    is_winner = models.BooleanField(default=1)
+
     def get_challenge(self):
         challenges = self.challenge.all()
         if challenges:
