@@ -1585,6 +1585,7 @@ header {}
 #splash #content{
 	padding: 0;
 	width: 100%;
+    min-width: 960px;
 	}
 #splash #content header{	
 	padding: 54px 0 40px;
@@ -1593,6 +1594,15 @@ header {}
 #splash #content header .container{
 	position: relative;
 	}
+#splash #content header .container,
+#splash #content section .container {
+    width: 920px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#splash #content footer {
+    padding: 27px 20px 0;
+}
 #splash #content header h1,
 #splash #content header h2{
 	width: 530px;	
