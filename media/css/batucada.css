@@ -951,6 +951,7 @@ header {}
     float: left;
   }
     #main .post-container {
+       position: relative;
        background: -webkit-gradient(linear,0 top,0 bottom,from(#fff),to(#f4f4f4));
       background: -moz-linear-gradient(top,#fff,#f4f4f4);
 	  background: -o-linear-gradient(top, #fff, #f4f4f4);
@@ -1584,6 +1585,7 @@ header {}
 #splash #content{
 	padding: 0;
 	width: 100%;
+    min-width: 960px;
 	}
 #splash #content header{	
 	padding: 54px 0 40px;
@@ -1592,6 +1594,15 @@ header {}
 #splash #content header .container{
 	position: relative;
 	}
+#splash #content header .container,
+#splash #content section .container {
+    width: 920px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#splash #content footer {
+    padding: 27px 20px 0;
+}
 #splash #content header h1,
 #splash #content header h2{
 	width: 530px;	
@@ -2637,14 +2648,63 @@ CHALLENGE TEMPLATE WITH OPEN VOTING
 #submission_show #votes .details {
     display: none;
 }
+#main .post-container {
+    -moz-transition: background 0.5s;
+    -webkit-transition: background 0.5s;
+    -o-transition: background 0.5s;
+    -ms-transition: background 0.5s;
+    transition: background 0.5s;
+}
+#all_submissions .winner:hover {
+     background: #FFFAE4; /* firefox */
+}
+#main .post-container:hover .winner {
+    -moz-transform: rotate(375deg);
+    -o-transform: rotate(375deg);
+    -webkit-transform: rotate(375deg);
+    -ms-transform: rotate(375deg);
+    transform: rotate(375deg);
+}
+.submission .winner {
+    background: #FFFAE4;
+    text-align: center;
+    padding: 0.5em;
+    width: 82px;
+    height: 82px;
+    border: 1px solid #CFCFCF;
+    border-radius: 47px;
+    -moz-transition: -moz-transform 0.5s;
+     -webkit-transition: -webkit-transform 0.5s;
+    -o-transition: -o-transform 0.5s;
+ -ms-transition: -ms-transform 0.5s;
+ transition: transform 0.5s;
+    -moz-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+}
+li.submission .winner {
+    position: absolute;
+    top: -30px;
+    right: -15px;
+}
+#challenge_landing li .winner {
+    display: none;
+}
+.submission .winner p {
+    margin-bottom: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 .submission .voting {
     margin: 0 0 8px 8px;
     padding: 8px;
  background: #FFF9DE;
-    background: -moz-linear-gradient(top, 
+   	 background: -moz-linear-gradient(top, 
 		#FFFAE4 0%, 
 		#FFF4BE 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, 
+background: -webkit-gradient(linear, left top, left bottom, 
 		color-stop(0%,#FFFAE4), 
 		color-stop(100%,#FFF4BE)); /* webkit */ 
     float: right;

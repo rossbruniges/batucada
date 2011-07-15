@@ -2,143 +2,118 @@
 {% load l10n_tags %}
 
 {% block body %}    
-  <div class="banner">   
+<div class="banner">   
     <div class="container">
-      <h1>Knight-Mozilla News Technology Partnership (MoJo)</h1>
-      <h2>Web developers and designers around the world collaborating to invent the future of news.</h2>
+        <h1>Knight-Mozilla News Technology Partnership (MoJo)</h1>
+        <h2>Web developers and designers around the world collaborating to invent the future of news.</h2>
         
-      <ul>
-        <li>
-          <img src="{{ MEDIA_URL }}images/mojo/benefit1.jpg" width="300" height="115">
-            <p>
-              Put your best ideas in front of luminaries, big thinkers and journalists shaping journalism's future.
-            </p>
-          </li>
-          <li>
-            <img src="{{ MEDIA_URL }}images/mojo/benefit2.jpg" width="300" height="115">
-            <p>
-Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sketch to prototype.
-            </p>
-          </li>
-          <li>
-            <img src="{{ MEDIA_URL }}images/mojo/benefit5.jpg" width="300" height="115" alt="">
-            <p>
-              Spend a year in one of the <a href="{% locale_url drumbeat_journalism_about %}">world's most exciting newsrooms</a> as a paid Knight-Mozilla fellow.
-            </p>
-          </li>
-          </ul>
-<div class="navspacer">
-       <a href="{% locale_url drumbeat_journalism_about %}"><h2>Learn more...</h2></a>
+        <ul>
+            <li>
+                <img src="{{ MEDIA_URL }}images/mojo/benefit1.jpg" width="300" height="115">
+                <p>Put your best ideas in front of luminaries, big thinkers and journalists shaping journalism's future.</p>
+            </li>
+            <li>
+                <img src="{{ MEDIA_URL }}images/mojo/benefit2.jpg" width="300" height="115">
+                <p>Earn a trip to a Berlin hackfest, where we'll help take your idea from napkin sketch to prototype.</p>
+            </li>
+            <li>
+                <img src="{{ MEDIA_URL }}images/mojo/benefit5.jpg" width="300" height="115" alt="">
+                <p>Spend a year in one of the <a href="{% locale_url drumbeat_journalism_about %}">world's most exciting newsrooms</a> as a paid Knight-Mozilla fellow.</p>
+            </li>
+        </ul>
+        <div class="navspacer">
+            <a href="{% locale_url drumbeat_journalism_about %}"><h2>Learn more...</h2></a>
         </div>
-      </div>
     </div>
+</div>
     
-    <div class="homepage">
-      <div class="container clearfix">
+<div class="homepage">
+    <div class="container clearfix">
         <div class="column-left">
-          <div class="challengebox">
-          <h3>Voting is now closed</h3>
-          <p>Crowd evaluation is closed, and the review board has rated the submissions. Stay tuned as we announce challenge winners.</p>
+            <div class="challengebox">
+                <header>
+                    <h2>Planet MOJO</h2>
+                    <a href="{{ feed_url }}"><img src="{{ MEDIA_URL }}images/feed-icon-16x16.png" width="16" height="16" alt="MOJO Comminity RSS feed"></a>
+                </header>
+                <p>Hear about the latest news on the project, it's challenges and participants.</p>
+                <ul class="feed">
+                {% for entry in feed_entries %}
+                <li>
+                    <h3><a href="{{ entry.link }}">{{ entry.title }}</a></h3>
+                    <p>{{ entry.body|truncatewords:50 }}</p>
+                </li>
+                {% endfor %}
+                </ul>
+                <p><a href="http://planet.drumbeat.org/mojo/">Read the full feed</a></p>
+            </div>
+        </div>
+        <div class="column-right">
+            <h2>2011 challenges</h2>
+            <p>See who our judges chose to be the lucky winners.</p>
             <ul class="challenge_list">
                 <li>
-                <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">
-                <h4>
-                    <img src="{{ MEDIA_URL }}images/mojo/challenge3-image.png" width="115" height="86" alt="" />
-                    <em>People powered news</em>
-                    {{ counts.openwebskillerapp }} submitted ideas
-                </h4>
-                </a>
-                <p>How would you involve the public in the newsmaking, editing or sharing process? The primary constraint; use HTML5 and native web technologies.</p>
+                    <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">
+                    <h3>
+                        <img src="{{ MEDIA_URL }}images/mojo/challenge3-image.png" width="115" height="86" alt="" />
+                        <em>People powered news</em>
+                    </h3>
+                    </a>
                 </li>
                 <li>
-                <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">
-                   <h4> <img src="{{ MEDIA_URL }}images/mojo/challenge2-image.png" width="115" height="86" alt="" />
-                    <em>Beyond comments</em>
-                    {{ counts.beyondcommentthreads }} submitted ideas
-                </h4>
-                </a>
-                <p>The best discussions around the web can be pretty isolated. And in many comment threads, the loudest voices drown out everyone else. How do we improve the signal-to-noise ratio in public news commentary?</p>
+                    <a href="{% locale_url challenges_show slug="beyond-comment-threads" %}">
+                    <h3>
+                        <img src="{{ MEDIA_URL }}images/mojo/challenge2-image.png" width="115" height="86" alt="" />
+                        <em>Beyond comments</em>
+                    </h3>
+                    </a>
                 </li>
                 <li>
-                <a href="{% locale_url challenges_show slug="unlocking-video" %}">
-                <h4>
-                    <img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="86" alt="" />
-                    <em>Unlocking video</em>
-                    {{ counts.unlockingvideo }} submitted ideas
-                </h4>
-                </a>
-                <p>Video is a central part of many people's daily news experience. But most online video is still stuck in a boring embedded box, like "TV on a web page." How do we make web video more like the web?</p>
+                    <a href="{% locale_url challenges_show slug="unlocking-video" %}">
+                    <h3>
+                        <img src="{{ MEDIA_URL }}images/mojo/challenge1-image.png" width="115" height="86" alt="" />
+                        <em>Unlocking video</em>
+                    </h3>
+                    </a>
                 </li>
             </ul>
         </div>
-        </div>
-        <div class="column-right">
-          <h3>
-            <a style="float: right;" href="{{ feed_url }}"><img src="{{ MEDIA_URL }}images/feed-icon-16x16.png" width="16" height="16" alt="Feed Icon 16x16"></a>
-            <a href="http://planet.drumbeat.org/mojo/">Community Feed</a>
-          </h3>
-          <div class="rule2"></div>
-          <ul class="feed">
-          {% for entry in feed_entries %}
-            <li>
-            <a href="{{ entry.link }}">{{ entry.title }}</a>
-            <p>{{ entry.body|truncatewords:50 }}</p>
-            </li>
-          {% endfor %}
-          </ul>
-        </div>
-      </div>
     </div>
-     <div class="container_bottom">
-      <div class="column-33">
+</div>
+
+<div class="container_bottom">
+    <div class="column-33">
         <h5>About Knight</h5>
-        <p>
-          The John S. and James L. Knight Foundation advances journalism in the digital age and invests in the vitality of communities where the Knight  brothers owned newspapers. 
-        </p>
-        <p>
-          Knight Foundation focuses on projects that  promote informed and engaged communities and lead to transformational change.
-        </p>
-        <p>
-          For more, visit <a href="http://www.knightfoundation.org">www.knightfoundation.org</a>
-        </p>
-      </div>
-      
-      <div class="column-33">
+        <p>The John S. and James L. Knight Foundation advances journalism in the digital age and invests in the vitality of communities where the Knight  brothers owned newspapers.</p>
+        <p>Knight Foundation focuses on projects that  promote informed and engaged communities and lead to transformational change.</p>
+        <p>For more, visit <a href="http://www.knightfoundation.org">www.knightfoundation.org</a></p>
+    </div>  
+    <div class="column-33">
         <h5>About Mozilla</h5>
-        <p>
-          Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. 
-        </p>
-        <p>
-          We do this by creating great software, like the Firefox browser, and building communities, like Mozilla Drumbeat, that build and grow the open web.
-        </p>
-        <p>
-          For more visit <a href="http://www.mozilla.org">www.mozilla.org</a>
-        </p>
-      </div>
-      
-      <div class="column-33 last">
+        <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good.</p>
+        <p>We do this by creating great software, like the Firefox browser, and building communities, like Mozilla Drumbeat, that build and grow the open web.</p>
+        <p>For more visit <a href="http://www.mozilla.org">www.mozilla.org</a></p>
+    </div> 
+    <div class="column-33 last">
         <h5>FAQs</h5>
         <ul>
-        
-          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Why_is_Mozilla_interested_in_media_and_journalism.3F.E2.80.A8">Why is Mozilla interested in media and journalism?</a></li>
-          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Who_is_eligible_for_a_Knight-Mozilla_fellowship.3F_How_do_I_apply_for_a_Knight-Mozilla_fellowship.3F.E2.80.A8.E2.80.A8">Who is eligible for a Knight-Mozilla fellowship? How do I apply for a Knight-Mozilla fellowship?</a></li>
-          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#What_do_you_mean_by_.22the_open_web.22_and_.22open_technology.3F.E2.80.A8">What do you mean by "the open web" and "open technology?"</a></li>
+            <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Why_is_Mozilla_interested_in_media_and_journalism.3F.E2.80.A8">Why is Mozilla interested in media and journalism?</a></li>
+            <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Who_is_eligible_for_a_Knight-Mozilla_fellowship.3F_How_do_I_apply_for_a_Knight-Mozilla_fellowship.3F.E2.80.A8.E2.80.A8">Who is eligible for a Knight-Mozilla fellowship? How do I apply for a Knight-Mozilla fellowship?</a></li>
+            <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#What_do_you_mean_by_.22the_open_web.22_and_.22open_technology.3F.E2.80.A8">What do you mean by "the open web" and "open technology?"</a></li>
         </ul>
         <a class="viewmore" href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ">View More</a>
-      </div>
     </div>
-    <div class="container">
-      <div class="footer">
+</div>
+
+<div class="container">
+    <div class="footer">
         <ul>
-          <li><a href="mailto:journalism@mozilla.org">Contact Us</a></li>
-          <li><a href="http://www.mozilla.org">Mozilla.org</a></li>
-          <li><a href="http://www.mozilla.org/about/policies/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="mailto:journalism@mozilla.org">Contact Us</a></li>
+            <li><a href="http://www.mozilla.org">Mozilla.org</a></li>
+            <li><a href="http://www.mozilla.org/about/policies/privacy-policy.html">Privacy Policy</a></li>
         </ul>
         <a class="facebook" href="http://www.facebook.com/pages/Knight-Mozilla-News-Technology-Partnership/166232896765641"></a>
         <a class="twitter" href="http://twitter.com/knightmojo"></a>
-      </div>
-      <p class="footer-subtext">
-        The contents of this website are licensed CC-BY. (c) Mozilla 2011
-      </p>  
     </div>
+    <p class="footer-subtext">The contents of this website are licensed CC-BY. (c) Mozilla 2011</p>  
+</div>
 {% endblock %}

@@ -70,11 +70,9 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
   {% endif %}
   
   {% if submissions.object_list %}
-  <ul id="votes">
+  <ul id="posts">
     {% for submission in submissions.object_list %}
-    <li class="submission">
-    {% include "challenges/_voting_resource.html" %}
-    </li>
+    {% include "challenges/_submission_resource.html" %}
     {% endfor %}
   </ul>
   {% endif %}

@@ -1,0 +1,9 @@
+{% if images %}
+<div class="photos">
+    <ul>
+    {% for image in images %}
+        <li><a href="{{ image.url }}">{{ image.src|safe }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
