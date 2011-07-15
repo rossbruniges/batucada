@@ -117,6 +117,10 @@ h5 {
     border-bottom: solid 1px #c2c3c5;
 
 }
+.container_bottom h2 {
+    font-weight: bold;
+    margin: 18px 0 9px;
+}
 
 
 /* header */ 
@@ -677,6 +681,10 @@ text-align: center;
     float: left;
     font-weight: bold;
     font-size: 24px;
+
+}
+.column-right h2 {
+    float: none;
 }
 .challengebox header {
     padding-bottom: 1em;
@@ -708,9 +716,6 @@ text-align: center;
 }
 .column-left .challengebox p {
     font-size: 14px;
-}
-.column-right .challengebox {
-  text-align: right;
 }
 .challengebox .challenge_list {
     overflow: hidden;
@@ -994,6 +999,11 @@ text-decoration: none;
 }
 #mojo_challenges .homepagestep {
     text-align: left;
+    visibility: hidden;
+}
+.no-js #mojo_challenges .homepagestep,
+.photos_init #mojo_challenges .homepagestep {
+    visibility: visible;
 }
 #mojo_challenges .homepagestep h4 {
     margin: 0;
