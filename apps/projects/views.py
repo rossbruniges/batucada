@@ -23,6 +23,7 @@ from links.models import Link
 from links import forms as link_forms
 from statuses.models import Status
 from drumbeat import messages
+from users.models import UserProfile
 from users.decorators import login_required
 from challenges.models import Challenge
 
@@ -33,8 +34,11 @@ def show(request, slug):
     project = get_object_or_404(Project, slug=slug)
     is_following = False
     if request.user.is_authenticated():
-        profile = request.user.get_profile()
-        is_following = profile.is_following(project)
+        try:
+            profile = request.user.get_profile()
+            is_following = profile.is_following(project)
+        except UserProfile.DoesNotExist:
+            is_following = False
     activities = Activity.objects.filter(
         Q(project=project) | Q(target_project=project),
     ).exclude(
