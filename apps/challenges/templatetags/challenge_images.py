@@ -24,7 +24,6 @@ def challenge_images(haystack):
             'images':images
         }
     else:
-        print 'false'
         return {
             'images': False
         }
