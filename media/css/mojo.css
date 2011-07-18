@@ -1035,6 +1035,8 @@ text-decoration: none;
 #mojo_challenges .photos li {
     float: left;
     width: 138px;
+    height: 120px;
+    overflow: hidden;
     margin-right: 2px;
     padding-right: 0;
 }
@@ -1065,7 +1067,7 @@ text-decoration: none;
 #mojo_challenges .photos img {
     width: 130px;
     border: 1px solid #e5e5e5;
-    padding: 4px 4px 16px;
+    padding: 4px 3px 16px;
     display: block;
     margin-bottom: 0;
 }
