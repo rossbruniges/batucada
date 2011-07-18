@@ -9,7 +9,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding field 'Submission.is_winner'
-        db.add_column('challenges_submission', 'is_winner', self.gf('django.db.models.fields.BooleanField')(default=True), keep_default=False)
+        db.add_column('challenges_submission', 'is_winner', self.gf('django.db.models.fields.BooleanField')(default=False), keep_default=False)
 
 
     def backwards(self, orm):
@@ -87,7 +87,7 @@ class Migration(SchemaMigration):
             'description_html': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_published': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_winner': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_winner': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'keywords': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'summary': ('django.db.models.fields.TextField', [], {}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
