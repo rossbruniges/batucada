@@ -32,10 +32,9 @@
         <div class="column-left">
             <div class="challengebox">
                 <header>
-                    <h2>Planet MOJO</h2>
+                    <h2>News</h2>
                     <a href="{{ feed_url }}"><img src="{{ MEDIA_URL }}images/feed-icon-16x16.png" width="16" height="16" alt="MOJO Comminity RSS feed"></a>
                 </header>
-                <p>Hear about the latest news on the project, it's challenges and participants.</p>
                 <ul class="feed">
                 {% for entry in feed_entries %}
                 <li>
@@ -44,12 +43,12 @@
                 </li>
                 {% endfor %}
                 </ul>
-                <p><a href="http://planet.drumbeat.org/mojo/">Read the full feed</a></p>
+                <p><a href="http://planet.drumbeat.org/mojo/">Read more at Planet MOJO</a></p>
             </div>
         </div>
         <div class="column-right">
-            <h2>2011 challenges</h2>
-            <p>See who our judges chose to be the lucky winners.</p>
+        <div class="challengebox">
+            <h2>2011 challenges winners</h2>
             <ul class="challenge_list">
                 <li>
                     <a href="{% locale_url challenges_show slug="open-webs-killer-app" %}">
@@ -77,24 +76,25 @@
                 </li>
             </ul>
         </div>
+        </div>
     </div>
 </div>
 
 <div class="container_bottom">
     <div class="column-33">
-        <h5>About Knight</h5>
+        <h2>About Knight</h2>
         <p>The John S. and James L. Knight Foundation advances journalism in the digital age and invests in the vitality of communities where the Knight  brothers owned newspapers.</p>
         <p>Knight Foundation focuses on projects that  promote informed and engaged communities and lead to transformational change.</p>
         <p>For more, visit <a href="http://www.knightfoundation.org">www.knightfoundation.org</a></p>
     </div>  
     <div class="column-33">
-        <h5>About Mozilla</h5>
+        <h2>About Mozilla</h2>
         <p>Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good.</p>
         <p>We do this by creating great software, like the Firefox browser, and building communities, like Mozilla Drumbeat, that build and grow the open web.</p>
         <p>For more visit <a href="http://www.mozilla.org">www.mozilla.org</a></p>
     </div> 
     <div class="column-33 last">
-        <h5>FAQs</h5>
+        <h2>FAQs</h2>
         <ul>
             <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Why_is_Mozilla_interested_in_media_and_journalism.3F.E2.80.A8">Why is Mozilla interested in media and journalism?</a></li>
             <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Who_is_eligible_for_a_Knight-Mozilla_fellowship.3F_How_do_I_apply_for_a_Knight-Mozilla_fellowship.3F.E2.80.A8.E2.80.A8">Who is eligible for a Knight-Mozilla fellowship? How do I apply for a Knight-Mozilla fellowship?</a></li>
