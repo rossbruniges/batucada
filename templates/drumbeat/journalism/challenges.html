@@ -35,9 +35,6 @@
             {% for winner in challenge.get_winners.winners %}
                 <li><h5><a href="{% locale_url submission_show slug=challenge.slug submission_id=winner.pk %}">{{ winner.title }}</a></h5>
                 <p>An idea by <a href="{{ winner.created_by.get_absolute_url }}">{{ winner.created_by.name }}</a></p>
-                {% if winner.description_html %}
-                    {% challenge_images winner.description_html %}
-                {% endif %}
                 </li>
             {% endfor %}
             </ul>
