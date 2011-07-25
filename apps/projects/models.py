@@ -85,6 +85,7 @@ class Project(ModelBase):
     created_by = models.ForeignKey('users.UserProfile',
                                    related_name='projects')
     featured = models.BooleanField()
+    allow_challenges = models.BooleanField()
     created_on = models.DateTimeField(
         auto_now_add=True, default=datetime.date.today())
 
