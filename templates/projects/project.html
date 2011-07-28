@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load l10n_tags %}
+{% load l10n_tags get_subProjects %}
 
 {% block title %}{{ project.name }}{% endblock %}
 
@@ -32,7 +32,12 @@
 {% block body %}
 <div id="sidebar">
     <section id="project" class="panel">
+        <hgroup>
         <h1 id="project-name">{{ project.name }}</h1>
+        {% if project.parent_projectID %}
+            <h2>A sub-project of <a href="{% locale_url projects_show slug=parent.slug %}">{{ parent.name }}</a></h2> 
+        {% endif %}
+        <hgroup>
         {% if user.is_authenticated and user.get_profile != project.created_by %}
             <div id="project-follow">
             {% if following %}
@@ -91,7 +96,7 @@
             </ul>       
         </nav>
     {% endif %} 
-
+ {% get_subProjects project.id project.allow_subProjects project.id  %}
     <section id="project-lead" class="panel">
         <a href="{{ project.created_by.get_absolute_url }}">
             <img alt="" class="member-picture" src="{{ MEDIA_URL }}{{ project.created_by.image_or_default }}" height="54" width="54">
@@ -123,7 +128,7 @@
         <div class="member-bio">
             {{ project.created_by.bio }}
         </div>
-    </section> <!-- /#project-lead -->
+    </section> <!-- /#project-lead --> 
 </div> <!-- /#sidebar -->
 
 <div id="main">
@@ -154,7 +159,7 @@
     {% endif %}
 
     {% if project.allow_challenges %}
-        <p><a class="button" href="{% locale_url challenges_create project_id=project.pk %}">{{ _('Add your own sub-project') }}</a></p>
+        <p><a class="button" href="{% locale_url challenges_create project_id=project.pk %}">{{ _('Add your own project challenge') }}</a></p>
     {% endif %}
 
     {% if user.is_authenticated %}

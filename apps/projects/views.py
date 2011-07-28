@@ -50,9 +50,14 @@ def show(request, slug):
     followers_count = Relationship.objects.filter(
         target_project=project).count()
     challenges = Challenge.objects.filter(project=project)
+    if project.parent_projectID:
+        parent = get_object_or_404(Project, id=project.parent_projectID)
+    else:
+        parent = False
 
     context = {
         'project': project,
+        'parent' : parent,
         'following': is_following,
         'followers_count': followers_count,
         'activities': activities,
@@ -290,12 +295,29 @@ def list(request):
 
 
 @login_required
-def create(request):
+def create(request, parent=False):
+    
+    if parent:
+        p = get_object_or_404(Project, id=parent)
+        if not p.allow_subProjects:
+            return http.HttpResponseForbidden()
+
     user = request.user.get_profile()
     if request.method == 'POST':
         form = project_forms.ProjectForm(request.POST)
         if form.is_valid():
             project = form.save(commit=False)
+            try:
+                if request.POST['parent_projectID']:
+                    par = request.POST['parent_projectID']
+                    if par.isdigit():
+                        par_p = get_object_or_404(Project, id=par)
+                        if par_p.allow_subProjects:
+                            project.parent_projectID = par
+                        else:
+                            return http.HttpResponseForbidden()
+            except:
+                LookupError
             project.created_by = user
             project.save()
             messages.success(request, _('Your new project has been created.'))
@@ -307,10 +329,14 @@ def create(request):
                 _("There was a problem creating your project."))
     else:
         form = project_forms.ProjectForm()
+        if parent:
+            parent = p
+        else:
+            parent = False
     return render_to_response('projects/project_edit_summary.html', {
         'form': form,
+        'parent' : parent
     }, context_instance=RequestContext(request))
-
 
 @login_required
 def contact_followers(request, slug):
