@@ -1,0 +1,8 @@
+{% if submissions %}
+    <h3>Challenge submissions <span class="count">{{ submissions|length }}</span></h3>
+    <ul class="projects following">
+    {% for sub in submissions %}
+        <li><a href="{{ sub.get_absolute_url }}">{{ sub.title }}</a> on {% for challenge in sub.challenge.all %}<a href="{{ challenge.get_absolute_url }}">{{ challenge.title }}</a>{% endfor %} </li>
+    {% endfor %}
+    </ul>
+{% endif %}

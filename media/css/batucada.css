@@ -524,6 +524,10 @@ header {}
 		line-height: 1;
 		font-weight: bold;
 	}
+    #sidebar hgroup h2 {
+        font-size: 16px;
+        font-weight: normal;
+    }
 	#sidebar h3{
 		font-size: 14px;
 		line-height: 1.5;

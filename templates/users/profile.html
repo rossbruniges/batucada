@@ -2,6 +2,7 @@
 {% load l10n_tags %}
 {% load i18n %}
 {% load truncate_chars %}
+{% load user_submissions %}
 {% block title %}{{ profile.name }}{% endblock %}
 
 {% block links %}
@@ -117,6 +118,7 @@
   {% endfor %}
   </ul>
   {% endif %}
+  {% user_submissions %}
 </div> <!-- /#member_relationships-->
 {% if links %}
 <div id="member_links" class="panel">
