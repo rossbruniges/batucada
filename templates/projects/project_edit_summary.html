@@ -10,7 +10,7 @@
     <h2>Creating a sub-project</h2>
     <p>The project you are about to create will be a sub-project of <b>{{ parent.name }}</b>.</p>
     <p>If this isn't what you wanted just <a href="{% locale_url projects_create %}">create a normal non-sub project</a> and all will be forgottten.</p>
-    <input type="hidden" name="parent_projectID" value="{{ parent.id }}" />
+    <input type="hidden" name="parent_project_id" value="{{ parent.id }}" />
     {% endif %}
   <div class="field{% if form.name.errors %} error{% endif %}">
     <label for="id_name">{{ _('Project name') }}</label>
@@ -31,9 +31,9 @@
     {{ form.long_description.errors }}
   </div>
    <div class="field allow_subs">
-    <label for="id_allow_subProjects">{{ _('Allow sub-projects') }}</label>
+    <label for="id_allow_sub_projects">{{ _('Allow sub-projects') }}</label>
     <span class="hint block">{{ _('If you would like to have <b>all</b> drumbeat.org users to add in sub-projects to yours') }}</span>
-    {{ form.allow_subProjects }}
+    {{ form.allow_sub_projects }}
   </div>
   <div class="field allow_challenges">
     <label for="id_allow_challenges">{{ _('Allow user challenges') }}</label>

@@ -50,8 +50,8 @@ def show(request, slug):
     followers_count = Relationship.objects.filter(
         target_project=project).count()
     challenges = Challenge.objects.filter(project=project)
-    if project.parent_projectID:
-        parent = get_object_or_404(Project, id=project.parent_projectID)
+    if project.parent_project_id:
+        parent = get_object_or_404(Project, id=project.parent_project_id)
     else:
         parent = False
 
@@ -299,7 +299,7 @@ def create(request, parent=False):
     
     if parent:
         p = get_object_or_404(Project, id=parent)
-        if not p.allow_subProjects:
+        if not p.allow_sub_projects:
             return http.HttpResponseForbidden()
 
     user = request.user.get_profile()
@@ -307,13 +307,18 @@ def create(request, parent=False):
         form = project_forms.ProjectForm(request.POST)
         if form.is_valid():
             project = form.save(commit=False)
+            # I will admit these feels a bit dirty...
             try:
-                if request.POST['parent_projectID']:
-                    par = request.POST['parent_projectID']
+                # first check to see if we're sending parent_project_id in the raw 
+                # (it doesn't get cleaned as as far as django knows it isn't mean to be with the form)
+                if request.POST['parent_project_id']:
+                    par = request.POST['parent_project_id']
+                    # confirm that it's actually a number being sent
                     if par.isdigit():
+                        # check to see if the project we're assining actually allows sub-projects
                         par_p = get_object_or_404(Project, id=par)
-                        if par_p.allow_subProjects:
-                            project.parent_projectID = par
+                        if par_p.allow_sub_projects:
+                            project.parent_project_id = par
                         else:
                             return http.HttpResponseForbidden()
             except:

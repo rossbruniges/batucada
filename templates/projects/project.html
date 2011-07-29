@@ -34,7 +34,7 @@
     <section id="project" class="panel">
         <hgroup>
         <h1 id="project-name">{{ project.name }}</h1>
-        {% if project.parent_projectID %}
+        {% if project.parent_project_id %}
             <h2>A sub-project of <a href="{% locale_url projects_show slug=parent.slug %}">{{ parent.name }}</a></h2> 
         {% endif %}
         <hgroup>
@@ -96,7 +96,7 @@
             </ul>       
         </nav>
     {% endif %} 
- {% get_sub_projects project.id project.allow_subProjects project.id  %}
+ {% get_sub_projects project.id project.allow_sub_projects project.id  %}
     <section id="project-lead" class="panel">
         <a href="{{ project.created_by.get_absolute_url }}">
             <img alt="" class="member-picture" src="{{ MEDIA_URL }}{{ project.created_by.image_or_default }}" height="54" width="54">
