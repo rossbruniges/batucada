@@ -4,7 +4,7 @@ from projects.models import Project
 register = template.Library()
 
 @register.inclusion_tag('projects/sub_projects.html')
-def get_subProjects(project_id, allowed, id):
+def get_sub_projects(project_id, allowed, id):
     subs = Project.objects.filter(parent_projectID=project_id)
 
     return {

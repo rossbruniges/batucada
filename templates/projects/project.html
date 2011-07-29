@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load l10n_tags get_subProjects %}
+{% load l10n_tags get_sub_projects %}
 
 {% block title %}{{ project.name }}{% endblock %}
 
@@ -96,7 +96,7 @@
             </ul>       
         </nav>
     {% endif %} 
- {% get_subProjects project.id project.allow_subProjects project.id  %}
+ {% get_sub_projects project.id project.allow_subProjects project.id  %}
     <section id="project-lead" class="panel">
         <a href="{{ project.created_by.get_absolute_url }}">
             <img alt="" class="member-picture" src="{{ MEDIA_URL }}{{ project.created_by.image_or_default }}" height="54" width="54">
