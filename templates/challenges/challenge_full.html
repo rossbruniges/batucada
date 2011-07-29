@@ -18,7 +18,15 @@
 {% endblock %}
 {% block body %}
 <article class="challenge_details">
-  <h1>{{ challenge.title }}</h1>
+    <hgroup>
+    <h1>{{ challenge.title }}</h1>
+    {% if challenge.project.slug != 'mojo' %} 
+        <h2>A challenge from <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a> </h2>
+    {% endif %}
+    {% if challenge.project.slug == 'mojo' %}
+        <h2>A challenge from <a href="{% locale_url drumbeat_journalism %}">{{ challenge.project.name }}</a> </h2> 
+    {% endif %}
+    </hgroup>
   <div class="brief">
     <h2>{{ _('The Brief') }}</h2>
     {{ challenge.brief|safe }}
