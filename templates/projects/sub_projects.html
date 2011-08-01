@@ -7,11 +7,11 @@
     <li><a href="{% locale_url projects_show slug=sub.slug %}">{{ sub.name }}</a></li>
 {% endfor %}
 </ul>
-{% if allowed_subs %}
+{% if allowed_subs and logged_in.is_authenticated %}
 <a class="button" href="{% locale_url sub_project_create parent=id %}">Add a sub-project</a>
 {% endif %}
 {% else %}
-    {% if allowed_subs %}
+    {% if allowed_subs and logged_in.is_authenticated %}
     <h2>Sub projects</h2>
 <p>There have been no sub-projects create yet. Maybe you should get the ball rolling...</p>
     <a class="button" href="{% locale_url sub_project_create parent=id %}">Add a sub-project</a>
