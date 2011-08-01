@@ -30,16 +30,6 @@
     {{ form.long_description }}
     {{ form.long_description.errors }}
   </div>
-   <div class="field allow_subs">
-    <label for="id_allow_sub_projects">{{ _('Allow sub-projects') }}</label>
-    <span class="hint block">{{ _('If you would like to have <b>all</b> drumbeat.org users to add in sub-projects to yours') }}</span>
-    {{ form.allow_sub_projects }}
-  </div>
-  <div class="field allow_challenges">
-    <label for="id_allow_challenges">{{ _('Allow user challenges') }}</label>
-    <span class="hint block">{{ _('If you would like to have <b>all</b> drumbeat.org users to add in user challenges to this project') }}</span>
-    {{ form.allow_challenges }}
-  </div>
   <p class="buttons">    
     {% if project %}
     <a class="button" href="{% locale_url projects_show slug=project.slug %}">{{ _('Cancel') }}</a>

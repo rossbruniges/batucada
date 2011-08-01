@@ -26,5 +26,11 @@
          <dt>{{ _('Updates') }}</dt>
         <dd>{{ project.status_set.all|length }}</dd>
     </dl>
+    {% if project.sub_projects_count %}
+    <dl>
+        <dt>{{ project.sub_projects_metaname }}s</dt>
+        <dd>{{ project.sub_projects_count }}</dd>
+    </dl>
+    {% endif %}
   </div>
 </article>

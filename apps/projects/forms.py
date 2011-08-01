@@ -15,7 +15,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ('name', 'short_description', 'long_description', 'allow_sub_projects',  'allow_challenges')
+        fields = ('name', 'short_description', 'long_description')
 
 
 class ProjectDescriptionForm(forms.ModelForm):

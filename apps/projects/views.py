@@ -282,6 +282,8 @@ def list(request):
         for project in projects:
             project.followers_count = Relationship.objects.filter(
                 target_project=project).count()
+            if project.allow_sub_projects:
+                project.sub_projects_count = Project.objects.filter(parent_project_id=project.id).count()
 
     assign_counts(featured)
     assign_counts(new)

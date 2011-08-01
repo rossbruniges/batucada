@@ -1,19 +1,19 @@
 {% load l10n_tags %}
 
 {% if sub_projects %}
-<h2>Sub projects</h2>
+<h2>{{ project_metaname }}{{ sub_projects|pluralize:"s" }}</h2>
 <ul>
 {% for sub in sub_projects %}
     <li><a href="{% locale_url projects_show slug=sub.slug %}">{{ sub.name }}</a></li>
 {% endfor %}
 </ul>
 {% if allowed_subs and logged_in.is_authenticated %}
-<a class="button" href="{% locale_url sub_project_create parent=id %}">Add a sub-project</a>
+<a class="button" href="{% locale_url sub_project_create parent=id %}">Add a {{ project_metaname|lower }}</a>
 {% endif %}
 {% else %}
     {% if allowed_subs and logged_in.is_authenticated %}
-    <h2>Sub projects</h2>
-<p>There have been no sub-projects create yet. Maybe you should get the ball rolling...</p>
-    <a class="button" href="{% locale_url sub_project_create parent=id %}">Add a sub-project</a>
+    <h2>{{ project_metaname }}</h2>
+<p>There have been no {{ project_metaname|lower }}{{ sub_projects|pluralize:"s" }} created yet. Maybe you should get the ball rolling...</p>
+    <a class="button" href="{% locale_url sub_project_create parent=id %}">Add a {{ project_metaname|lower }}</a>
     {% endif %}
 {% endif %}
