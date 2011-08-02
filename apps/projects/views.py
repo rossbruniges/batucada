@@ -2,7 +2,7 @@ import logging
 
 from django import http
 from django.conf import settings
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import render_to_response, get_object_or_404
@@ -69,6 +69,29 @@ def show(request, slug):
     return render_to_response('projects/project.html', context,
                               context_instance=RequestContext(request))
 
+def show_sub_projects(request, slug):
+    parent = get_object_or_404(Project, slug=slug)
+    sub_projects_set = Project.objects.filter(parent_project_id=parent.id)
+
+    paginator = Paginator(sub_projects_set, 10)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        sub_projects = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        sub_projects = paginator.page(paginator.num_pages)
+
+    context = {
+        'project': parent,
+        'sub_projects': sub_projects
+    }
+
+    return render_to_response('projects/projects_all_subs.html', context,
+     context_instance=RequestContext(request))
 
 def show_detailed(request, slug):
     project = get_object_or_404(Project, slug=slug)

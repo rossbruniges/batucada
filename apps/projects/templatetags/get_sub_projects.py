@@ -11,8 +11,12 @@ def get_sub_projects(context, project_id, allowed, id):
 
     return {
         'project_metaname':project.sub_projects_metaname,
-        'sub_projects' : subs,
+        'project_slug' : project.slug,
+        'sub_projects' : subs[:2],
+        'nsub_projects' : subs.count(),
         'allowed_subs' : allowed,
         'id': id,
-        'logged_in' : context['user']
+        'logged_in' : context['user'],
+        'login_url': context['login_with_redirect_url'],
+        'register_url' : context['register_with_redirect_url']
     }

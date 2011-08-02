@@ -1,19 +1,43 @@
 {% load l10n_tags %}
-
+<div id="challenge_header" class="challenges">
 {% if sub_projects %}
 <h2>{{ project_metaname }}{{ sub_projects|pluralize:"s" }}</h2>
 <ul>
 {% for sub in sub_projects %}
-    <li><a href="{% locale_url projects_show slug=sub.slug %}">{{ sub.name }}</a></li>
+    <li>
+    <a href="{% locale_url projects_show slug=sub.slug %}">
+    {% if challenge.image %}
+    <img src="{{ challenge.image.url }}" alt="" />
+    {% else %}
+    <img src="/media/images/project-missing.png" alt="" />
+    {% endif %}
+    {{ sub.name }}
+    </a>
+    </li>
 {% endfor %}
 </ul>
-{% if allowed_subs and logged_in.is_authenticated %}
-<a class="button" href="{% locale_url sub_project_create parent=id %}">Add a {{ project_metaname|lower }}</a>
+{% if nsub_projects > 3 %}
+<p>{{ project_slug }}</p>
+<p>These are just 3 of {{ nsub_projects }} {{ project_metaname}}s - <a href="{% locale_url projects_sub_projects slug=project_slug %}">view all {{ project_metaname|lower }}s</a></p>
 {% endif %}
+{% if allowed_subs %}
+    {% if logged_in.is_authenticated %}
+        <a class="button submit update" href="{% locale_url sub_project_create parent=id %}">Add a {{ project_metaname|lower }}</a>
+    {% else %}
+        <p>You needed to be signed up to enter a new {{ project_metaname }}, don't worry though, once you have done so we'll drop you right back on this page.</p>
+        <p><a href="{{ login_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_url }}">create an account</a></p>
+    {% endif %}
 {% else %}
-    {% if allowed_subs and logged_in.is_authenticated %}
+    {% if allowed_subs %}
     <h2>{{ project_metaname }}</h2>
 <p>There have been no {{ project_metaname|lower }}{{ sub_projects|pluralize:"s" }} created yet. Maybe you should get the ball rolling...</p>
+    {% if logged_in.is_authenticated %}
     <a class="button" href="{% locale_url sub_project_create parent=id %}">Add a {{ project_metaname|lower }}</a>
+    {% else %}
+    <p>But first please sign-in! Don't worry, once you had done we'll bring up back to this page.</p>
+    <p><a href="{{ login_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_url }}">create an account</a></p>
+    {% endif %}
     {% endif %}
 {% endif %}
+{% endif %}
+</div>

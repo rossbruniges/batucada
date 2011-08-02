@@ -2766,6 +2766,10 @@ background: -webkit-gradient(linear, left top, left bottom,
 #votes .submission .clear {
     background-image : url(/media/images/cancel.png)
 }
+#posts .object img {
+    float: left;
+    margin-right: 8px;
+}
 /* Ajax loaded content */
 #ajax_space {
     display: none;

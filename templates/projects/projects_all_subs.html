@@ -1,11 +1,7 @@
 {% extends "base.html" %}
-{% load l10n_tags get_sub_projects %}
+{% load l10n_tags %}
 
-{% block title %}{{ project.name }}{% endblock %}
-
-{% block links %}
-<link rel="alternate" type="application/atom+xml" href="{% locale_url activity_project_feed project=project.slug %}" />
-{% endblock %}
+{% block title %}All {{ project.sub_projects_metaname }}s in {{ project.name }}{% endblock %}
 
 {% block breadcrumbs %}
 <div class="container">
@@ -13,27 +9,19 @@
         <a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a>
         <span class="arrow">&rsaquo;</span>
         <a href="{% locale_url projects_show slug=project.slug %}">{{ project.name }}</a>
+        <span class="arrow">&rsaquo;</span>
+        All {{ project.sub_projects_metaname }}s
     </nav>
-
-    {% if user.get_profile == project.created_by %}
-        <div id="project-actions">
-            <a class="button" href="{% locale_url projects_edit slug=project.slug %}">{{ _('Edit Project') }}</a>
-            <a class="button" href="{% locale_url projects_contact_followers slug=project.slug %}">{{ _('Message Followers') }}</a>
-            {% if project.slug == 'mojo' %}
-                <a class="button" href="{% locale_url challenges_create project_id=project.pk %}">{{ _('Create Challenge') }}</a>
-            {% endif %}
-        </div>
-    {% endif %}
 </div> <!-- /.container -->
 {% endblock %}
 
-{% block bodyid %}project_landing{% endblock %}
+{% block bodyid %}all_subs{% endblock %}
 
 {% block body %}
 <div id="sidebar">
     <section id="project" class="panel">
         <hgroup>
-        <h1 id="project-name">{{ project.name }}</h1>
+        <h1 id="project-name"><a href="{% locale_url challenges_show slug=project.slug %}">{{ project.name }}</a></h1>
         {% if project.parent_project_id %}
             <h2>A {{ parent.sub_projects_metaname|lower }} of <a href="{% locale_url projects_show slug=parent.slug %}">{{ parent.name }}</a></h2> 
         {% endif %}
@@ -53,13 +41,6 @@
             {% endif %}
             </div> <!-- /#project-follow -->
         {% endif %}
-
-        <dl id="project-stats">
-            <dt>Followers</dt>
-            <dd>{{ followers_count }}</dd>
-            <dt>Updates</dt>
-            <dd>{{ update_count }}</dd>
-        </dl> <!-- /#project-stats -->
 
         <div id="project-summary">
             {{ project.long_description }}
@@ -130,66 +111,39 @@
     </section> <!-- /#project-lead --> 
 </div> <!-- /#sidebar -->
 
-<div id="main">
-    {% get_sub_projects project.id project.allow_sub_projects project.id  %}
-    {% if challenges %}
-        {% if project.slug == "mojo" %}
-        <div class="voting-info">
-            <h2>Voting has ended</h2>
-            <p>Crowd evaluation is closed, and the review board has rated the submissions. Stay tuned as we announce challenge winners.</p>
-        </div>
-        {% endif %}
-        <div id="challenge_header" class="challenges">
-            <h2>{{ _('Challenges') }}</h2>
-            <ul>
-            {% for challenge in challenges %}
-                <li>
-                <a href="{% locale_url challenges_show slug=challenge.slug %}">
-                {% if challenge.image %}
-                <img src="{{ challenge.image.url }}" alt="{{ challenge }} image" />
-                {% else %}
-                <img src="/media/images/project-missing.png" alt="{{ challenge }} image"/>
-                {% endif %}
-                </a>
-                <a href="{% locale_url challenges_show slug=challenge.slug %}">{{challenge.title}}</a>
-            </li>
-            {% endfor %}
-            </ul>
-        </div> <!-- /.challenges -->
-    {% endif %}
-
-    {% if project.allow_challenges %}
-        {% if user.is_authenticated %}
-        <p><a class="button submit" href="{% locale_url challenges_create project_id=project.pk %}">{{ _('Add your own project challenge') }}</a></p>
-        {% else %}
-        <p>Before you can enter a challenge you've got to sign-up (don't worry though, once you have we'll bring you back to this page)</p>
-        <p><a href="{{ login_with_redirect_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_with_redirect_url }}">create an account</a></p>
-        {% endif %}
-    {% endif %}
-
-    {% if user.is_authenticated %}
-        <div id="create-post">
-            <div class="post-container">
-                <form action="{% locale_url statuses_create_project project_id=project.id %}" method="post" id="post-project-status-update">
-	            {% csrf_token %}
-	            <input type="text" value="{{ _('Post a message to this project') }}" title="{{_('Post a message to this project')}}">
-	            <textarea name="status" title="{{_('Post a message to this project')}}"></textarea>
-	            <div class="status-and-actions">
-	                <div class="post-char-count">750</div> 
-	                <ul class="post-tags">
-	                    <li><span>{{ project.name }}</span></li>
-	                </ul>
-                    <button class="button update submit" id="post-project-update">Post Update</button>
-	            </div> <!-- /.status-and-actions -->
-	            </form>
-            </div> <!-- /.post-container -->
-        </div> <!-- /.#create-post -->
-    {% endif %}
-
+<div id="main"> 
+    <h2>All {{ project.sub_projects_metaname }}s</h2>
+    {% if sub_projects.object_list %}
     <ul id="posts">
-        {% for activity in activities %}
-	        {% include "activity/_activity_resource.html" %}
-        {% endfor %}
+    {% for sub in sub_projects.object_list %}
+    <li class="post-container object">
+    {% if sub.image %}
+    <img src="{{ sub.image.url }}" alt="" />
+    {% else %}
+    <img src="/media/images/project-missing.png" class="project media"  alt="" />
+    {% endif %}
+    <h1>{{ sub.name }}</h1>
+    <p>{{ project.sub_projects_metaname }} created by <a href="{{ sub.created_by.get_absolute_url }} ">{{ sub.created_by.name }}</a></p>
+    <p>{{ sub.short_description }}</p>
+    <p><a href="">See the full {{ project.sub_projects_metaname|lower }}</a></p>
+    </li>
+    {% endfor %}
     </ul>
+    {% endif %}
+    {% if sub_projects.paginator.num_pages > 1 %}
+    <div class="pagination">
+        {% if sub_projects.has_previous %}
+        <a href="?page={{ sub_projects.previous_page_number }}" class="btn">← prev</a>
+        {% else %}
+        <span class="btn">← prev</span>
+        {% endif %}
+        <em>Page {{ sub_projects.number }} of {{ sub_projects.paginator.num_pages }}</em>
+        {% if sub_projects.has_next %}
+        <a href="?page={{ sub_projects.next_page_number  }}" class="btn">next →</a>
+        {% else %}
+        <span class="btn">next →</span>
+        {% endif %}
+    </div>
+    {% endif %}
 </div> <!-- /#main -->
 {% endblock %}
