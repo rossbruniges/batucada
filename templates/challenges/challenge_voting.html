@@ -41,7 +41,7 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
     <h1 id="challenge-title">{{ challenge.title }}</h1>    
     {% if challenge.project.slug != 'mojo' %}
     <h2 id="project-name">
-      <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
+      A challenge from <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
     </h2>
     {% endif %}
     {% if challenge.project.slug == 'mojo' %}
