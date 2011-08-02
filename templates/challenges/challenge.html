@@ -40,14 +40,14 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
 
 {% include "challenges/_challenge_sidebar.html" %}
 <div id="main">
-  <h1>{{ challenge.title }}</h1><br />
-
+ 
   {% if challenge.above_fold %}
     {{ challenge.above_fold|safe }}
   {% endif %}
 
   {% if challenge.is_active %}
-  <p>{{ remaining.days }} days to respond to this challenge</p>
+  <h2>Create your idea</h2>
+  <p>You've got just {{ remaining.days }} days remaining to respond to this challenge. Use for form below to give us your summary then click continue to give us further details.</p>
 
   {% if user.is_authenticated %}
   <div id="create-post" class="expanded">
