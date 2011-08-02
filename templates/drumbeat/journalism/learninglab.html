@@ -1,0 +1,133 @@
+{% extends "mojo.html" %}
+
+{% load l10n_tags %}
+
+{% block links %}
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
+{% endblock %}
+
+{% block script %}
+  <script src="{{ MEDIA_URL }}js/libs/video.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    VideoJS.setupAllWhenReady();
+  </script>
+{% endblock %}
+
+{% block body %}    
+    <div class="banner">   
+      <div class="container">
+        <a href="{% locale_url drumbeat_journalism %}""><h1>Knight-Mozilla News Technology Partnership (MoJo)</h1></a>
+        <h2>Web developers and designers around the world collaborating to invent the future of news.</h2>
+       <a class="button" href="{% locale_url drumbeat_journalism %}"><span>Home</span></a>
+<a class="button" href="{% locale_url drumbeat_journalism_about %}"><span>About MoJo</span></a>
+<a class="button" href="{% locale_url mojo_design_challenges %}"><span>Design Challenges</span></a>
+<a class="button selected" href="{% locale_url mojo_learning_lab %}"><span>Learning Lab</span></a>
+<a class="button" href="{% locale_url drumbeat_journalism_participate %}"><span>Get Involved</span></a>
+<a class="button" href="https://wiki.mozilla.org/Drumbeat/MoJo"><span>MoJo Wiki</span></a>
+      </div>
+    </div>
+        <div class="content">
+      <div class="container">
+
+ 
+   <div class="column-50"> <p class="intro">Learning Lab</p>
+
+<p>60 of the best  <a href="{% locale_url mojo_design_challenges %}">design challenge</a> participants from around the world have been invited to take part in the Knight-Mozilla Learning Lab. The lab blends learning and training via live webinars featuring leading digital journalism thinkers and open-web innovators.</p>
+<p>This four-week course will facilitate a <a href="http://planet.drumbeat.org/moznewslab">fire hose</a> of new thinking about software, journalism and news.</p>
+
+You can <a href="p2pu.org/en/groups/knight-mozilla-learning-lab/">follow the lab on P2PU</a>, and check out <a href="http://search.twitter.com/search?q=%23moznewslab">#MozNewsLab</a> on <a href="http://search.twitter.com/search?q=%23moznewslab">Twitter</a> and <a href="www.youtube.com/results?search_query=%23MozNewsLab">YouTube</a>.
+</div>
+    <div class="column-50 last">
+<iframe width="415px" height="300px" scrolling="no"  src="http://www.google.com/fusiontables/embedviz?viz=MAP&q=select+col0%2C+col1%2C+col2%2C+col3%2C+col4%2C+col8%2C+col9%2C+col10%2C+col11%2C+col12%2C+col13+from+1121149+&h=false&lat=9.795677582829743&lng=7.20703125&z=1&t=1&l=col9"></iframe>        
+      </div>      
+      <p class="intro">2011 Lectures</p>
+<div class="column-50">July 11 [<a href="http://m5.blindsidenetworks.com/playback/simple/playback.html?meetingId=23f6da2d4a069445f489de7a2f2bbd982055a29f-1310402939229\">watch</a>]
+<br><strong>Aza Raskin</strong> is a renowned interface designer who recently held the position of Creative Lead for Firefox. He is currently the co-founder of Massive Health, and probably up to many other design-meets-entrepreneurial things. 
+ <br><br>
+July 13 [<a href="http://m5.blindsidenetworks.com/playback/simple/playback.html?meetingId=23f6da2d4a069445f489de7a2f2bbd982055a29f-1310572137623">watch</a>]
+<br><strong>Burt Herman</strong> is an entrepreneurial journalist. He is the CEO of Storify and a co-founder of Hacks/Hackers.
+ <br><br>
+July 15 [<a href="http://m5.blindsidenetworks.com/playback/simple/playback.html?meetingId=23f6da2d4a069445f489de7a2f2bbd982055a29f-1310743033042">watch</a>]
+<br><strong>Amanda Cox</strong> is a graphics editor at the New York Times, where she creates charts and maps for the print and web versions of the paper.
+<br><br>
+July 18 [<a href="http://m5.blindsidenetworks.com/playback/simple/playback.html?meetingId=23f6da2d4a069445f489de7a2f2bbd982055a29f-1311000469088">watch</a>]
+<br><strong>Chris Heilmann</strong> is a geek and hacker by heart. In a previous life, he was responsible for delivering Yahoo Maps Europe and Yahoo Answers. He’s currently a Mozilla Developer Evangelist, focusing on all things open web, HTML5, and working open.
+<br><br>
+July 20 [<a href="http://m5.blindsidenetworks.com/playback/simple/playback.html?meetingId=23f6da2d4a069445f489de7a2f2bbd982055a29f-1311180490868">watch</a>]
+<br><strong>John Resig</strong>  is a programmer and entrepreneur. He’s the creator and lead developer  of the jQuery JavaScript library, and contributes to many more libraries. Until recently, John was the JavaScript Evangelist at Mozilla. He’s currently  the Dean of Open Source and head of JavaScript development at Khan Academy.
+<br><br>
+July 22 [<a href="http://m5.blindsidenetworks.com/playback/simple/playback.html?meetingId=23f6da2d4a069445f489de7a2f2bbd982055a29f-1311349741262">watch</a>]
+<br><strong>Jesse James Garrett</strong>, co-founder and president of Adaptive Path, is one of the world's most widely recognized technology product designers.
+</div>
+<div class="column-50 last">July 25
+<br><strong>Shazna Nessa</strong> is Director of Interactive at the Associated Press in New York. Nessa runs a global department that provides visual and interactive news content to customers in all formats. 
+<br><br>
+July 27
+<br><strong>Mohamed Nanabhay</strong> is an internet entrepreneur and Head of New Media at the AlJazeera Network based in Doha, Qatar.
+<br><br>
+July 29
+<br><strong>Oliver Reichenstein</strong>, CEO Information Architects
+<br><br>
+August 1
+<br><strong>Evan Hansen</strong> is the Editor In Chief of Wired.com. Under his stewardship, Wired.com’s traffic has grown fourfold, reaching more than 10 million unique visitors a month. Hansen has won numerous awards for technology reporting and writing. Prior to joining Wired.com, Evan worked at CNET News.com.
+<br><br>
+August 3
+<br><strong>Jeff Jarvis</strong> is the author of What Would Google Do? He blogs about media and news at Buzzmachine.com.  He is associate professor and director of the interactive journalism  program and the new business models for news project at the City  University of New York’s Graduate School of Journalism.
+    <br><br>  </div>        
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="column-33">
+        <h5>About Knight</h5>
+        <p>
+          The John S. and James L. Knight Foundation advances journalism in the digital age and invests in the vitality of communities where the Knight  brothers owned newspapers. 
+        </p>
+        <p>
+          Knight Foundation focuses on projects that  promote informed and engaged communities and lead to transformational change.
+        </p>
+        <p>
+          For more, visit <a href="http://www.knightfoundation.org">www.knightfoundation.org</a>
+        </p>
+      </div>
+      
+      <div class="column-33">
+        <h5>About Mozilla</h5>
+        <p>
+          Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. 
+        </p>
+        <p>
+          We do this by creating great software, like the Firefox browser, and building communities, like Mozilla Drumbeat, that build and grow the open web.
+        </p>
+        <p>
+          For more visit <a href="http://www.mozilla.org">www.mozilla.org</a>
+        </p>
+      </div>
+      
+      <div class="column-33 last">
+        <h5>FAQs</h5>
+        <ul>
+          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Why_is_Mozilla_interested_in_media_and_journalism.3F.E2.80.A8">Why is Mozilla interested in media and journalism?</a></li>
+          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#Who_is_eligible_for_a_Knight-Mozilla_fellowship.3F_How_do_I_apply_for_a_Knight-Mozilla_fellowship.3F.E2.80.A8.E2.80.A8">Who is eligible for a Knight-Mozilla fellowship? How do I apply for a Knight-Mozilla fellowship?</a></li>
+          <li><a href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ#What_do_you_mean_by_.22the_open_web.22_and_.22open_technology.3F.E2.80.A8">What do you mean by "the open web" and "open technology?"</a></li>
+        </ul>
+        <a class="viewmore" href="https://wiki.mozilla.org/Drumbeat/MoJo/FAQ">View More</a>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="footer">
+        <ul>
+          <li><a href="mailto:journalism@mozilla.org">Contact Us</a></li>
+          <li><a href="http://www.mozilla.org">Mozilla.org</a></li>
+          <li><a href="http://www.mozilla.org/about/policies/privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+        <a class="facebook" href="http://www.facebook.com/pages/Knight-Mozilla-News-Technology-Partnership/166232896765641"></a>
+        <a class="twitter" href="http://twitter.com/knightmozilla"></a>
+        <span style="float: right">Follow Mojo</span>
+      </div>
+      <p class="footer-subtext">
+        The contents of this website are licensed CC-BY. (c) Mozilla 2011
+      </p>  
+    </div>
+{% endblock %}
