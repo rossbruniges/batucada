@@ -173,14 +173,14 @@ batucada.challenges = function() {
         });
     };
     init = function() {
+        if ($('div.expando').length) {
+            expandr();
+        }
         if (votes.length) {
             if (body_id === "voting_landing") {
                 if (votes.find('li.submission').length <= votes.attr('data-total-votes')) {
                     randomizr();
-                }
-                if ($('div.expando').length) {
-                    expandr();
-                }
+                } 
             }
             votes.bind('click', function(e) {
                 var elm = $(e.target);
