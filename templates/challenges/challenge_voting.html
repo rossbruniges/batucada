@@ -81,7 +81,8 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
 </div>
 <div id="main">
    {% if challenge.is_active %}
-  <p>{{ remaining.days }} days to respond to this challenge</p>
+  <h2>Create your idea</h2>
+  <p>You've got just {{ remaining.days }} days remaining to respond to this challenge. Use the form below to give us your summary then click continue to give us further details.</p>
 
   {% if user.is_authenticated %}
   <div id="create-post" class="expanded">
@@ -105,7 +106,8 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
     </div> <!-- /.post-container -->
   </div> <!-- /.#create-post -->
   {% else %}
-  <p>Want to participate? You should <a href="{% locale_url users_login %}">sign in</a>.</p>
+  <p>If you're wondering where the form is it's because you're currently not logged in. Once you have done we'll drop you right back at this page.</p>
+  <p><a href="{{ login_with_redirect_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_with_redirect_url }}">create an account</a>.</p>
   {% endif %}
   {% else %}
     {% if challenge.allow_voting %}

@@ -71,7 +71,8 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
     </div> <!-- /.post-container -->
   </div> <!-- /.#create-post -->
   {% else %}
-  <p>Want to participate? You should <a href="{% locale_url users_login %}">sign in</a>.</p>
+  <p>If you're wondering where the entry form is it's because you're currently not logged in. Once you have done we'll drop you right back at this page.</p>
+  <p><a href="{{ login_with_redirect_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_with_redirect_url }}">create an account</a>.</p>
   {% endif %}
   {% else %}
  <p>Crowd evaluation is closed, and the review board has rated the submissions. Stay tuned as we announce challenge winners.</p>
