@@ -80,6 +80,7 @@ def dashboard(request):
         'activities': activities,
         'projects': user_projects,
         'show_welcome': show_welcome,
+        'profile' : profile
     }, context_instance=RequestContext(request))
 
 

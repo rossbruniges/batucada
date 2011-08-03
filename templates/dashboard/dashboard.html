@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load l10n_tags %}
+{% load l10n_tags user_submissions %}
 {% load truncate_chars %}
 {% block title %}{{ _('Your Dashboard') }}{% endblock %}
 {% block links %}
@@ -47,6 +47,7 @@
         </li>
         {% endfor %}
         </ul>
+        {% user_submissions %}
     </div> <!-- /#member_relationships-->
 </div> <!-- /#sidebar -->
 
