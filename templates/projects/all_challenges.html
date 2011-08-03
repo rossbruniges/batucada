@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load l10n_tags %}
 
-{% block title %}All {{ project.sub_projects_metaname }}s in {{ project.name }}{% endblock %}
+{% block title %}All challenges for {{ project.name }}{% endblock %}
 
 {% block breadcrumbs %}
 <div class="container">
@@ -10,7 +10,7 @@
         <span class="arrow">&rsaquo;</span>
         <a href="{% locale_url projects_show slug=project.slug %}">{{ project.name }}</a>
         <span class="arrow">&rsaquo;</span>
-        All {{ project.sub_projects_metaname }}s
+        All challenges
     </nav>
 </div> <!-- /.container -->
 {% endblock %}
@@ -112,34 +112,34 @@
 </div> <!-- /#sidebar -->
 
 <div id="main"> 
-    <h2>All {{ project.sub_projects_metaname }}s</h2>
-    {% if sub_projects.object_list %}
+    <h2>All challenges</h2>
+    {% if challenges.object_list %}
     <ul id="posts">
-    {% for sub in sub_projects.object_list %}
+    {% for c in challenges.object_list %}
     <li class="post-container object">
-    {% if sub.image %}
-    <img src="{{ sub.image.url }}" alt="" />
+    {% if c.image %}
+    <img src="{{ c.image.url }}" alt="" />
     {% else %}
     <img src="/media/images/project-missing.png" class="project media"  alt="" />
     {% endif %}
-    <h1>{{ sub.name }}</h1>
-    <p>{{ project.sub_projects_metaname }} created by <a href="{{ sub.created_by.get_absolute_url }} ">{{ sub.created_by.name }}</a></p>
+    <h1>{{ c.title }}</h1>
+    <p>Challenge created by <a href="{{ c.created_by.get_absolute_url }} ">{{ c.created_by.name }}</a></p>
     <p>{{ sub.short_description }}</p>
-    <p><a href="{% locale_url projects_show slug=sub.slug %}">See the full {{ project.sub_projects_metaname|lower }}</a></p>
+    <p><a href="{% locale_url challenges_show slug=c.slug %}">See the full challenge</a></p>
     </li>
     {% endfor %}
     </ul>
     {% endif %}
-    {% if sub_projects.paginator.num_pages > 1 %}
+    {% if challenges.paginator.num_pages > 1 %}
     <div class="pagination">
-        {% if sub_projects.has_previous %}
-        <a href="?page={{ sub_projects.previous_page_number }}" class="btn">← prev</a>
+        {% if challenges.has_previous %}
+        <a href="?page={{ challenges.previous_page_number }}" class="btn">← prev</a>
         {% else %}
         <span class="btn">← prev</span>
         {% endif %}
-        <em>Page {{ sub_projects.number }} of {{ sub_projects.paginator.num_pages }}</em>
-        {% if sub_projects.has_next %}
-        <a href="?page={{ sub_projects.next_page_number  }}" class="btn">next →</a>
+        <em>Page {{ challenges.number }} of {{ challenges.paginator.num_pages }}</em>
+        {% if challenges.has_next %}
+        <a href="?page={{ challenges.next_page_number  }}" class="btn">next →</a>
         {% else %}
         <span class="btn">next →</span>
         {% endif %}

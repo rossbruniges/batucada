@@ -213,6 +213,9 @@ FEED_URLS = {
     'mojo': 'http://planet.drumbeat.org/mojo/atom.xml',
 }
 
+# Number of latest challenges/sub-projects we will display
+NUM_CHILD_OBJECTS = 3
+
 # Would be awesome if this could somehow be dynamic - no idea how though...
 ASSETS = {
     'css':{

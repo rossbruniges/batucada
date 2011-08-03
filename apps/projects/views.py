@@ -64,7 +64,9 @@ def show(request, slug):
         'update_count': nstatuses,
         'links': links,
         'files': files,
-        'challenges': challenges,
+        'challenges': challenges[:settings.NUM_CHILD_OBJECTS],
+        'nchallenges' : challenges.count(),
+        'max_challenges' : settings.NUM_CHILD_OBJECTS
     }
     return render_to_response('projects/project.html', context,
                               context_instance=RequestContext(request))
@@ -92,6 +94,30 @@ def show_sub_projects(request, slug):
 
     return render_to_response('projects/projects_all_subs.html', context,
      context_instance=RequestContext(request))
+
+def project_challenges(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+    challenges_set = Challenge.objects.filter(project=project.id)
+
+    paginator = Paginator(challenges_set, 10)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        challenges = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        challenges = paginator.page(paginator.num_pages)
+
+    context = {
+        'project':project,
+        'challenges':challenges
+    }
+
+    return render_to_response('projects/all_challenges.html', context,
+        context_instance=RequestContext(request))
 
 def show_detailed(request, slug):
     project = get_object_or_404(Project, slug=slug)
