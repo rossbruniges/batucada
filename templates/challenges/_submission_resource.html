@@ -7,13 +7,17 @@
         <img alt="" class="member-picture" width="54" height="54" src="{{ MEDIA_URL }}{{ submission.created_by.image_or_default }}">
     </a>
      <div class="post-contents">
-     {% if submission.is_winner %}
-     <div class="winner">
-        <img src="{{ MEDIA_URL }}images/winner.png" width="60" height="58" alt="" />
-        <p><em>Winner</em></p>
-     </div>
-     {% endif %}
-        <h1 class="title"><a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk     %}">{{ submission.title }} </a></h1>
+     {% if challenge.allow_voting %}
+        {% include 'challenges/_voting_bug.html' %}
+     {% else %}
+        {% if submission.is_winner %}
+            <div class="winner">
+                <img src="{{ MEDIA_URL }}images/winner.png" width="60" height="58" alt="" />
+                <p><em>Winner</em></p>
+            </div>
+        {% endif %}
+    {% endif %}
+     <h1 class="title"><a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk     %}">{{ submission.title }} </a></h1>
         <div class="post-details">
             <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name     }}</a>
             <a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk %}">{{ submission.created_on|timesince }} {{ _(' ago') }}</a>

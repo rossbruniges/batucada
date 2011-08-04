@@ -1,0 +1,19 @@
+{% load l10n_tags %}
+
+<div class="voting">
+    <h4>Voting</h4>
+    <p><span class="score">{{ score.score|default:0 }}</span></p>
+    {% if user.is_authenticated %}
+        <form method="post" id="upvote-{{ submission.pk }}" action="{% if vote and vote.is_upvote %}{% locale_url submission_vote object_id=submission.pk direction='clear' %}{% else %}{% locale_url submission_vote object_id=submission.pk direction='up' %}{% endif %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{% if profile.voter_details.count %}{% locale_url challenges_show slug=challenge.slug %}{% else %}{% locale_url submissions_voter_details submission_id=submission.pk %}{% endif %}" />
+            {% if not vote or not vote.is_upvote %}
+                <input class="trigger vote" type="submit" value="Vote" />
+            {% else %}
+                <input type="submit" class="trigger clear" value="Clear" />
+            {% endif %}
+        </form>
+    {% else %}
+        <p class="meta"><a href="{{ login_with_redirect_url }}">Sign in to vote</a></p>
+    {% endif %}
+</div>
