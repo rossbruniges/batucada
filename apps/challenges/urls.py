@@ -30,7 +30,7 @@ urlpatterns = patterns('',
       name='challenges_project_feed'),
   url(r'^feed/$', ChallengesFeed(), name='challenges_feed'),
 
-  url(r'^(?P<slug>[\w-]+)/$', 'challenges.views.show_challenge_winners',
+  url(r'^(?P<slug>[\w-]+)/$', 'challenges.views.show_challenge_master',
       name='challenges_show'),
   url(r'^(?P<slug>[\w-]+)/all_ideas/$', 'challenges.views.show_all_submissions',
   name='all_submissions'),

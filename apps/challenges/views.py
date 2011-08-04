@@ -149,6 +149,75 @@ def edit_challenge_image(request, slug):
     return render_to_response('challenges/challenge_edit_image.html', context,
                               context_instance=RequestContext(request))
 
+def show_challenge_master(request, slug):
+    challenge = get_object_or_404(Challenge, slug=slug)
+
+    all_submissions = challenge.submission_set
+    num_submissions = all_submissions.count()
+
+    try:
+        profile = request.user.get_profile()
+    except:
+        profile = None
+
+    remaining = challenge.end_date - datetime.now()
+
+    if challenge.end_date < datetime.now():
+        if challenge.allow_voting:
+            do_paginate = 4
+            tmpl = 'challenges/challenge_voting.html'
+            form = False
+            filter_submissions = all_submissions.filter(is_published=True) 
+        else:
+            do_paginate = False
+            tmpl = 'challenges/challenge_winners.html'
+            form = False
+            filter_submissions = all_submissions.filter(is_winner=True)
+    else:
+        do_paginate = 10
+        tmpl = 'challenges/challenge.html'
+        form = SubmissionSummaryForm()
+        filter_submissions = all_submissions.filter(is_published=True)
+
+    qn = connection.ops.quote_name
+    ctype = ContentType.objects.get_for_model(Submission)
+
+    submissions_set = filter_submissions.extra(
+        select={'score':"""
+        SELECT SUM(vote)
+        FROM %s
+        WHERE content_type_id = %s
+        AND object_id = %s.id
+        """ % (qn(Vote._meta.db_table), ctype.id, qn(Submission._meta.db_table))
+        },
+        order_by=['?']
+    )
+
+    if do_paginate:
+        paginator = Paginator(submissions_set, do_paginate)
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
+           page = 1
+        try:
+            submissions = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            submissions = paginator.page(paginator.num_pages)
+    else:
+        submissions = submissions_set
+    
+    context = {
+        'challenge':challenge,
+        'submissions':submissions,
+        'num_submissions':num_submissions,
+        'full_data':False,
+        'profile':profile,
+        'remaining':remaining,
+        'form':form
+    }
+
+    return render_to_response(tmpl, context,
+        context_instance=RequestContext(request))
 
 def show_challenge_winners(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
