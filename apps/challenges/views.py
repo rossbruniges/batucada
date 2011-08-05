@@ -49,6 +49,7 @@ def create_challenge(request, project_id):
             challenge = form.save(commit=False)
             challenge.created_by = user
             challenge.project = project
+            challenge.allow_voting = 1
             challenge.save()
 
             messages.success(request,

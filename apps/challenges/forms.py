@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 class ChallengeForm(forms.ModelForm):
     class Meta:
         model = Challenge
-        exclude = ('slug', 'project', 'created_by', 'created_on', 'is_open')
+        exclude = ('slug', 'project', 'created_by', 'created_on', 'is_open', 'allow_voting', 'entrants_can_edit')
 
 
 class ChallengeImageForm(forms.ModelForm):
