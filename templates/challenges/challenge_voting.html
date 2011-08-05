@@ -80,80 +80,36 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
 
 </div>
 <div id="main">
-   {% if challenge.is_active %}
-  <h2>Create your idea</h2>
-  <p>You've got just {{ remaining.days }} days remaining to respond to this challenge. Use the form below to give us your summary then click continue to give us further details.</p>
-
-  {% if user.is_authenticated %}
-  <div id="create-post" class="expanded">
-    <div class="post-container">
-      <form action="{% locale_url submissions_create slug=challenge.slug %}" method="post" id="post-challenge-summary">
-	      {% csrf_token %}
-	      <input type="text" value="{{ _("What's your idea?") }}">
-	      <textarea name="summary" title=""></textarea>
-	      
-	      <div class="status-and-actions">
-	        <div class="post-char-count">750</div>
-	        
-	        <ul class="post-tags">
-	          <li><span>{{ challenge.title }}</span></li>
-	        </ul>
-          
-          <button class="button update submit" id="post-challenge">{{ _('Continue') }}</button>
-          
-	      </div> <!-- /.status-and-actions -->
-	    </form>
-    </div> <!-- /.post-container -->
-  </div> <!-- /.#create-post -->
-  {% else %}
-  <p>If you're wondering where the form is it's because you're currently not logged in. Once you have done we'll drop you right back at this page.</p>
-  <p><a href="{{ login_with_redirect_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_with_redirect_url }}">create an account</a>.</p>
-  {% endif %}
-  {% else %}
-    {% if challenge.allow_voting %}
     <div class="voting-info">
         <h2>Voting is now open</h2>
         <p>Welcome to crowd evaluation. You can vote up ideas and leave comments for the authors. <strong>Voting ends June 19th</strong>.</p>
-
-      <p><a href="{% locale_url drumbeat_journalism %}">Learn more about MoJo</a><p>
+        <p><a href="{% locale_url drumbeat_journalism %}">Learn more about MoJo</a><p>
+    </div>
+    {% if submissions.object_list %}
+        <h2>Ideas</h2>
+        <ul id="votes" data-total-votes="{{ num_submissions }}">
+        {% for submission in submissions.object_list %}
+            <li class="submission">
+                {% include "challenges/_voting_resource.html" %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if submissions.paginator.num_pages > 1 %}
+        <div class="pagination">
+            {% if submissions.has_previous %}
+                <a href="?page={{ submissions.previous_page_number }}" class="btn">← prev</a>
+            {% else %}
+	            <span class="btn">← prev</span>
+	        {% endif %}
+            <em>Page {{ submissions.number }} of {{ submissions.paginator.num_pages }}</em>
+            {% if submissions.has_next %}
+                <a href="?page={{ submissions.next_page_number }}" class="btn">next →</a>
+	        {% else %}
+	            <span class="btn">next →</span>
+            {% endif %}
         </div>
-        {% else %}
-         This challenge is currently closed to new entries.
-     <h2>{{ _('Newest Ideas') }}</h2>
-    {% endif %} 
-  {% endif %}
-  
-  {% if submissions.object_list %}
-<h2>Ideas</h2>
-  <ul id="votes" data-total-votes="{{ num_submissions }}">
-    {% for submission in submissions.object_list %}
-    <li class="submission">
-    {% include "challenges/_voting_resource.html" %}
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  {% if submissions.paginator.num_pages > 1 %}
-  <div class="pagination">
-      {% if submissions.has_previous %}
-      <a href="?page={{ submissions.previous_page_number }}" class="btn">← prev</a>
-      {% else %}
-	  <span class="btn">← prev</span>
-	  {% endif %}
-      
-      <em>
-        Page {{ submissions.number }} of {{ submissions.paginator.num_pages }}
-      </em>
-      
-      {% if submissions.has_next %}
-      <a href="?page={{ submissions.next_page_number }}" class="btn">next →</a>
-	  {% else %}
-	  <span class="btn">next →</span>
-      {% endif %}
-  </div>
-  <p><a href="{% locale_url all_submissions slug=challenge.slug %}">Browse all {{ nsubmissions }} submissions</a></p>
-  {% endif %}
-  </div>
+        <p><a href="{% locale_url all_submissions slug=challenge.slug %}">Browse all {{ nsubmissions }} submissions</a></p>
+    {% endif %}
+</div>
 {% endblock %}
-

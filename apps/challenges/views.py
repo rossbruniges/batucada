@@ -149,7 +149,7 @@ def edit_challenge_image(request, slug):
     return render_to_response('challenges/challenge_edit_image.html', context,
                               context_instance=RequestContext(request))
 
-def show_challenge_master(request, slug):
+def show_challenge(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
 
     all_submissions = challenge.submission_set
@@ -218,94 +218,6 @@ def show_challenge_master(request, slug):
 
     return render_to_response(tmpl, context,
         context_instance=RequestContext(request))
-
-def show_challenge_winners(request, slug):
-    challenge = get_object_or_404(Challenge, slug=slug)
-
-    order = '?'
-    
-    submission_set = challenge.submission_set.filter(is_winner=True).extra(
-        order_by=[order]
-    )
-
-    try:
-        profile = request.user.get_profile()
-    except:
-        profile = None
-
-    context = {
-        'challenge': challenge,
-        'submissions': submission_set,
-        'profile': profile,
-        'full_data': 'false'
-    }
-
-    return render_to_response('challenges/challenge_winners.html', context,
-                              context_instance=RequestContext(request))
-
-def show_challenge(request, slug):
-    challenge = get_object_or_404(Challenge, slug=slug)
-
-    qn = connection.ops.quote_name
-    ctype = ContentType.objects.get_for_model(Submission)
-
-    nsubmissions = challenge.submission_set.count()
-
-    if challenge.allow_voting:
-        order = '?'
-    else:
-        order = '-created_on'
-    
-    submission_set = challenge.submission_set.filter(is_published=True).extra(
-        select={'score': """
-        SELECT SUM(vote)
-        FROM %s
-        WHERE content_type_id = %s
-        AND object_id = %s.id
-        """ % (qn(Vote._meta.db_table), ctype.id,
-               qn(Submission._meta.db_table))
-        },
-        order_by=[order]
-    )
-
-    if challenge.allow_voting:
-        paginator = Paginator(submission_set, 4)
-        tmpl = 'challenges/challenge_voting.html'
-    else:
-        paginator = Paginator(submission_set, 10)
-        tmpl = 'challenges/challenge.html'
-
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-
-    try:
-        submissions = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        submissions = paginator.page(paginator.num_pages)
-
-    form = SubmissionSummaryForm()
-    remaining = challenge.end_date - datetime.now()
-
-    try:
-        profile = request.user.get_profile()
-    except:
-        profile = None
-
-    context = {
-        'challenge': challenge,
-        'submissions': submissions,
-        'nsubmissions': nsubmissions,
-        'form': form,
-        'profile': profile,
-        'remaining': remaining,
-        'full_data': 'false'
-    }
-
-    return render_to_response(tmpl, context,
-                              context_instance=RequestContext(request))
-
 
 def show_all_submissions(request, slug):
     challenge = get_object_or_404(Challenge, slug=slug)
