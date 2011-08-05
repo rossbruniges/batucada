@@ -1,10 +1,7 @@
 {% load l10n_tags %}
-{% load voting_tags %}
-{% score_for_object submission as score %}
-{% vote_by_user user on submission as vote %}
 
 <div class="post-contents" data-unique="{{ submission.pk }}">
-    {% include 'challenges/_voting_bug.html' %}:
+    {% include 'challenges/_voting_bug.html' %}
     <div class="details">
         <h3 class="title">{{ submission.title }}</h3>
         <div class="post-body">

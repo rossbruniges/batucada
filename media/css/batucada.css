@@ -1108,6 +1108,11 @@ header {}
       height: 1px;
       line-height: 1px;
     }
+    #posts .voting .clear {
+        width: 58px;
+        height: auto;
+        line-height: 1;
+    }
     #posts .action,
     .supplemental_actions .action {
 	  display: none;
@@ -2749,7 +2754,7 @@ background: -webkit-gradient(linear, left top, left bottom,
 #votes .submission form p {
     font-weight: bold;
 }
-#votes .submission .trigger {
+.submission .voting .trigger {
     background: #fff url(/media/images/thumb_up.png) no-repeat 4px 2px;
     border: 1px solid #cfcfcf;
     color: #474747;
@@ -2760,10 +2765,10 @@ background: -webkit-gradient(linear, left top, left bottom,
     margin-top: 6px;
     behavior: none;
 }
-.ie8 #votes .submission .trigger {
+.ie8 .submission .voting .trigger {
     background-position: 4px 4px;
 }
-#votes .submission .clear {
+.submission .voting .clear {
     background-image : url(/media/images/cancel.png)
 }
 #posts .object img {

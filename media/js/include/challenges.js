@@ -3,6 +3,8 @@ batucada.challenges = function() {
         body_id = $('body').attr('id'),
         js_text = batucada.strings.challenges,
         init, randomizr, vote_up, load_ideas, expandr;
+    // as we've got voting all over the place we need to check if the initial check returns nothing and use a back-up
+    votes = votes.length ? votes : $('#posts');
     load_ideas = {
         load_content : function(url, dest) {
             var ajax_loader = $('#ajax_space'),

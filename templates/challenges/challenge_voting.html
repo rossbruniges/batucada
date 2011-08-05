@@ -18,7 +18,7 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
     <span class="arrow">&rsaquo;</span>
     <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
     <span class="arrow">&rsaquo;</span>
-    <a href="{% locale_url challenges_show slug=challenge.slug %}">{{ challenge.title }}</a>
+    {{ challenge.title }}
   </nav>
   
   <div id="project-actions">
@@ -125,7 +125,7 @@ instead, we should include "challenges/_challenge_sidebar.html" or whatever we n
   
   {% if submissions.object_list %}
 <h2>Ideas</h2>
-  <ul id="votes" data-total-votes="{{ nsubmissions }}">
+  <ul id="votes" data-total-votes="{{ num_submissions }}">
     {% for submission in submissions.object_list %}
     <li class="submission">
     {% include "challenges/_voting_resource.html" %}

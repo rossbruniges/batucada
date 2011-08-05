@@ -1,4 +1,7 @@
 {% load l10n_tags %}
+{% load voting_tags %}
+{% score_for_object submission as score %}
+{% vote_by_user user on submission as vote %}
 
 <div class="voting">
     <h4>Voting</h4>

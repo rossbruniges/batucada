@@ -393,7 +393,10 @@ batucada.areas =  {
         }
     },
     challenge_landing: {
+        text:['challenges.js'],
+        requires: ['js/include/challenges.js'],
         onload: function() {
+            batucada.challenges.init();
             createPostTextArea();
             $('#post-challenge').bind('click', function() {
                 $('#post-challenge-summary').submit();
