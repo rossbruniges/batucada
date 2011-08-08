@@ -352,6 +352,8 @@ def create(request, parent=False):
         p = get_object_or_404(Project, id=parent)
         if not p.allow_sub_projects:
             return http.HttpResponseForbidden()
+    else:
+        p = False
 
     user = request.user.get_profile()
     if request.method == 'POST':
@@ -385,13 +387,10 @@ def create(request, parent=False):
                 _("There was a problem creating your project."))
     else:
         form = project_forms.ProjectForm()
-        if parent:
-            parent = p
-        else:
-            parent = False
+
     return render_to_response('projects/project_edit_summary.html', {
         'form': form,
-        'parent' : parent
+        'parent' : p
     }, context_instance=RequestContext(request))
 
 @login_required

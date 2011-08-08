@@ -7,9 +7,8 @@
 <form action="{% if project %}{% locale_url projects_edit slug=project.slug %}{% else %}{% locale_url projects_create %}{% endif %}" method="post">
   {% csrf_token %}
     {% if parent %}
-    <h2>Creating a sub-project</h2>
-    <p>The project you are about to create will be a sub-project of <b>{{ parent.name }}</b>.</p>
-    <p>If this isn't what you wanted just <a href="{% locale_url projects_create %}">create a normal non-sub project</a> and all will be forgottten.</p>
+    <h2>Creating a {{ parent.sub_projects_metaname|lower }}</h2>
+    <p>The project you are about to create will be a {{ parent.sub_projects_metaname|lower }} of <b>{{ parent.name }}</b>.</p>
     <input type="hidden" name="parent_project_id" value="{{ parent.id }}" />
     {% endif %}
   <div class="field{% if form.name.errors %} error{% endif %}">

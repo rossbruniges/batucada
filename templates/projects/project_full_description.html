@@ -16,7 +16,7 @@
 
     {% if user.get_profile == project.created_by %}
       <div id="project-actions">
-        <a class="button" href="{% locale_url projects_edit slug=project.slug %}">{{ _('Edit Project') }}</a>
+        <a class="button submit" href="{% locale_url projects_edit slug=project.slug %}">{{ _('Edit Project') }}</a>
         <a class="button" href="{% locale_url projects_contact_followers slug=project.slug %}">{{ _('Message Followers') }}</a>
       </div>
     {% endif %}
@@ -26,5 +26,6 @@
 {% block body %}
 <h1>{{ project.name }}</h1>
 {{ project.detailed_description_html|safe }}
+<p><a href="{% locale_url projects_show slug=project.slug %}">Back to the project homepage</a></p>
 {% include "_footer.html" %}
 {% endblock %}

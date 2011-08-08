@@ -21,7 +21,13 @@
 
     {% if user.get_profile == project.created_by %}
         <div id="project-actions">
-            <a class="button" href="{% locale_url projects_edit slug=project.slug %}">{{ _('Edit Project') }}</a>
+            <a class="button submit" href="{% locale_url projects_edit slug=project.slug %}">
+            {% if not parent.sub_projects_metaname %}
+            {{ _('Edit Project') }}
+            {% else %}
+            Edit {{ parent.sub_projects_metaname|lower }}
+            {% endif %}
+            </a>
             <a class="button" href="{% locale_url projects_contact_followers slug=project.slug %}">{{ _('Message Followers') }}</a>
             {% if project.slug == 'mojo' %}
                 <a class="button" href="{% locale_url challenges_create project_id=project.pk %}">{{ _('Create Challenge') }}</a>
@@ -84,6 +90,13 @@
         {% if project.detailed_description %}
             <a id="project-description-link" href="{% locale_url projects_show_detailed slug=project.slug %}">View Full Project Description</a>
         {% endif %}
+        {% if project.allow_challenges %}
+            {% if user.is_authenticated %}
+                 <p><a class="button submit" href="{% locale_url challenges_create project_id=project.id %}">{{ _('Add a project challenge') }}</a></p>
+            {% else %}
+                 <p><a class="button submit" href="{{ login_with_redirect_url }}">{{ _('Add a project challenge') }}</a></p>
+            {% endif %}
+        {% endif %}
         {% if user.is_authenticated and user.get_profile != project.created_by %}
             <p class="supplemental_actions">
             <a class="report abuse action" href="{% locale_url drumbeat_abuse  obj=project.id type="project" %}">{{_('Report Abuse')}}</a>
@@ -144,7 +157,7 @@
         </div>
         {% endif %}
         <div id="challenge_header" class="challenges">
-            <h2>{{ _('Challenges') }}</h2>
+            <h2>Latest {{ _('challenges') }}</h2>
             <ul>
             {% for challenge in challenges %}
                 <li>
@@ -159,19 +172,11 @@
             </li>
             {% endfor %}
             </ul>
-            {% if nchallenges > max_challenges %}
-                <p>These are just {{ max_challenges }} of {{ nchallenges }} challenges - <a href="{% locale_url project_challenges slug=project.slug  %}">view all challenges</a></p>
-            {% endif %}
         </div> <!-- /.challenges -->
     {% endif %}
 
-    {% if project.allow_challenges %}
-        {% if user.is_authenticated %}
-        <p><a class="button submit" href="{% locale_url challenges_create project_id=project.pk %}">{{ _('Add your own project challenge') }}</a></p>
-        {% else %}
-        <p>Before you can enter a challenge you've got to sign-up (don't worry though, once you have we'll bring you back to this page)</p>
-        <p><a href="{{ login_with_redirect_url }}">Sign-in to drumbeat.org</a> or <a href="{{ register_with_redirect_url }}">create an account</a></p>
-        {% endif %}
+    {% if nchallenges > max_challenges %}
+        <p><a href="{% locale_url project_challenges slug=project.slug  %}">View all challenges ({{ nchallenges }} in total)</a></p>
     {% endif %}
 
     {% if user.is_authenticated %}
