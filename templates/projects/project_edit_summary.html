@@ -29,6 +29,14 @@
     {{ form.long_description }}
     {{ form.long_description.errors }}
   </div>
+ {% if not project %}
+ <div id="wmd-editor" class="wmd-panel field{% if form.detailed_description.errors %} error{% endif %}">
+    <label for="id_detailed_description">Detailed description</label>
+    <span class="hint block">{{ _('Use this area to explain the rationale behind the project and upload any relevent photos or scetchnotes') }}</span>
+    {{ form.detailed_description }}
+    {{ form.detailed_description.errors }}
+  </div>
+  {% endif %}
   <p class="buttons">    
     {% if project %}
     <a class="button" href="{% locale_url projects_show slug=project.slug %}">{{ _('Cancel') }}</a>

@@ -130,6 +130,9 @@ def show_detailed(request, slug):
 @ownership_required
 def edit(request, slug):
     project = get_object_or_404(Project, slug=slug)
+    print '###'
+    print project
+    print '###'
     if request.method == 'POST':
         form = project_forms.ProjectForm(request.POST, instance=project)
         if form.is_valid():
@@ -357,7 +360,7 @@ def create(request, parent=False):
 
     user = request.user.get_profile()
     if request.method == 'POST':
-        form = project_forms.ProjectForm(request.POST)
+        form = project_forms.InitialProjectForm(request.POST)
         if form.is_valid():
             project = form.save(commit=False)
             # I will admit these feels a bit dirty...
@@ -386,7 +389,7 @@ def create(request, parent=False):
             messages.error(request,
                 _("There was a problem creating your project."))
     else:
-        form = project_forms.ProjectForm()
+        form = project_forms.InitialProjectForm()
 
     return render_to_response('projects/project_edit_summary.html', {
         'form': form,

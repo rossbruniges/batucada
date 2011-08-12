@@ -10,13 +10,20 @@ from projects.models import Project, ProjectMedia
 
 log = logging.getLogger(__name__)
 
+class InitialProjectForm(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = ('name', 'short_description', 'long_description', 'detailed_description')
+        widgets = {
+            'detailed_description': forms.Textarea(attrs={'class':'wmd'}),
+        }
 
 class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ('name', 'short_description', 'long_description')
-
+        fields = ('name', 'short_description', 'long_description')  
 
 class ProjectDescriptionForm(forms.ModelForm):
 

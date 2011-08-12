@@ -386,6 +386,12 @@ batucada.areas =  {
             });
         }
     },
+    project_edit : {
+        requires: ['js/include/jquery.wmd.js'],
+        onload: function() {
+            initWMD();
+        }
+    },
     project_edit_description : {
         requires: ['js/include/jquery.wmd.js'],
         onload: function() {

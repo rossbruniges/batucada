@@ -1277,7 +1277,11 @@ header {}
 		.modal textarea {
 		    height: 90px;
 		    width: 400px;
-			}		
+			}
+        .modal textarea.wmd {
+            width: 480px;
+            height: 300px;
+        }
 		.modal .ajax-buttons{
 			position: absolute;
 			top:  18px; right: 18px;
