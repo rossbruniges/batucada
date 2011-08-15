@@ -447,7 +447,7 @@ batucada.areas =  {
             batucada.challenges.init();
         }
     },
-    mojo_process: {
+    mojo_about: {
         requires: ['js/include/jquery.bt.min.js'],
         onload: function() {
             var run_bt = function() {

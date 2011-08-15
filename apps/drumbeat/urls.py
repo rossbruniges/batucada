@@ -20,6 +20,9 @@ urlpatterns = patterns('django.views.generic.simple',
    url(r'^journalism/about/$', 'direct_to_template', {
         'template': 'drumbeat/journalism/about.html',
    }, name='drumbeat_journalism_about'),
+   url(r'^journalism/learninglab/$', 'direct_to_template', {
+        'template': 'drumbeat/journalism/learninglab.html',
+   }, name='mojo_learning_lab')
 )
 
 urlpatterns += patterns('',
