@@ -63,26 +63,30 @@ batucada.mojo_winners=function() {
         var galleries, len;
         galleries = $('div.photos');
         len = galleries.length - 1;
-        galleries.each(function(index) {
-            var current = $(this),
-                parent = $(this).parent(),
-                trigger;
-            current.attr('id', 'group_' + index);
-            parent.addClass('gal');
-            trigger = $('<button>Show gallery</button>').appendTo(parent);
-            trigger.click(function() {
-                current.slideDown(function() {
-                    // removing trigger as we won't need it now
-                    trigger.remove();
-                    load_box(current);
+        if (galleries.length) {
+            galleries.each(function(index) {
+                var current = $(this),
+                    parent = $(this).parent(),
+                    trigger;
+                current.attr('id', 'group_' + index);
+                parent.addClass('gal');
+                trigger = $('<button>Show gallery</button>').appendTo(parent);
+                trigger.click(function() {
+                    current.slideDown(function() {
+                        // removing trigger as we won't need it now
+                        trigger.remove();
+                        load_box(current);
+                    });
                 });
+                if (len === index) {
+                    // sets visibility:visible on all nodes
+                    $('html').addClass('photos_init');
+                }
             });
-            if (len === index) {
-                // sets visibility:visible on all nodes
-                $('html').addClass('photos_init');
-            }
-        });
-    }
+        } else {
+            $('html').addClass('photos_init');
+        }
+    };
     return {
         'init':init
     }
