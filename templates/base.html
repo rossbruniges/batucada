@@ -36,7 +36,8 @@
     <div id="masthead">
       <div class="container">
 	<a id="logo" class="ir" href="{% locale_url dashboard_index %}">mozilla Drumbeat</a>
-	<nav id="main-nav">
+	<a id="bug" href="http://www.mozilla.org">mozilla.org</a>
+    <nav id="main-nav">
 	  <ul>
 	    <li><a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a></li>
 	    <li><a href="{% locale_url users_user_list %}">{{ _('People') }}</a></li>
@@ -111,6 +112,7 @@
     </ul>
     {% endif %}
     {% block body %}{% endblock %}
+    {% include '_footer.html' %}
   </div>
  {% serve 'js' 'libraries' %}
  {% block js %}{% endblock %}

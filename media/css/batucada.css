@@ -270,9 +270,22 @@ form .small {
  */
  
 /* header */ 
- 
+#bug {
+    position: absolute;
+    right: 20px;
+    top: -17px;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    text-indent: -9999em;
+    height: 49px;
+    width: 119px;
+    display: block;
+    background: url("/media/images/title.png") no-repeat scroll 100% 0 transparent
+}
 header {}
   #masthead {
+    border-top: 2px solid #686868 !important;
     padding: 17px 20px 18px 20px;
     height: 24px;
     border-bottom: 1px solid #fff;
@@ -284,6 +297,7 @@ header {}
     }
     #masthead .container {
         width:920px;
+        position: relative;
     }
     #logo {
       background-image: url("/media/images/logo.png");
@@ -338,6 +352,7 @@ header {}
     #user-nav {
       position: relative;
       top: -30px;
+      right: 139px;
       height: 37px;
       float: right;
     }
@@ -1999,6 +2014,7 @@ body#signup .modal button[type=submit] {
 /* FOOTER */
 footer{
 	padding-top: 27px;
+    clear: both;
 }
 footer .container {
 	border-top: 1px solid #d5d6d8;

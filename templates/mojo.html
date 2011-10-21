@@ -30,10 +30,19 @@
     </noscript>
     </head>
 <body id="{%block bodyid %}splash{% endblock %}" class=".body">
+<div id="fb-root"></div>
+ <script>(function(d, s, id) {
+           var js, fjs = d.getElementsByTagName(s)[0];
+                   if (d.getElementById(id)) {return;}
+                             js = d.createElement(s); js.id = id;
+                                         js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                                                       fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));</script>
   <header>
     <div id="masthead">
       <div class="container">
         <a id="logo" class="ir" href="{% locale_url dashboard_index %}">mozilla Drumbeat</a>
+        <a id="bug" href="http://www.mozilla.org">mozilla</a>
         <nav id="main-nav">
           <ul>
             <li><a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a></li>
