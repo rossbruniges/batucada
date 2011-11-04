@@ -695,6 +695,13 @@ text-align: center;
   -moz-border-radius: 10px;
   margin-bottom: 27px;
 } 
+.fellowsbox {
+  padding: 10px !important;
+} 
+.fellowimage {
+  float:left;
+  border: 1px solid black;
+}
 .challengebox h2 {
     line-height: 1.2;
     float: left;
@@ -1089,4 +1096,30 @@ text-decoration: none;
     padding: 4px 3px 16px;
     display: block;
     margin-bottom: 0;
+}
+.fellows_box {
+	width: 100%;
+	background-color: grey;
+	text-align: center;
+	margin: 0px auto;
+}
+.fellows_single {
+	width: 200px;
+	height: 150px;
+	float: left;
+	background-color: white;
+	text-align: center;
+}
+.fellows_name {
+	margin: 0px auto;
+	margin-top: 5px;
+	font-family: Helvetica;
+	font-size: 16px;
+	font-weight: bold;
+}
+.fellows_links {
+	font-size: 14px;
+}
+.fellows_bio {
+	font-size: 14px;
 }
