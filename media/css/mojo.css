@@ -697,6 +697,7 @@ text-align: center;
 } 
 .fellowsbox {
   padding: 10px !important;
+  height: 850px;
 } 
 .fellowimage {
   float:left;
@@ -1104,10 +1105,9 @@ text-decoration: none;
 	margin: 0px auto;
 }
 .fellows_single {
-	width: 200px;
+	width: 250px;
 	height: 150px;
 	float: left;
-	background-color: white;
 	text-align: center;
 }
 .fellows_name {
