@@ -65,9 +65,9 @@ def get_feed_entries(feed_url):
 def parse_feed(feed_url, page):
     ids = []
     entries = get_feed_entries(feed_url)
-
-    for entry in entries:
+    for entry in entries: 
         parsed = parse_entry(entry)
+        log.debug(parsed['title'])
         if not parsed:
             log.warn("Parsing feed failed. continuing")
             continue
@@ -81,9 +81,12 @@ def parse_feed(feed_url, page):
             continue
         cleaned_body = smart_str(bleach.clean(body, tags=(), strip=True))
         try:
-            checksum = hashlib.md5(cleaned_body).hexdigest()
+            # [Bugzilla-670890]
+            # Needed to allow for the same article but from different sources. This ensures a unique checksum per source
+            checksum = hashlib.md5(cleaned_body + page).hexdigest() 
             exists = FeedEntry.objects.filter(checksum=checksum)
             if not exists:
+                log.debug('Logging - %s' % parsed['title'])
                 entry = FeedEntry(
                     title=parsed['title'].encode('utf-8'),
                     link=parsed['link'].encode('utf-8'),
@@ -93,10 +96,16 @@ def parse_feed(feed_url, page):
                     created_on=time.strftime(
                         "%Y-%m-%d %H:%M:%S", parsed['updated']))
                 entry.save()
-                ids.append(entry.id)
+                feed_id = entry.id
+            else:
+                # if it's already in the feed we still want to keep a reference to it's ID so we know to display it
+                log.debug('Found a duplicate - entry')
+                feed_id = exists[0].id
+            ids.append(feed_id)
         except:
             log.warn("Encountered an error creating FeedEntry. Skipping.")
             continue
+    log.debug(ids)
     return ids
 
 
