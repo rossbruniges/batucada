@@ -39,7 +39,8 @@ var usernameHint = function() {
     $('#id_username').keyup(function() {
         $('#availability').removeClass('okay warning').html('');
         var val = (this.value) ? this.value : userurl;
-        $(this).parent('.field').find('.hint b').html(val);
+        var safe_val = val.replace(/<(?:.|\n)*?>/gm, '');
+        $(this).parent('.field').find('.hint b').html(safe_val);
     }).keyup();
 };
 
