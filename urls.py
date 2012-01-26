@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     (r'^admin/',         include(admin.site.urls)),
     (r'',                include('drumbeat.urls')),
     (r'',                include('dashboard.urls')),
+    (r'^challenges/',    include('challenges.urls')),
 )
 
 media_url = settings.MEDIA_URL.lstrip('/').rstrip('/')
@@ -29,7 +30,6 @@ urlpatterns += patterns('',
     (r'^messages/',      include('drumbeatmail.urls')),
     (r'^account/',       include('preferences.urls')),
     (r'^pubsub/',        include('django_push.subscriber.urls')),
-    (r'^challenges/',    include('challenges.urls')),
     (r'',                include('users.urls')),    
 )
 
