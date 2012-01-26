@@ -8,13 +8,10 @@
 {% block breadcrumbs %}
 <div class="container">
     <nav>
-        <a href="{% locale_url projects_gallery %}">{{ _('Projects') }}</a>
-        <span class="arrow">&rsaquo;</span>
-        <a href="{% locale_url projects_show slug=challenge.project.slug %}">{{ challenge.project.name }}</a>
-        <span class="arrow">&rsaquo;</span>
-        <a href="{% locale_url challenges_show slug=challenge.slug %}">{{ challenge.title }}</a>
+    {% include "challenges/_challenge_breadcrumb.html" %}
+    <span class="arrow">&rsaquo;</span>
+    {{ submission.title }}
     </nav>
-
     <div id="project-actions">
     {% if user.get_profile == submission.created_by and challenge.entrants_can_edit %}
         <a class="button" href="{% locale_url submission_edit slug=challenge.slug submission_id=submission.id%}">{{ _('Edit Submission') }}</a>
@@ -52,7 +49,7 @@
         {% endif %}
         <h1 id="challenge-title">{{ submission.title }}</h1>
         <div class="post-details">
-            Idea from <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name }}</a>
+            Idea from {{ submission.created_by.name }}
             <span>{{ submission.created_on|timesince }} {{ _(' ago') }}</span>
         </div>
         <div class="ajax_copy">
@@ -76,34 +73,16 @@
         {% endif %}
         </article>
     <div id="comments">
-        <h1>{{ _('Comments') }}</h1><br />
-    
         {% get_comment_list for submission as comment_list %}
+        {% if comment_list %}
+            <h1>{{ _('Comments') }}</h1><br />
+        {% endif %}
         <dl>
         {% for comment in comment_list %}
             <dt id="c{{ comment.pk }}">{{ comment.submit_date }} - {{ comment.user }}</dt>
             <dd>{{ comment.comment|linebreaks }}</dd>
         {% endfor %}
-        </dl>
-        {% if user.is_authenticated %}
-        {% get_comment_form for submission as form %}
-        <form action="{% comment_form_target %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{% locale_url submission_show slug=challenge.slug submission_id=submission.pk %}" />
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        <div class="field{% if form.comment.errors %} error{% endif %}">
-            <label for="id_comment">{{ _('Leave a comment.') }}</label>
-            <span class="hint block"></span>
-            {{ form.comment }}
-            {{ form.comment.errors }}
-        </div>
-        <p class="buttons"><button type="submit">{{ _('Post') }}</button></p>
-        </form>  
-    {% else %}
-    You must <a href="{% locale_url users_login %}">login</a> to leave comments.
-    {% endif %}
+        </dl> 
         </div>
     </section>
 </div>

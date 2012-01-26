@@ -3,9 +3,7 @@
 {% score_for_object submission as score %}
 
 <li class="post-container submission{% if submission.is_winner %} winner{% endif %}">
-    <a href="{{ submission.created_by.get_absolute_url }}">
         <img alt="" class="member-picture" width="54" height="54" src="{{ MEDIA_URL }}{{ submission.created_by.image_or_default }}">
-    </a>
      <div class="post-contents">
      {% if submission.is_winner %}
      <div class="winner">
@@ -15,7 +13,7 @@
      {% endif %}
         <h1 class="title"><a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk     %}">{{ submission.title }} </a></h1>
         <div class="post-details">
-            <a class="member-name" href="{{ submission.created_by.get_absolute_url }}">{{ submission.created_by.name     }}</a>
+            {{ submission.created_by.name     }}
             <a href="{% locale_url  submission_show slug=challenge.slug submission_id=submission.pk %}">{{ submission.created_on|timesince }} {{ _(' ago') }}</a>
         </div>           
         <div class="post-body">
