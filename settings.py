@@ -213,7 +213,7 @@ FEED_URLS = {
     'mojo': 'http://planet.drumbeat.org/mojo/atom.xml',
 }
 
-SPLASH_PAGE_FEED = 'https://planet.drumbeat.org/atom.xml'
+SPLASH_PAGE_FEED = 'http://planet.drumbeat.org/atom.xml'
 
 # Would be awesome if this could somehow be dynamic - no idea how though...
 ASSETS = {
