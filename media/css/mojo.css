@@ -356,7 +356,7 @@ header {}
 /* banner */
 .banner {
   background: #111 url(/media/images/splash-header-bg.png) repeat-x 0 -59px;
-  min-height: 210px;
+  min-height: 353px;
   text-align: center;
   margin-bottom: -20px;
 }      
@@ -411,7 +411,18 @@ header {}
       display: block;
       margin-bottom: 10px;
     }
-  
+/* Alert box for MoJo*/
+#update p {
+    max-width: none;
+    color: #444;
+}
+#update strong {
+    font-size: 30px;
+    line-height: 1.5;
+}
+#update a {
+    color: #0773C7;
+}
 /* button */
 .button {
   height: 32px;
