@@ -2,6 +2,7 @@ import logging
 
 from django import http
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -29,6 +30,23 @@ from challenges.models import Challenge
 
 log = logging.getLogger(__name__)
 
+drumbeat_redirects = {
+    'universal-subtitles': 'https://www.universalsubtitles.org',
+    'hackasaurus': 'http://www.hackasaurus.org',
+    'popcornjs': 'http://www.mozillapopcorn.org',
+    'school-of-webcraft': 'http://www.p2pu.org',
+    'mojo': 'http://www.mozillaopennews.org',
+    'open-web-badges': 'http://www.openbadges.org',
+    'open-attribute': 'http://www.openattribute.org',
+    'privacy-icons': 'http://wiki.mozilla.org/Privacy_Icons/',
+}
+
+def move_on(request, slug):
+    projects = drumbeat_redirects.keys()
+    if slug in projects:
+        return HttpResponseRedirect(drumbeat_redirects[slug])
+    else:
+        return HttpResponseRedirect('/')
 
 def show(request, slug):
     project = get_object_or_404(Project, slug=slug)

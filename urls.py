@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from django.http import HttpResponseRedirect
 
 from django.contrib import admin
 #admin.autodiscover()
@@ -9,6 +10,8 @@ urlpatterns = patterns('',
     (r'',                include('drumbeat.urls')),
     (r'',                include('dashboard.urls')),
     (r'^challenges/',    include('challenges.urls')),
+    (url(r'^events/', lambda x: HttpResponseRedirect('https://www.mozillafestival.org/'))),
+    (url(r'^projects/(?P<slug>[\w-]+)/$', 'projects.views.move_on')),
 )
 
 media_url = settings.MEDIA_URL.lstrip('/').rstrip('/')
