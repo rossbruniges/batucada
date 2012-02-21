@@ -6,9 +6,6 @@
 
 {% block body %}
 
-<div id="sidebar">
-
-</div>
 <header id="intro">
   <div class="container">
     <hgroup>
@@ -26,13 +23,85 @@
   </ul>
 </section>
 <section id="main">
-  <div class="container">
-    <h1>{{ _('Recent Activity') }}</h1>
-    <ul id="posts">
-	{% for activity in activities %}
-        {% include "activity/_activity_resource.html" %}
-      {% endfor %}
+  <div class="container card-list">
+    <section id="featured_projects">
+    <h1><span>{{ _('What Drumbeat made') }}</span></h1>
+    <ul class="project-list">
+        <li>
+            <a href="http://www.mozillafestival.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/festival.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>Mozilla Festival</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    The Mozilla Festival is now at <strong>www.mozillafestival.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.hackasaurus.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/hackasaurus.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>Hackasaurus</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    Hackasaurus is now at <strong>www.hackasaurus.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.hackasaurus.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/popcorn.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>popcorn.js</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    popcorn.js  is now at <strong>www.mozillapopcorn.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.hackasaurus.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/opennews.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>Mozilla Open News</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    Mozilla Open News is now at <strong>www.mozillaopennews.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
     </ul>
+    </section>
+    </div>
     <aside>
 		<div id="mojo">
 			<section>
