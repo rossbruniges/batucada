@@ -65,6 +65,7 @@ aside {
 .external ul {
     padding-left: 0;
     margin-left: 0;
+    padding-bottom: 1em;
 }
 .external li {
     list-style-type: none;

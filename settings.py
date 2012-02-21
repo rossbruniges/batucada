@@ -147,6 +147,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'messages.context_processors.inbox',
     'users.context_processors.messages',
     'users.context_processors.redirect_urls',
+    'feeds.context_processors.feed_entries',
 )
 
 TEST_RUNNER = 'test_utils.runner.RadicalTestSuiteRunner'

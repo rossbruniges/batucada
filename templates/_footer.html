@@ -8,12 +8,13 @@
     <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
     </div>
     <div class="col box learn">
-    <h2>Learn more</h2>
+    <h2>Read more</h2>
     <ul>
-    <li><a href="mailto:ign@mozillafoundation.org">Contact us</a></li>
-    <li><a href="http://www.geni.net">Visit <abbr title="Global Environment for Network Innovations">GENI</abbr> website</a></li>
-    <li><a href="http://www.nsf.gov/cise/usignite/">Visit <abbr title="United States">US</abbr> Ignite website</a></li>
+    {% for entry in feed_entries %}
+    <li><a href="{{ entry.link }}">{{ entry.title }}</a></li>
+    {% endfor %}
     </ul>
+    <p>Taken from our <a href="{{ feed_url }}">planet webmaker feed</a></p>
     </div>
     <div class="col box mozilla">
     <h2>Connect with Mozilla</h2>
