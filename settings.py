@@ -222,7 +222,8 @@ ASSETS = {
             'dev':(
                 'css/style.css',
                 'css/batucada.css',
-                'css/tabzilla.css'
+                'css/tabzilla.css',
+                'css/template.css'
             ),
             'live':('css/packs/site.css',)
         },
