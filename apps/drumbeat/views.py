@@ -10,6 +10,10 @@ from users.tasks import SendUserEmail
 from drumbeat.forms import AbuseForm
 
 
+def drumbeat_retired(request):
+    """ Send all request to the homepage """
+    return http.HttpResponseRedirect('/')
+
 def server_error(request):
     """Make MEDIA_URL available to the 500 template."""
     t = loader.get_template('500.html')

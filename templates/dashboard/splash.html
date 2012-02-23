@@ -6,9 +6,6 @@
 
 {% block body %}
 
-<div id="sidebar">
-
-</div>
 <header id="intro">
   <div class="container">
     <hgroup>
@@ -26,34 +23,86 @@
   </ul>
 </section>
 <section id="main">
-  <div class="container">
-    <h1>{{ _('Recent Activity') }}</h1>
-    <ul id="posts">
-	{% for activity in activities %}
-        {% include "activity/_activity_resource.html" %}
-      {% endfor %}
+  <div class="container card-list">
+    <section id="featured_projects">
+    <h1><span>{{ _('What Drumbeat made') }}</span></h1>
+    <ul class="project-list">
+         <li>
+            <a href="http://www.mozillaopennews.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/opennews.png" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>Mozilla Open News</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    Mozilla Open News is now at <strong>www.mozillaopennews.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
+
+        <li>
+            <a href="http://www.mozillafestival.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/festival.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>Mozilla Festival</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    The Mozilla Festival is now at <strong>www.mozillafestival.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.hackasaurus.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/hackasaurus.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>Hackasaurus</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    Hackasaurus is now at <strong>www.hackasaurus.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.mozillapopcorn.org">
+            <article class="project card">
+                <figure>
+                    <img src="{{ MEDIA_URL }}/images/splash/popcorn.jpg" height="120" width="185" alt="" />
+                </figure>
+                <div class="info">
+                    <h1>popcorn.js</h1>
+                    <div class="description">
+                    <p>Blah blah blah</p>
+                    </div>
+                </div>
+                <div class="meta">
+                    popcorn.js  is now at <strong>www.mozillapopcorn.org</strong>
+                </div>
+            </article>
+            </a>
+        </li>
     </ul>
-    <aside>
-		<div id="mojo">
-			<section>
-				<div class="content">
-					<h1>Change how the web reports the news</h1>
-					<p>Mozilla and the Knight Foundation have joined forces to bring the web and journalism together worldwide to invent the future of news.</p>
-					<p>You can read about our past challenges and see what we're looking to achieve. We're also looking for ideas on what you think might be HTML5's kills web app.</p>
-					<a class="cta" href="/journalism/">MoJo (Mozilla + Journalism)</a>
-				</div>
-			</section>
-		</div>
-      <section id="planet_drumbeat">
-        <h1><a href="http://planet.drumbeat.org/" title="{{ _('Planet Drumbeat') }}">{{ _('Planet Drumbeat') }}</a> <a class="feed-link" href="{{ feed_url }}" title="{{ _('Subscribe to the Planet Drumbeat feed') }}"> {{ _('feed') }}</a></h1>
-	{% for entry in feed_entries %}
-        <article>
-          <h1><a href="{{ entry.link }}">{{ entry.title }}</a></h1>
-          <p>{{ entry.body|truncatewords:50 }}</p>
-        </article>
-	{% endfor %}
-      </section>
-    </aside>
+    </section>
+    </div>
   </div>  
 </section>
 {% endblock %}

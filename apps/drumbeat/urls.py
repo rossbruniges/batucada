@@ -1,17 +1,9 @@
 from django.conf.urls.defaults import patterns, url
 
 
+# mojo URLs - keep until mozillaopennews.org is going
 urlpatterns = patterns('django.views.generic.simple',
-   url(r'^terms-of-service/$', 'direct_to_template', {
-       'template': 'drumbeat/terms-of-service.html',
-   }, name='drumbeat_tos'),
-   url(r'^about/$', 'direct_to_template', {
-       'template': 'drumbeat/about.html',
-   }, name='drumbeat_about'),
-   url(r'^editing-help/$', 'direct_to_template', {
-        'template': 'drumbeat/editing.html',
-   }, name='drumbeat_editing'),
-   url(r'^journalism/participate/$', 'direct_to_template', {
+    url(r'^journalism/participate/$', 'direct_to_template', {
         'template': 'drumbeat/journalism/participate.html',
    }, name='drumbeat_journalism_participate'),
    url(r'^journalism/process/$', 'direct_to_template', {
@@ -24,15 +16,24 @@ urlpatterns = patterns('django.views.generic.simple',
         'template': 'drumbeat/journalism/learninglab.html',
    }, name='mojo_learning_lab')
 )
-
 urlpatterns += patterns('',
-   url(r'^abuse/(?P<type>[\w ]+)/(?P<obj>\w+)/$',
-       'drumbeat.views.report_abuse',
-       name='drumbeat_abuse'),
    url(r'^journalism/$',
        'drumbeat.views.journalism',
        name='drumbeat_journalism'),
    url(r'^journalism/challenges/$',
         'drumbeat.views.design_challenges',
         name='mojo_design_challenges'),
+)
+
+# URLs we want to retire
+urlpatterns += patterns('',
+   url(r'^terms-of-service/$', 'drumbeat.views.drumbeat_retired'
+    , name='drumbeat_tos'),
+   url(r'^about/$', 'drumbeat.views.drumbeat_retired'
+    , name='drumbeat_about'),
+   url(r'^editing-help/$', 'drumbeat.views.drumbeat_retired'
+    , name='drumbeat_editing'),
+   url(r'^abuse/(?P<type>[\w ]+)/(?P<obj>\w+)/$',
+       'drumbeat.views.drumbeat_retired',
+       name='drumbeat_abuse'),
 )

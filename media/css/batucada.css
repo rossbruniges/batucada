@@ -285,7 +285,7 @@ form .small {
 }
 header {}
   #masthead {
-    border-top: 2px solid #686868 !important;
+    border-top: 2px solid #fff !important;
     padding: 17px 20px 18px 20px;
     height: 24px;
     border-bottom: 1px solid #fff;
@@ -826,6 +826,23 @@ header {}
 		list-style: none;
 		margin: 0; padding: 0;
 	}
+    #splash .project-list a {
+        color: #474747;
+    }
+    #splash .project-list a:hover {
+        text-decoration: none;
+    }
+    #splash .project-list .meta strong,
+    #splash .project-list h1 {
+        color: #2084CA;
+    }
+    #splash .project-list .meta strong {
+        font-weight: normal;
+    }
+    #splash .project-list a:hover .meta strong,
+    #splash .project-list a:hover h1 {
+        text-decoration: underline;
+    }
 	.ie7 .card-list .project-list,
   	.ie7 .card-list .user-list,
   	.ie8 .card-list .project-list,

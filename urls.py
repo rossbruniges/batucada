@@ -1,13 +1,29 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from django.http import HttpResponseRedirect
 
 from django.contrib import admin
-admin.autodiscover()
+#admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/',         include(admin.site.urls)),
     (r'',                include('drumbeat.urls')),
     (r'',                include('dashboard.urls')),
+    (r'^challenges/',    include('challenges.urls')),
+    (url(r'^events/', lambda x: HttpResponseRedirect('https://www.mozillafestival.org/'))),
+    (url(r'^projects/(?P<slug>[\w-]+)/$', 'projects.views.move_on')),
+)
+
+media_url = settings.MEDIA_URL.lstrip('/').rstrip('/')
+urlpatterns += patterns('',
+    (r'^%s/(?P<path>.*)$' % media_url, 'django.views.static.serve',
+     {
+         'document_root': settings.MEDIA_ROOT,
+     }),
+)
+
+urlpatterns += patterns('',
+    (r'',                'drumbeat.views.drumbeat_retired'), 
     (r'',                include('wellknown.urls')),
     (r'',                include('activity.urls')),
     (r'^statuses/',      include('statuses.urls')),
@@ -17,16 +33,7 @@ urlpatterns = patterns('',
     (r'^messages/',      include('drumbeatmail.urls')),
     (r'^account/',       include('preferences.urls')),
     (r'^pubsub/',        include('django_push.subscriber.urls')),
-    (r'^challenges/',    include('challenges.urls')),
     (r'',                include('users.urls')),    
-)
-
-media_url = settings.MEDIA_URL.lstrip('/').rstrip('/')
-urlpatterns += patterns('',
-    (r'^%s/(?P<path>.*)$' % media_url, 'django.views.static.serve',
-     {
-         'document_root': settings.MEDIA_ROOT,
-     }),
 )
 
 handler500 = 'drumbeat.views.server_error'

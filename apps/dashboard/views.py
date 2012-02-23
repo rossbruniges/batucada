@@ -12,7 +12,6 @@ from users.decorators import anonymous_only, login_required
 from users.models import UserProfile
 from users.forms import CreateProfileForm
 from projects.models import Project
-from feeds.models import FeedEntry
 from relationships.models import Relationship
 
 
@@ -26,13 +25,10 @@ def splash(request):
         project.followers_count = Relationship.objects.filter(
             target_project=project).count()
     activities = Activity.objects.public()
-    feed_entries = FeedEntry.objects.filter(
-        page='splash').order_by('-created_on')[0:4]
     feed_url = getattr(settings, 'SPLASH_PAGE_FEED', None)
     return render_to_response('dashboard/splash.html', {
         'activities': activities,
         'featured_project': project,
-        'feed_entries': feed_entries,
         'feed_url': feed_url,
     }, context_instance=RequestContext(request))
 
