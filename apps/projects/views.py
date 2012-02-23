@@ -39,6 +39,8 @@ drumbeat_redirects = {
     'open-web-badges': 'http://www.openbadges.org',
     'open-attribute': 'http://www.openattribute.org',
     'privacy-icons': 'http://wiki.mozilla.org/Privacy_Icons/',
+    'open-web-publishing': 'http://www.sourcefabric.org/en/booktype/',
+    'floss-manuals-drumbeat-book-shelf': 'http://www.flossmanuals.net/',
 }
 
 def move_on(request, slug):
