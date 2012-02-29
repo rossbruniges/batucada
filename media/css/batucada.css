@@ -829,8 +829,14 @@ header {}
     #splash .project-list a {
         color: #474747;
     }
+    #splash .project-list .join a {
+        color: #2084ca;
+    }
     #splash .project-list a:hover {
         text-decoration: none;
+    }
+    #splash .project-list .join a:hover {
+        text-decoration: underline;
     }
     #splash .project-list .meta strong,
     #splash .project-list h1 {
@@ -871,6 +877,13 @@ header {}
 	    -webkit-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2);	    
 	    behavior: url("/media/css/PIE.htc");
 	}
+    #splash .card-list .project-list li {
+        width: 100%;
+        float: none;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
 	.card-list .project-list li:nth-child(4n),
 	.card-list .user-list li:nth-child(4n){
 		margin-right: 0;
@@ -906,7 +919,7 @@ header {}
 		overflow: hidden;
 	}
 	#splash .card-list .info {
-        height: 23.5em;
+        height: auto;
     }
     .card-list .project.card h1{
 		margin: 0 0 0.5em;
@@ -924,6 +937,11 @@ header {}
 		overflow: hidden;
         word-wrap:break-word;
 	}
+    #splash .card-list figure {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 0.5em;
+    }
     #splash .card-list hgroup {
         margin-bottom: 0.5em;
     }
@@ -954,12 +972,12 @@ header {}
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-#splash .card-list .card .description {
-    height: 22em;
-}
 	.card-list .user.card .description {
 		height: 6em;
 	}
+    #splash .card-list .card .description {
+        height: auto;
+    }
 	.card-list #new_users .card .description  {	
 		display: none;
 	}
