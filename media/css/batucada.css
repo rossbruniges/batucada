@@ -905,7 +905,10 @@ header {}
 		height: 7.5em;
 		overflow: hidden;
 	}
-	.card-list .project.card h1{
+	#splash .card-list .info {
+        height: 23.5em;
+    }
+    .card-list .project.card h1{
 		margin: 0 0 0.5em;
 		font-size: 14px;
 		line-height: 18px;
@@ -921,6 +924,27 @@ header {}
 		overflow: hidden;
         word-wrap:break-word;
 	}
+    #splash .card-list hgroup {
+        margin-bottom: 0.5em;
+    }
+    #splash .card-list .card h1 {
+        margin-bottom: 0;
+    }
+    #splash .card-list p {
+        margin-bottom: 0.5em;
+    }
+    #splash .card-list .card ul {
+        margin-left: 1.3em;
+    }
+    #splash .card-list .card li {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0 0 0.2em;
+        width: auto;
+        display: list-item;
+        list-style-type: disc;
+    }
 	/* TODO: set a charachter maximum for project.description that works
 	 * with this layout at /project/list/ */
 	.card-list .card .description{
@@ -930,6 +954,9 @@ header {}
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
+#splash .card-list .card .description {
+    height: 22em;
+}
 	.card-list .user.card .description {
 		height: 6em;
 	}
@@ -1636,19 +1663,23 @@ header {}
     padding: 27px 20px 0;
 }
 #splash #content header h1,
-#splash #content header h2{
+#splash #content header h2,
+#splash #content header p {
 	width: 530px;	
 	font: normal 42px/44px MuseoSans-500, sans-serif;
 	color: #fff;
 	text-shadow: none;
 	}
-#splash #content header h1{
-	margin: 0 0 0.5em;
-	}
 #splash #content header h2{	
 	font-size: 18px;
 	line-height: 24px;
+    margin: 0 0 0.5em;
 	}
+#splash #content header p {
+    font-size: 16px;
+    line-height: 1.2;
+    margin-bottom: 0;
+}
 #splash #content header img{
 	position: absolute;
 	right: 81px; bottom: -105px;
@@ -1666,13 +1697,19 @@ header {}
 		endColorstr='#E4F1F4',
 		GradientType=0 );
 	border-bottom: 1px solid #d3dee1;	
+    padding: 20px 0;
 	}
-#splash #calls ul{
-	list-style: none;
-	padding: 20px 0;
-	}
+#splash #calls h2 {
+    font-size: 18px;
+}
+#splash #calls ul {
+    margin-top: 1em;
+    margin-left: 0;
+}
 #splash #calls li{
-	display: inline-block;
+    font-size: 14px;
+    list-style-type: disc;
+    list-style-position: inside;
 	}
 #splash #calls button,
 #splash #calls .button{
