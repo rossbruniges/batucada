@@ -34,7 +34,7 @@ drumbeat_redirects = {
     'universal-subtitles': 'https://www.universalsubtitles.org',
     'hackasaurus': 'http://www.hackasaurus.org',
     'popcornjs': 'http://www.mozillapopcorn.org',
-    'school-of-webcraft': 'http://www.p2pu.org',
+    'school-of-webcraft': 'http://www.p2pu.org/webcraft/',
     'mojo': 'http://www.mozillaopennews.org',
     'open-web-badges': 'http://www.openbadges.org',
     'open-attribute': 'http://www.openattribute.org',

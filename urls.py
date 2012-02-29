@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     (r'',                include('drumbeat.urls')),
     (r'',                include('dashboard.urls')),
     (r'^challenges/',    include('challenges.urls')),
+    (url(r'^P2PU/', lambda x: HttpResponseRedirect('http://www.p2pu.org'))),
     (url(r'^events/', lambda x: HttpResponseRedirect('https://www.mozillafestival.org/'))),
     (url(r'^projects/(?P<slug>[\w-]+)/$', 'projects.views.move_on')),
 )
