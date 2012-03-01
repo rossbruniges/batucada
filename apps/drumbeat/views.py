@@ -12,7 +12,7 @@ from drumbeat.forms import AbuseForm
 
 def drumbeat_retired(request):
     """ Send all request to the homepage """
-    return http.HttpResponseRedirect('/')
+    return http.HttpResponsePermanentRedirect('/')
 
 def server_error(request):
     """Make MEDIA_URL available to the 500 template."""

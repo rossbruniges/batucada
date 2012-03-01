@@ -2,7 +2,7 @@ import logging
 
 from django import http
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.paginator import Paginator, EmptyPage
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -34,11 +34,12 @@ drumbeat_redirects = {
     'universal-subtitles': 'https://www.universalsubtitles.org',
     'hackasaurus': 'http://www.hackasaurus.org',
     'popcornjs': 'http://www.mozillapopcorn.org',
+    'webmademovies': 'http://www.mozillapopcorn.org',
     'school-of-webcraft': 'http://www.p2pu.org/webcraft/',
     'mojo': 'http://www.mozillaopennews.org',
     'open-web-badges': 'http://www.openbadges.org',
-    'open-attribute': 'http://www.openattribute.org',
-    'privacy-icons': 'http://wiki.mozilla.org/Privacy_Icons/',
+    'open-attribute': 'http://www.openattribute.com',
+    'privacy-icons': 'http://wiki.mozilla.org/Privacy_Icons',
     'open-web-publishing': 'http://www.sourcefabric.org/en/booktype/',
     'floss-manuals-drumbeat-book-shelf': 'http://www.flossmanuals.net/',
 }
@@ -46,7 +47,7 @@ drumbeat_redirects = {
 def move_on(request, slug):
     projects = drumbeat_redirects.keys()
     if slug in projects:
-        return HttpResponseRedirect(drumbeat_redirects[slug])
+        return HttpResponsePermanentRedirect(drumbeat_redirects[slug])
     else:
         return HttpResponseRedirect('/')
 
