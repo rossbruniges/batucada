@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, url
+from django.http import HttpResponseRedirect
 
 
 # mojo URLs - keep until mozillaopennews.org is going
@@ -17,10 +18,12 @@ urlpatterns = patterns('django.views.generic.simple',
    }, name='mojo_learning_lab')
 )
 urlpatterns += patterns('',
-   url(r'^journalism/$',
+    url(r'^journalism/$',
+       lambda x: HttpResponseRedirect('http://www.mozillaopennews.org/')),
+    url(r'^journalism/2011/$',
        'drumbeat.views.journalism',
        name='drumbeat_journalism'),
-   url(r'^journalism/challenges/$',
+    url(r'^journalism/challenges/$',
         'drumbeat.views.design_challenges',
         name='mojo_design_challenges'),
 )
