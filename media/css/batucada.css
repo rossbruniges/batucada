@@ -54,7 +54,9 @@ img.project.media {
   -webkit-border-radius: 5px;
   behavior: url("/media/css/PIE.htc");
 }
-
+#tabzilla {
+  margin-top: -17px;
+}
 /* BUTTONS */
 
 button,

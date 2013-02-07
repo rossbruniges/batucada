@@ -223,7 +223,6 @@ ASSETS = {
             'dev':(
                 'css/style.css',
                 'css/batucada.css',
-                'css/tabzilla.css',
                 'css/template.css'
             ),
             'live':('css/packs/site.css',)
@@ -232,7 +231,6 @@ ASSETS = {
             'dev':(
                 'css/style.css',
                 'css/mojo.css',
-                'css/tabzilla.css'
             ),
             'live':('css/packs/mojo.css',)
         }
@@ -247,7 +245,6 @@ ASSETS = {
         },
         'libraries' : {
             'dev':(
-                'js/common/ext/tabzilla.js',
                 'js/common/ext/LAB.min.js',
                 'js/common/ext/jquery-1.4.2.min.js',
                 'js/common/ext/jquery.easing.1.3.js',

@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="{{ MEDIA_URL }}images/favicon.ico">
   <link rel="apple-touch-icon" href="{{ MEDIA_URL }}images/apple-touch-icon.png">
+  <link rel="stylesheet" href="//www.mozilla.org/tabzilla/media/css/tabzilla.css">
  {% serve 'css' 'site' %}
   {% block links %}{% endblock %}
  <script type="text/javascript">
@@ -55,22 +56,8 @@
     {% block body %}{% endblock %}
   </div>
     {% include '_footer.html' %}
+  <script src="//www.mozilla.org/tabzilla/media/js/tabzilla.js"></script>  
  {% serve 'js' 'libraries' %}
  {% block js %}{% endblock %}
-  <!-- START OF SmartSource Data Collector TAG -->
-  <!-- Copyright (c) 1996-2010 WebTrends Inc.  All rights reserved. -->
-  <!-- Version: 8.6.2 -->
-  <!-- Tag Builder Version: 3.0  -->
-  <!-- Created: 5/10/2010 6:56:34 PM -->
-  <script src="{{ MEDIA_URL }}js/common/ext/webtrends.js"></script>
-  
-  <script type="text/javascript">
-    //<![CDATA[
-    var _tag=new WebTrends();
-    _tag.dcsGetId();
-    _tag.dcsCollect();
-    //]]>>
-  </script>
-  
 </body>
 </html>
